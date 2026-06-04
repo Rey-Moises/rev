@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Finals Reviewer · Moitet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0a0c12; --ink2:#10131c; --panel:#141826; --panel2:#191e2e;
+  --line:#262c3d; --line2:#323a4f;
+  --txt:#e8ebf2; --mut:#9aa3b8; --dim:#717a91;
+  --gold:#f5c542; --gold-d:#b88a12; --gold-bg:#221b06;
+  --violet:#b07cff; --cyan:#46c6f5; --emerald:#46e0a0; --amber:#ffae5c; --rose:#ff7a93; --indigo:#9a9bff;
+  --code-bg:#0c0e16; --code-line:#1c2233;
+  --k:#ff7ab6; --s:#9be08a; --n:#ffb86c; --fn:#69c3ff; --cm:#5f6b85; --o:#d7b3ff; --bi:#f5c542;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink); color:var(--txt);
+  font-family:'Hanken Grotesk',sans-serif; font-size:15px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+/* atmosphere */
+body::before{
+  content:""; position:fixed; inset:0; z-index:-2;
+  background:
+    radial-gradient(120% 80% at 12% -5%, #1a1530 0%, transparent 45%),
+    radial-gradient(100% 70% at 95% 5%, #0d2230 0%, transparent 40%),
+    radial-gradient(90% 90% at 50% 110%, #1a0f1f 0%, transparent 50%),
+    var(--ink);
+}
+body::after{
+  content:""; position:fixed; inset:0; z-index:-1; opacity:.035; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{max-width:1000px; margin:0 auto; padding:0 22px 120px}
+
+/* ===== COVER ===== */
+.cover{
+  min-height:96vh; display:flex; flex-direction:column; justify-content:center;
+  position:relative; padding:40px 0;
+}
+.cover .kicker{
+  font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.42em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:26px; padding-left:4px;
+}
+.cover h1{
+  font-family:'Fraunces',serif; font-weight:900; font-size:clamp(58px,13vw,150px);
+  line-height:.86; letter-spacing:-.03em; color:var(--txt); margin-bottom:8px;
+}
+.cover h1 .py{
+  background:linear-gradient(100deg,var(--gold) 0%,#ffe08a 50%,var(--amber) 100%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  font-style:italic;
+}
+.cover .sub{
+  font-size:clamp(16px,2.4vw,21px); color:var(--mut); max-width:620px;
+  margin-top:18px; line-height:1.5;
+}
+.cover .meta{
+  display:flex; flex-wrap:wrap; gap:10px; margin-top:34px;
+}
+.cover .meta span{
+  font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.06em;
+  border:1px solid var(--line2); border-radius:100px; padding:7px 15px; color:var(--mut);
+  background:rgba(255,255,255,.015);
+}
+.cover .sig{
+  margin-top:46px; font-family:'Fraunces',serif; font-style:italic; font-size:19px; color:var(--gold);
+}
+.cover .sig b{font-style:normal;font-weight:600;color:var(--txt)}
+.cover .scroll{
+  position:absolute; bottom:26px; left:0; font-family:'JetBrains Mono',monospace;
+  font-size:11px; letter-spacing:.3em; color:var(--dim); text-transform:uppercase;
+}
+
+/* ===== TOC ===== */
+.toc{
+  border:1px solid var(--line); border-radius:18px; background:linear-gradient(180deg,var(--panel),var(--ink2));
+  padding:30px 30px 34px; margin:10px 0 70px; position:relative; overflow:hidden;
+}
+.toc::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--violet),var(--cyan),var(--emerald),var(--amber),var(--rose),var(--indigo));}
+.toc h3{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--mut);margin-bottom:22px}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px 28px}
+.toc-col h4{font-family:'Fraunces',serif;font-size:14px;font-weight:600;margin:14px 0 6px;
+  display:flex;align-items:center;gap:8px}
+.toc-col h4 .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.toc a{display:block;color:var(--mut);text-decoration:none;font-size:13.5px;padding:3px 0;
+  border-bottom:1px dotted transparent;transition:.15s}
+.toc a:hover{color:var(--txt);padding-left:4px}
+.toc a .qn{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);margin-right:8px}
+
+/* ===== SECTION ===== */
+.sec{margin:0 0 38px; scroll-margin-top:20px}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px}
+.sec-head .num{
+  font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px;
+  min-width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;
+  background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-line);flex-shrink:0;
+}
+.sec-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(23px,4vw,32px);
+  line-height:1.05;letter-spacing:-.01em;padding-top:3px}
+.badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;padding:4px 11px;border-radius:100px;margin-bottom:16px;
+  background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-line)}
+
+/* accent themes */
+.t-fund{--accent:var(--violet);--accent-bg:rgba(176,124,255,.1);--accent-line:rgba(176,124,255,.32)}
+.t-data{--accent:var(--cyan);--accent-bg:rgba(70,198,245,.1);--accent-line:rgba(70,198,245,.32)}
+.t-func{--accent:var(--emerald);--accent-bg:rgba(70,224,160,.1);--accent-line:rgba(70,224,160,.32)}
+.t-oop{--accent:var(--amber);--accent-bg:rgba(255,174,92,.1);--accent-line:rgba(255,174,92,.32)}
+.t-file{--accent:var(--rose);--accent-bg:rgba(255,122,147,.1);--accent-line:rgba(255,122,147,.32)}
+.t-numpy{--accent:var(--indigo);--accent-bg:rgba(154,155,255,.12);--accent-line:rgba(154,155,255,.34)}
+
+/* divider chapter band */
+.band{margin:64px 0 30px;display:flex;align-items:center;gap:18px}
+.band .ln{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--accent-line),transparent)}
+.band h3{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.34em;
+  text-transform:uppercase;color:var(--accent);white-space:nowrap}
+
+/* card */
+.card{background:linear-gradient(180deg,var(--panel),var(--ink2));border:1px solid var(--line);
+  border-radius:15px;padding:20px 22px;margin-bottom:14px}
+.card h4{font-family:'Fraunces',serif;font-size:17px;font-weight:600;margin-bottom:9px;color:var(--txt)}
+.card p{color:var(--mut);margin-bottom:9px}
+.card p:last-child{margin-bottom:0}
+.card ul{list-style:none;margin:8px 0}
+.card ul li{position:relative;padding-left:20px;color:var(--mut);margin-bottom:6px}
+.card ul li::before{content:"›";position:absolute;left:4px;color:var(--accent);font-weight:700}
+
+/* goal card (left border) */
+.gcard{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);
+  border-radius:0 12px 12px 0;padding:15px 18px;margin-bottom:11px}
+.gcard h4{font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:15px;color:var(--accent);margin-bottom:6px}
+.gcard p{color:var(--mut);font-size:14px;margin-bottom:6px}
+.gcard p:last-child{margin-bottom:0}
+.gcard ul{list-style:none;margin:6px 0 0}
+.gcard ul li{position:relative;padding-left:16px;color:var(--mut);font-size:13.5px;margin-bottom:4px}
+.gcard ul li::before{content:"•";position:absolute;left:2px;color:var(--accent)}
+
+/* callout */
+.sbox{background:var(--accent-bg);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;
+  padding:13px 18px;margin-bottom:16px;font-size:14.5px;color:var(--txt)}
+.sbox b{color:var(--accent)}
+
+/* mnemonic */
+.mnem{background:linear-gradient(170deg,var(--gold-bg),#15120a);border:1.5px solid var(--gold-d);
+  border-radius:15px;padding:18px 20px;margin-bottom:16px;position:relative}
+.mnem::before{content:"MNEMONIC";position:absolute;top:13px;right:16px;
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.22em;color:var(--gold-d)}
+.mnem .acr{font-family:'Fraunces',serif;font-weight:900;font-size:30px;letter-spacing:.08em;
+  color:var(--gold);line-height:1;margin-bottom:4px}
+.mnem .phr{font-style:italic;font-family:'Fraunces',serif;font-size:15px;color:#e8cf86;margin-bottom:12px}
+.mnem table{width:100%;border-collapse:collapse}
+.mnem td{padding:5px 0;vertical-align:top;border-top:1px solid rgba(245,197,66,.14)}
+.mnem td:first-child{width:30px;font-family:'JetBrains Mono',monospace;font-weight:700;
+  color:var(--gold);font-size:15px}
+.mnem td:last-child{color:var(--txt);font-size:13.5px}
+.mnem tr:first-child td{border-top:none}
+
+/* code block */
+.code{background:var(--code-bg);border:1px solid var(--code-line);border-radius:11px;
+  padding:14px 16px;margin:10px 0;overflow-x:auto;position:relative}
+.code::before{content:"py";position:absolute;top:8px;right:12px;font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.15em;color:#3a4258;text-transform:uppercase}
+.code pre{font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.65;color:#cdd6e8;white-space:pre}
+.code .k{color:var(--k)} .code .s{color:var(--s)} .code .n{color:var(--n)}
+.code .fn{color:var(--fn)} .code .cm{color:var(--cm);font-style:italic} .code .o{color:var(--o)}
+.code .bi{color:var(--bi)}
+.out{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--emerald);
+  margin-top:7px;padding-left:2px}
+.out b{color:var(--mut);font-weight:500}
+
+/* tables */
+.ctable{width:100%;border-collapse:collapse;margin:8px 0;font-size:13.5px;
+  border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.ctable th{background:var(--accent-bg);color:var(--accent);text-align:left;padding:9px 13px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  border-bottom:1px solid var(--accent-line)}
+.ctable td{padding:8px 13px;border-bottom:1px solid var(--line);color:var(--mut);vertical-align:top}
+.ctable td:first-child{color:var(--txt);font-weight:600}
+.ctable tr:last-child td{border-bottom:none}
+.ctable tr:nth-child(even) td{background:rgba(255,255,255,.012)}
+.ctable code,.mono{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--gold)}
+
+/* grids */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:680px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* layer/concept tile */
+.tile{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--accent);
+  border-radius:10px;padding:14px 15px}
+.tile .tn{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;
+  color:var(--accent);text-transform:uppercase;margin-bottom:5px}
+.tile .tt{font-family:'Fraunces',serif;font-size:16px;font-weight:600;margin-bottom:5px}
+.tile p{font-size:12.5px;color:var(--mut);line-height:1.45}
+.tile code{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gold)}
+
+.hl{color:var(--accent);font-weight:600}
+.kw{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:.92em}
+hr.dv{border:none;border-top:1px solid var(--line);margin:10px 0}
+.lead{font-size:15px;color:var(--mut);margin-bottom:14px}
+
+/* footer */
+.foot{text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;
+  color:var(--dim);margin-top:70px;padding-top:26px;border-top:1px solid var(--line);text-transform:uppercase}
+
+/* keyword chips */
+.kwgrid{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.kwgrid span{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gold);
+  background:var(--gold-bg);border:1px solid var(--gold-d);border-radius:6px;padding:3px 9px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ===================== COVER ===================== -->
+<header class="cover">
+  <div class="kicker">DCIT23 · Computer Programming 2 · Finals</div>
+  <h1><span class="py">Python</span><br>Reviewer</h1>
+  <p class="sub">The complete cram sheet — fundamentals, data types &amp; operators, functions, classes &amp; OOP, files &amp; exceptions, and NumPy. Every concept, mnemonic, and code pattern from the six decks, in one place.</p>
+  <div class="meta">
+    <span>06 CHAPTERS</span><span>30 SECTIONS</span><span>10 MNEMONICS</span><span>CHEAT SHEET</span>
+  </div>
+  <div class="sig">Compiled for <b>Moitet</b></div>
+  <div class="scroll">↓ scroll to begin</div>
+</header>
+
+<!-- ===================== TOC ===================== -->
+<nav class="toc">
+  <h3>Master Index</h3>
+  <div class="toc-grid">
+    <div class="toc-col">
+      <h4><span class="dot" style="background:var(--violet)"></span>Fundamentals (Ch 1–2)</h4>
+      <a href="#s1"><span class="qn">01</span>What is Python</a>
+      <a href="#s2"><span class="qn">02</span>Character Set</a>
+      <a href="#s3"><span class="qn">03</span>Tokens / Lexical Units</a>
+      <a href="#s4"><span class="qn">04</span>Keywords</a>
+      <a href="#s5"><span class="qn">05</span>Identifiers &amp; Naming</a>
+      <a href="#s6"><span class="qn">06</span>Literals &amp; Strings</a>
+      <a href="#s7"><span class="qn">07</span>Numeric Literals</a>
+      <a href="#s8"><span class="qn">08</span>Punctuators &amp; Comments</a>
+      <a href="#s9"><span class="qn">09</span>Variables &amp; Assignment</a>
+      <a href="#s10"><span class="qn">10</span>input() &amp; print()</a>
+    </div>
+    <div class="toc-col">
+      <h4><span class="dot" style="background:var(--cyan)"></span>Data Types &amp; Operators (Ch 2)</h4>
+      <a href="#s11"><span class="qn">11</span>Execution &amp; Indentation</a>
+      <a href="#s12"><span class="qn">12</span>Variables &amp; Casting</a>
+      <a href="#s13"><span class="qn">13</span>Data Types (8 categories)</a>
+      <a href="#s14"><span class="qn">14</span>Strings &amp; Methods</a>
+      <a href="#s15"><span class="qn">15</span>Booleans</a>
+      <a href="#s16"><span class="qn">16</span>Operators (7 groups)</a>
+      <a href="#s17"><span class="qn">17</span>Operator Precedence</a>
+      <h4><span class="dot" style="background:var(--emerald)"></span>Functions (Ch 3)</h4>
+      <a href="#s18"><span class="qn">18</span>Function Basics</a>
+      <a href="#s19"><span class="qn">19</span>Parameters vs Arguments</a>
+      <a href="#s20"><span class="qn">20</span>Argument Types</a>
+      <a href="#s21"><span class="qn">21</span>Return &amp; pass</a>
+    </div>
+    <div class="toc-col">
+      <h4><span class="dot" style="background:var(--amber)"></span>Classes &amp; OOP</h4>
+      <a href="#s22"><span class="qn">22</span>Procedural vs Function</a>
+      <a href="#s23"><span class="qn">23</span>Classes (__init__, self)</a>
+      <a href="#s24"><span class="qn">24</span>Objects</a>
+      <a href="#s25"><span class="qn">25</span>OOP Principles</a>
+      <h4><span class="dot" style="background:var(--rose)"></span>Files &amp; Exceptions</h4>
+      <a href="#s26"><span class="qn">26</span>File Handling &amp; Modes</a>
+      <a href="#s27"><span class="qn">27</span>with &amp; Reading Methods</a>
+      <a href="#s28"><span class="qn">28</span>Exceptions (try/except)</a>
+      <h4><span class="dot" style="background:var(--indigo)"></span>NumPy</h4>
+      <a href="#s29"><span class="qn">29</span>NumPy &amp; Arrays</a>
+      <a href="#s30"><span class="qn">30</span>Index · Slice · Random · ufunc</a>
+      <h4><span class="dot" style="background:var(--gold)"></span>Exam Prep</h4>
+      <a href="#cheat"><span class="qn">★</span>Cheat Sheet</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================= -->
+<!-- CHAPTER 1–2 : FUNDAMENTALS -->
+<!-- ============================================================= -->
+<div class="band t-fund"><div class="ln"></div><h3>Ch 1–2 · Python Fundamentals</h3><div class="ln"></div></div>
+
+<section class="sec t-fund" id="s1">
+  <div class="sec-head"><div class="num">01</div><h2>What is Python?</h2></div>
+  <span class="badge">Introduction</span>
+  <div class="card">
+    <p>Python is a <span class="hl">high-level, interpreted, general-purpose</span> and <span class="hl">dynamic</span> programming language that focuses on <span class="hl">code readability</span>.</p>
+    <p>Its syntax lets programmers write code in <span class="hl">fewer steps</span> than Java or C++.</p>
+    <hr class="dv">
+    <p style="color:var(--txt)"><strong>Four words to remember Python by:</strong></p>
+    <ul>
+      <li><span class="hl">High-level</span> — close to human language, far from machine code</li>
+      <li><span class="hl">Interpreted</span> — run line by line, no separate compile step</li>
+      <li><span class="hl">General-purpose</span> — usable for web, data, scripting, anything</li>
+      <li><span class="hl">Dynamic</span> — variable types resolved at run-time, not declared</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec t-fund" id="s2">
+  <div class="sec-head"><div class="num">02</div><h2>Python Character Set</h2></div>
+  <span class="badge">Fundamentals</span>
+  <div class="sbox">A <b>character set</b> is the bunch of identifying elements (the building blocks) of the language.</div>
+  <div class="g2">
+    <div class="gcard"><h4>Letters</h4><p>A–Z and a–z</p></div>
+    <div class="gcard"><h4>Digits</h4><p>0 to 9</p></div>
+    <div class="gcard"><h4>Special Symbols</h4><p>space + - / ( ) [ ] = != &lt; &gt; , ' " $ # ; : ? &amp;</p></div>
+    <div class="gcard"><h4>White Spaces</h4><p>Blank space, horizontal tab, vertical tab, carriage return</p></div>
+  </div>
+  <div class="gcard"><h4>Other Characters</h4><p>Python can process all <span class="hl">256 ASCII</span> and <span class="hl">Unicode</span> characters.</p></div>
+</section>
+
+<section class="sec t-fund" id="s3">
+  <div class="sec-head"><div class="num">03</div><h2>Tokens / Lexical Units</h2></div>
+  <span class="badge">Fundamentals</span>
+  <div class="sbox">A <b>token</b> (or lexical unit) is an individual element identified by the language. There are <b>5 types</b>.</div>
+  <div class="mnem">
+    <div class="acr">K I L O P</div>
+    <div class="phr">"Keep It Logical, Or Panic"</div>
+    <table>
+      <tr><td>K</td><td><strong>Keywords</strong> — reserved words with special meaning</td></tr>
+      <tr><td>I</td><td><strong>Identifiers</strong> — names you give to things</td></tr>
+      <tr><td>L</td><td><strong>Literals</strong> — fixed constant values</td></tr>
+      <tr><td>O</td><td><strong>Operators</strong> — trigger a computation</td></tr>
+      <tr><td>P</td><td><strong>Punctuators</strong> — separators like brackets, commas</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="sec t-fund" id="s4">
+  <div class="sec-head"><div class="num">04</div><h2>Keywords</h2></div>
+  <span class="badge">Token type 1</span>
+  <div class="card">
+    <p><span class="hl">Keywords</span> (reserved words) have a special, predefined meaning in the Python interpreter. Because of that, they <strong>cannot be used as identifiers</strong>.</p>
+    <div class="kwgrid">
+      <span>and</span><span>assert</span><span>break</span><span>class</span><span>continue</span><span>def</span><span>del</span><span>elif</span><span>else</span><span>except</span><span>exec</span><span>finally</span><span>for</span><span>from</span><span>global</span><span>if</span><span>import</span><span>in</span><span>is</span><span>lambda</span><span>not</span><span>or</span><span>pass</span><span>print</span><span>raise</span><span>return</span><span>try</span><span>while</span><span>with</span><span>yield</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec t-fund" id="s5">
+  <div class="sec-head"><div class="num">05</div><h2>Identifiers &amp; Naming Conventions</h2></div>
+  <span class="badge">Token type 2</span>
+  <div class="sbox">An <b>identifier</b> is a name given to a function, class, variable, module, or object — basically any name that appears in the program (e.g. <span class="mono">a, b, c</span>).</div>
+  <div class="card">
+    <h4>The 8 naming rules</h4>
+    <ul>
+      <li>Can combine <span class="hl">uppercase, lowercase, underscores, and digits (0–9)</span> — e.g. <span class="mono">myClass, var_1</span></li>
+      <li>The <span class="hl">first character must be a letter</span> (or underscore)</li>
+      <li><span class="hl">No special characters</span> such as %, @, $ inside identifiers</li>
+      <li>Cannot <span class="hl">begin with a number</span> — <span class="mono">2variable</span> ✗, <span class="mono">variable2</span> ✓</li>
+      <li>Python is <span class="hl">case-sensitive</span> — <span class="mono">Labour</span> ≠ <span class="mono">labour</span></li>
+      <li>Cannot use <span class="hl">Python keywords</span> as identifiers</li>
+      <li>Use <span class="hl">underscores</span> to separate multiple words</li>
+    </ul>
+    <hr class="dv">
+    <div class="g2">
+      <div><p style="color:var(--emerald);font-weight:600;margin-bottom:4px">✓ Valid</p><p class="mono" style="color:var(--mut)">Myfile1 · DATE9_7_8 · y3m9d3 · _xs · MYFILE · _FXd</p></div>
+      <div><p style="color:var(--rose);font-weight:600;margin-bottom:4px">✗ Invalid</p><p class="mono" style="color:var(--mut)">MY-REC · 28dre · break · elif · false · del</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec t-fund" id="s6">
+  <div class="sec-head"><div class="num">06</div><h2>Literals &amp; Strings</h2></div>
+  <span class="badge">Token type 3</span>
+  <div class="sbox"><b>Literals</b> (constants) are values that <b>never change</b> during program execution. There are <b>5 types</b>.</div>
+  <div class="mnem">
+    <div class="acr">S N B N C</div>
+    <div class="phr">"Smart Nerds Build Neat Code"</div>
+    <table>
+      <tr><td>S</td><td><strong>String</strong> literals — text in quotes</td></tr>
+      <tr><td>N</td><td><strong>Numeric</strong> literals — int, float, complex</td></tr>
+      <tr><td>B</td><td><strong>Boolean</strong> literals — True / False</td></tr>
+      <tr><td>N</td><td><strong>None</strong> — the special "no value" literal</td></tr>
+      <tr><td>C</td><td><strong>Collections</strong> — tuple, list, etc.</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>String literals</h4>
+    <p>A sequence of letters in quotes. Python accepts both forms: <span class="mono">'Hello'</span> = <span class="mono">"Hello"</span>.</p>
+    <div class="g2" style="margin-top:8px">
+      <div class="gcard"><h4>Single-line</h4><p>Begins and ends on one line.</p><div class="code"><pre>Item = <span class="s">"Computer"</span></pre></div></div>
+      <div class="gcard"><h4>Multi-line</h4><p>Spread across lines using a backslash <span class="mono">\</span> to continue.</p><div class="code"><pre>Item = <span class="s">'Key\</span>
+<span class="s">board'</span></pre></div></div>
+    </div>
+    <p style="margin-top:10px">Indexing works <span class="hl">forward (0,1,2…)</span> and <span class="hl">backward (-1,-2…)</span>:</p>
+    <div class="code"><pre><span class="o">&gt;&gt;&gt;</span> s = <span class="s">"Hello Python"</span>
+<span class="o">&gt;&gt;&gt;</span> s[<span class="n">0</span>]        <span class="cm"># 'H'  (first)</span>
+<span class="o">&gt;&gt;&gt;</span> s[<span class="n">-1</span>]       <span class="cm"># 'n'  (last)</span>
+<span class="o">&gt;&gt;&gt;</span> s[len(s)<span class="o">-</span><span class="n">1</span>]  <span class="cm"># 'n'  (len() = length of string)</span></pre></div>
+  </div>
+  <div class="card">
+    <h4>String sizing &amp; triple quotes</h4>
+    <ul>
+      <li><span class="mono">'\\'</span> → size <span class="hl">1</span> (the backslash is one escape sequence)</li>
+      <li><span class="mono">'abc'</span> → size <span class="hl">3</span> &nbsp;·&nbsp; <span class="mono">"\ab"</span> → size <span class="hl">2</span></li>
+      <li>In <span class="hl">triple-quoted</span> strings, the EOL (End-Of-Line / Enter) character at each line break <strong>is counted</strong> in the size.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Escape sequences</h4>
+    <div class="g2">
+      <table class="ctable"><tr><th>Seq</th><th>Meaning</th></tr>
+        <tr><td><code>\\</code></td><td>Back slash</td></tr>
+        <tr><td><code>\'</code></td><td>Single quote</td></tr>
+        <tr><td><code>\"</code></td><td>Double quote</td></tr>
+        <tr><td><code>\a</code></td><td>ASCII bell</td></tr>
+        <tr><td><code>\b</code></td><td>ASCII backspace</td></tr>
+        <tr><td><code>\f</code></td><td>ASCII formfeed</td></tr>
+      </table>
+      <table class="ctable"><tr><th>Seq</th><th>Meaning</th></tr>
+        <tr><td><code>\n</code></td><td>New line</td></tr>
+        <tr><td><code>\r</code></td><td>Carriage return</td></tr>
+        <tr><td><code>\t</code></td><td>Horizontal tab</td></tr>
+        <tr><td><code>\v</code></td><td>Vertical tab</td></tr>
+        <tr><td><code>\x</code></td><td>16-bit hex value</td></tr>
+        <tr><td><code>\ooo</code></td><td>Octal value (3 digits)</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec t-fund" id="s7">
+  <div class="sec-head"><div class="num">07</div><h2>Numeric Literals</h2></div>
+  <span class="badge">Literals · deep dive</span>
+  <div class="mnem">
+    <div class="acr">I F C</div>
+    <div class="phr">"I Find Complexity"</div>
+    <table>
+      <tr><td>I</td><td><strong>int</strong> — whole numbers, +ve or −ve, unlimited length</td></tr>
+      <tr><td>F</td><td><strong>float</strong> — real values with a fractional part</td></tr>
+      <tr><td>C</td><td><strong>complex</strong> — complex numbers (e.g. <span class="mono">1j</span>)</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Integer bases &amp; conversion</h4>
+    <table class="ctable"><tr><th>Base</th><th>Prefix</th><th>Example</th></tr>
+      <tr><td>Decimal</td><td>none</td><td><code>255</code></td></tr>
+      <tr><td>Octal (8)</td><td><code>0o</code></td><td><code>0o377</code></td></tr>
+      <tr><td>Hex (16)</td><td><code>0x</code> / <code>0X</code></td><td><code>0xFF</code></td></tr>
+      <tr><td>Binary (2)</td><td><code>0b</code> / <code>0B</code></td><td><code>0b1010</code></td></tr>
+    </table>
+    <p style="margin-top:10px">Convert an int <strong>to its string representation</strong> with these built-ins:</p>
+    <div class="code"><pre><span class="fn">oct</span>(<span class="n">7</span>)     <span class="cm"># '0o7'</span>
+<span class="fn">hex</span>(<span class="n">2572</span>)  <span class="cm"># hexadecimal string</span>
+<span class="fn">bin</span>(<span class="n">12</span>)    <span class="cm"># binary string</span></pre></div>
+  </div>
+  <div class="card">
+    <h4>Floating-point forms</h4>
+    <ul>
+      <li><span class="hl">Fractional form</span> — e.g. <span class="mono">15.75</span></li>
+      <li><span class="hl">Exponent form</span> — mantissa + exponent. <span class="mono">5.8</span> → <span class="mono">0.58E01</span> (mantissa <span class="mono">0.58</span>, exponent <span class="mono">E01</span>)</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec t-fund" id="s8">
+  <div class="sec-head"><div class="num">08</div><h2>Punctuators, Comments &amp; Statements</h2></div>
+  <span class="badge">Token types 4 &amp; 5</span>
+  <div class="g2">
+    <div class="card">
+      <h4>Punctuators (separators)</h4>
+      <p class="mono" style="color:var(--mut)">[ ]&nbsp;&nbsp;( )&nbsp;&nbsp;{ }&nbsp;&nbsp;,&nbsp;&nbsp;;&nbsp;&nbsp;:&nbsp;&nbsp;*&nbsp;&nbsp;…&nbsp;&nbsp;=&nbsp;&nbsp;#</p>
+      <p style="margin-top:8px;font-size:13px">Brackets, parentheses, braces, comma, semicolon, colon, asterisk, ellipsis, equal sign, pound sign.</p>
+    </div>
+    <div class="card">
+      <h4>Comments</h4>
+      <p>Non-executable statements.</p>
+      <ul>
+        <li>Single-line starts with <span class="kw">#</span></li>
+        <li>Multi-line uses <span class="hl">triple quotes</span> — also called a <span class="hl">docstring</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h4>Statements, functions &amp; conventions</h4>
+    <ul>
+      <li>A <span class="hl">statement</span> = one instruction. A collection of statements = a <span class="hl">program</span> (a.k.a. <span class="hl">code</span>).</li>
+      <li>A <span class="hl">function</span> is a self-contained segment that does one well-defined task.</li>
+      <li><strong>No statement terminator</strong> — Python uses no symbol (like <span class="mono">;</span>) to end a line.</li>
+      <li><strong>Max line length</strong> = <span class="hl">79 characters</span>.</li>
+      <li>Put <strong>whitespace around operators</strong>, but not around parentheses.</li>
+      <li>A <span class="hl">code block</span> is a group of statements that are part of another statement/function.</li>
+      <li>Python is <span class="hl">case-sensitive</span>.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec t-fund" id="s9">
+  <div class="sec-head"><div class="num">09</div><h2>Variables &amp; Assignment</h2></div>
+  <span class="badge">Fundamentals</span>
+  <div class="sbox"><b>Variables</b> are named labels for memory locations. In Python, variables <b>do not have fixed locations</b> (unlike C/Java) — the label just points to wherever the value lives.</div>
+  <div class="g2">
+    <div class="gcard"><h4>Lvalue</h4><p>The expression on the <span class="hl">Left-Hand Side</span> of <span class="mono">=</span>.</p></div>
+    <div class="gcard"><h4>Rvalue</h4><p>The expression on the <span class="hl">Right-Hand Side</span> of <span class="mono">=</span>.</p></div>
+  </div>
+  <div class="card">
+    <h4>Multiple assignment</h4>
+    <div class="code"><pre><span class="cm"># same value to many variables</span>
+a = b = c = d = e = <span class="n">10</span>
+
+<span class="cm"># many values to many variables</span>
+p, q, r = <span class="n">5</span>, <span class="n">10</span>, <span class="n">15</span>
+
+<span class="cm"># swap (no temp variable needed)</span>
+p, q = q, p          <span class="cm"># now p=10, q=5</span></pre></div>
+    <p style="margin-top:8px;font-size:13px">Expressions separated by commas evaluate <span class="hl">left to right</span>. With <span class="mono">y, y = 12, 15</span> it assigns <span class="mono">y=12</span> then <span class="mono">y=15</span>, so <span class="mono">y</span> ends as <span class="hl">15</span>.</p>
+  </div>
+  <div class="card">
+    <h4>Dynamic typing &amp; type()</h4>
+    <p>A variable pointing to one type can be re-pointed to a value of a <span class="hl">different type</span> — that's dynamic typing.</p>
+    <div class="code"><pre>x = <span class="n">10</span>
+print(x)
+x = <span class="s">"Hello World"</span>   <span class="cm"># perfectly legal</span>
+
+<span class="cm"># caution: types must make sense for the operation</span>
+x = <span class="s">'day'</span>
+y = x / <span class="n">2</span>          <span class="cm"># Error! a string can't be divided</span>
+
+<span class="cm"># type() reveals the current type</span>
+<span class="fn">type</span>(<span class="n">10</span>)        <span class="cm"># &lt;class 'int'&gt;</span>
+<span class="fn">type</span>(<span class="n">20.4</span>)      <span class="cm"># &lt;class 'float'&gt;</span>
+<span class="fn">type</span>(<span class="s">"Hi"</span>)     <span class="cm"># &lt;class 'str'&gt;</span></pre></div>
+  </div>
+</section>
+
+<section class="sec t-fund" id="s10">
+  <div class="sec-head"><div class="num">10</div><h2>input() &amp; print()</h2></div>
+  <span class="badge">Built-in functions</span>
+  <div class="card">
+    <h4>input() — read from the user</h4>
+    <p>A built-in function that reads a value typed by the user. Syntax: <span class="mono">variable = input(message)</span>. It always returns a <span class="hl">string</span>, so wrap it in <span class="mono">int()</span> / <span class="mono">float()</span> / <span class="mono">complex()</span> to convert.</p>
+    <div class="code"><pre>p = <span class="fn">input</span>(<span class="s">"Enter the value"</span>)
+age = <span class="fn">int</span>(<span class="fn">input</span>(<span class="s">"Enter age"</span>))      <span class="cm"># to integer</span>
+sal = <span class="fn">float</span>(<span class="fn">input</span>(<span class="s">"Enter salary"</span>))  <span class="cm"># to float</span></pre></div>
+  </div>
+  <div class="card">
+    <h4>print() — display on screen</h4>
+    <p>Prints any number of values separated by commas. Full signature:</p>
+    <div class="code"><pre><span class="fn">print</span>(<span class="o">*</span>objects, sep=<span class="s">' '</span>, end=<span class="s">'\n'</span>, file=sys.stdout, flush=<span class="k">False</span>)</pre></div>
+    <table class="ctable"><tr><th>Param</th><th>Role</th></tr>
+      <tr><td><code>*objects</code></td><td>One or more values to print (<code>*</code> = many)</td></tr>
+      <tr><td><code>sep</code></td><td>Separator between objects. Default: <code>' '</code></td></tr>
+      <tr><td><code>end</code></td><td>Printed at the very end. Default: <code>'\n'</code></td></tr>
+      <tr><td><code>file</code></td><td>Output target. Default: screen (sys.stdout)</td></tr>
+      <tr><td><code>flush</code></td><td>Force-flush the stream. Default: <code>False</code></td></tr>
+    </table>
+    <div class="code"><pre><span class="fn">print</span>(<span class="s">"Python is fun."</span>)
+a = <span class="n">5</span>
+<span class="fn">print</span>(<span class="s">"a ="</span>, a)        <span class="cm"># a = 5</span>
+<span class="fn">print</span>(<span class="s">"a = \n"</span>, a)     <span class="cm"># newline before the value</span></pre></div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<div class="band t-data"><div class="ln"></div><h3>Ch 2 · Data Types, Operators &amp; Statements</h3><div class="ln"></div></div>
+
+<section class="sec t-data" id="s11">
+  <div class="sec-head"><div class="num">11</div><h2>Execution &amp; Indentation</h2></div>
+  <span class="badge">Statements</span>
+  <div class="g2">
+    <div class="card">
+      <h4>Two ways to run Python</h4>
+      <div class="code"><pre><span class="cm"># 1. directly in the command line</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="fn">print</span>(<span class="s">"Hello, World!"</span>)
+Hello, World!
+
+<span class="cm"># 2. as a .py file</span>
+C:\Users\Name&gt; python myfile.py</pre></div>
+    </div>
+    <div class="card">
+      <h4>Indentation matters</h4>
+      <p>Indentation = the spaces at the start of a line. In most languages it's cosmetic; in Python it's <span class="hl">required</span> — it defines a <span class="hl">block of code</span>.</p>
+      <div class="code"><pre><span class="k">if</span> <span class="n">5</span> <span class="o">&gt;</span> <span class="n">2</span>:
+    <span class="fn">print</span>(<span class="s">"Five is greater than two!"</span>)</pre></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec t-data" id="s12">
+  <div class="sec-head"><div class="num">12</div><h2>Variables &amp; Casting</h2></div>
+  <span class="badge">Data Types</span>
+  <div class="card">
+    <p>Python has <span class="hl">no declaration command</span> — a variable is born the moment you assign a value.</p>
+    <div class="code"><pre>x = <span class="n">5</span>
+y = <span class="s">"Hello, World!"</span></pre></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <h4>Casting — force a type</h4>
+      <div class="code"><pre>x = <span class="fn">str</span>(<span class="n">3</span>)    <span class="cm"># '3'</span>
+y = <span class="fn">int</span>(<span class="n">3</span>)    <span class="cm"># 3</span>
+z = <span class="fn">float</span>(<span class="n">3</span>)  <span class="cm"># 3.0</span></pre></div>
+    </div>
+    <div class="card">
+      <h4>Multi-word naming styles</h4>
+      <div class="mnem" style="margin:0;padding:14px 16px">
+        <div class="acr" style="font-size:24px">C P S</div>
+        <div class="phr" style="margin-bottom:8px">Camel · Pascal · Snake</div>
+        <table>
+          <tr><td>C</td><td><strong>Camel</strong> — <span class="mono">myVariableName</span></td></tr>
+          <tr><td>P</td><td><strong>Pascal</strong> — <span class="mono">MyVariableName</span></td></tr>
+          <tr><td>S</td><td><strong>Snake</strong> — <span class="mono">my_variable_name</span></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h4>Variable-name rules (recap)</h4>
+    <ul>
+      <li>Must start with a <span class="hl">letter or underscore</span> — never a number</li>
+      <li>Only <span class="hl">alphanumerics and underscores</span> (A–z, 0–9, _)</li>
+      <li><span class="hl">Case-sensitive</span>: <span class="mono">age</span>, <span class="mono">Age</span>, <span class="mono">AGE</span> are three different variables</li>
+      <li>Cannot be a Python <span class="hl">keyword</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec t-data" id="s13">
+  <div class="sec-head"><div class="num">13</div><h2>Data Types — 8 Categories</h2></div>
+  <span class="badge">Built-in types</span>
+  <div class="mnem">
+    <div class="acr">T N S M S B B N</div>
+    <div class="phr">"Ten New Students Make Some Big Brilliant Notes"</div>
+    <table>
+      <tr><td>T</td><td><strong>Text</strong> — <span class="mono">str</span></td></tr>
+      <tr><td>N</td><td><strong>Numeric</strong> — <span class="mono">int, float, complex</span></td></tr>
+      <tr><td>S</td><td><strong>Sequence</strong> — <span class="mono">list, tuple, range</span></td></tr>
+      <tr><td>M</td><td><strong>Mapping</strong> — <span class="mono">dict</span></td></tr>
+      <tr><td>S</td><td><strong>Set</strong> — <span class="mono">set, frozenset</span></td></tr>
+      <tr><td>B</td><td><strong>Boolean</strong> — <span class="mono">bool</span></td></tr>
+      <tr><td>B</td><td><strong>Binary</strong> — <span class="mono">bytes, bytearray, memoryview</span></td></tr>
+      <tr><td>N</td><td><strong>None</strong> — <span class="mono">NoneType</span></td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>The three numeric types</h4>
+    <div class="g3">
+      <div class="tile"><div class="tn">int</div><div class="tt">Integer</div><p>Whole number, +ve/−ve, no decimals, unlimited length.</p><code>x = 1</code></div>
+      <div class="tile"><div class="tn">float</div><div class="tt">Float</div><p>Number with one or more decimals, +ve/−ve.</p><code>y = 2.8</code></div>
+      <div class="tile"><div class="tn">complex</div><div class="tt">Complex</div><p>Has an imaginary part written with <span class="mono">j</span>.</p><code>z = 1j</code></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec t-data" id="s14">
+  <div class="sec-head"><div class="num">14</div><h2>Strings &amp; Methods</h2></div>
+  <span class="badge">Text type</span>
+  <div class="card">
+    <p>Strings use single or double quotes — <span class="mono">'hello'</span> = <span class="mono">"hello"</span> — and print with <span class="mono">print()</span>.</p>
+    <div class="code"><pre>a = <span class="s">"Hello, World!"</span>
+<span class="fn">print</span>(a.<span class="fn">upper</span>())   <span class="cm"># HELLO, WORLD!</span>
+<span class="fn">print</span>(a.<span class="fn">lower</span>())   <span class="cm"># hello, world!</span>
+
+b = <span class="s">" Hello, World! "</span>
+<span class="fn">print</span>(b.<span class="fn">strip</span>())   <span class="cm"># "Hello, World!"  (removes whitespace)</span>
+
+<span class="fn">print</span>(a.<span class="fn">replace</span>(<span class="s">"H"</span>, <span class="s">"J"</span>))   <span class="cm"># Jello, World!</span>
+<span class="fn">print</span>(a.<span class="fn">split</span>(<span class="s">","</span>))         <span class="cm"># ['Hello', ' World!']</span></pre></div>
+    <p style="margin-top:8px"><span class="hl">Concatenation</span> — combine strings with <span class="mono">+</span> (add a space manually):</p>
+    <div class="code"><pre>a = <span class="s">"Hello"</span>; b = <span class="s">"World"</span>
+c = a <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> b   <span class="cm"># "Hello World"</span></pre></div>
+  </div>
+  <div class="card">
+    <h4>Key string methods to know</h4>
+    <table class="ctable"><tr><th>Method</th><th>Does</th></tr>
+      <tr><td><code>upper() / lower()</code></td><td>Convert case</td></tr>
+      <tr><td><code>capitalize()</code></td><td>First character to upper case</td></tr>
+      <tr><td><code>title()</code></td><td>First char of each word to upper</td></tr>
+      <tr><td><code>swapcase()</code></td><td>Lower↔upper for every char</td></tr>
+      <tr><td><code>strip() / lstrip() / rstrip()</code></td><td>Trim whitespace (both/left/right)</td></tr>
+      <tr><td><code>replace(a, b)</code></td><td>Swap a specified value for another</td></tr>
+      <tr><td><code>split(sep)</code></td><td>Split into a list at the separator</td></tr>
+      <tr><td><code>join()</code></td><td>Join an iterable onto the string</td></tr>
+      <tr><td><code>find() / index()</code></td><td>Position of a value</td></tr>
+      <tr><td><code>count()</code></td><td>How many times a value occurs</td></tr>
+      <tr><td><code>startswith() / endswith()</code></td><td>True if string starts/ends with value</td></tr>
+      <tr><td><code>isalnum() / isalpha() / isdigit()</code></td><td>True if all chars match the test</td></tr>
+      <tr><td><code>format()</code></td><td>Insert specified values into a string</td></tr>
+      <tr><td><code>zfill(n)</code></td><td>Pad the front with <code>0</code>s</td></tr>
+    </table>
+    <p style="font-size:12.5px;margin-top:8px;color:var(--dim)">Python ships ~45 string methods total — the ones above are the high-yield set.</p>
+  </div>
+</section>
+
+<section class="sec t-data" id="s15">
+  <div class="sec-head"><div class="num">15</div><h2>Booleans</h2></div>
+  <span class="badge">Boolean type</span>
+  <div class="card">
+    <p>Booleans represent one of two values: <span class="hl">True</span> or <span class="hl">False</span>. When you compare two values, Python evaluates the expression and returns a Boolean.</p>
+    <div class="code"><pre><span class="fn">print</span>(<span class="n">10</span> <span class="o">&gt;</span> <span class="n">9</span>)    <span class="cm"># True</span>
+<span class="fn">print</span>(<span class="n">10</span> <span class="o">==</span> <span class="n">9</span>)   <span class="cm"># False</span>
+<span class="fn">print</span>(<span class="n">10</span> <span class="o">&lt;</span> <span class="n">9</span>)    <span class="cm"># False</span></pre></div>
+  </div>
+</section>
+
+<section class="sec t-data" id="s16">
+  <div class="sec-head"><div class="num">16</div><h2>Operators — 7 Groups</h2></div>
+  <span class="badge">Operators</span>
+  <div class="sbox"><b>Operators</b> perform operations on variables and values. Python divides them into <b>7 groups</b>.</div>
+  <div class="mnem">
+    <div class="acr">A A C L I M B</div>
+    <div class="phr">"All Animals Can Leap Into Muddy Bogs"</div>
+    <table>
+      <tr><td>A</td><td><strong>Arithmetic</strong> — math</td></tr>
+      <tr><td>A</td><td><strong>Assignment</strong> — assign values</td></tr>
+      <tr><td>C</td><td><strong>Comparison</strong> — compare two values</td></tr>
+      <tr><td>L</td><td><strong>Logical</strong> — combine conditions</td></tr>
+      <tr><td>I</td><td><strong>Identity</strong> — same object?</td></tr>
+      <tr><td>M</td><td><strong>Membership</strong> — is it inside?</td></tr>
+      <tr><td>B</td><td><strong>Bitwise</strong> — compare binary bits</td></tr>
+    </table>
+  </div>
+  <div class="g2">
+    <div class="card"><h4>Arithmetic</h4>
+      <table class="ctable"><tr><th>Op</th><th>Name</th></tr>
+        <tr><td><code>+</code></td><td>Addition</td></tr><tr><td><code>-</code></td><td>Subtraction</td></tr>
+        <tr><td><code>*</code></td><td>Multiplication</td></tr><tr><td><code>/</code></td><td>Division</td></tr>
+        <tr><td><code>%</code></td><td>Modulus (remainder)</td></tr><tr><td><code>**</code></td><td>Exponentiation</td></tr>
+        <tr><td><code>//</code></td><td>Floor division</td></tr>
+      </table>
+    </div>
+    <div class="card"><h4>Comparison</h4>
+      <table class="ctable"><tr><th>Op</th><th>Name</th></tr>
+        <tr><td><code>==</code></td><td>Equal</td></tr><tr><td><code>!=</code></td><td>Not equal</td></tr>
+        <tr><td><code>&gt;</code></td><td>Greater than</td></tr><tr><td><code>&lt;</code></td><td>Less than</td></tr>
+        <tr><td><code>&gt;=</code></td><td>Greater or equal</td></tr><tr><td><code>&lt;=</code></td><td>Less or equal</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="g3">
+    <div class="card"><h4>Logical</h4>
+      <table class="ctable"><tr><th>Op</th><th>True when…</th></tr>
+        <tr><td><code>and</code></td><td>both are true</td></tr>
+        <tr><td><code>or</code></td><td>one is true</td></tr>
+        <tr><td><code>not</code></td><td>reverses result</td></tr>
+      </table>
+    </div>
+    <div class="card"><h4>Identity</h4>
+      <table class="ctable"><tr><th>Op</th><th>True when…</th></tr>
+        <tr><td><code>is</code></td><td>same object</td></tr>
+        <tr><td><code>is not</code></td><td>not same object</td></tr>
+      </table>
+      <p style="font-size:12px;margin-top:6px">Compares <span class="hl">memory location</span>, not just equality.</p>
+    </div>
+    <div class="card"><h4>Membership</h4>
+      <table class="ctable"><tr><th>Op</th><th>True when…</th></tr>
+        <tr><td><code>in</code></td><td>value is present</td></tr>
+        <tr><td><code>not in</code></td><td>value is absent</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="card"><h4>Assignment &amp; Bitwise</h4>
+    <div class="g2">
+      <div>
+        <p style="font-size:13px;color:var(--mut);margin-bottom:6px"><strong style="color:var(--cyan)">Assignment</strong> — shorthand for "do then store":</p>
+        <p class="mono" style="color:var(--mut);font-size:12.5px;line-height:1.9">= &nbsp; += &nbsp; -= &nbsp; *= &nbsp; /= &nbsp; %= &nbsp; //= &nbsp; **= &nbsp; &amp;= &nbsp; |= &nbsp; ^= &nbsp; &gt;&gt;= &nbsp; &lt;&lt;= &nbsp; :=</p>
+        <p style="font-size:12px;margin-top:6px">e.g. <span class="mono">x += 3</span> is the same as <span class="mono">x = x + 3</span>. The <span class="mono">:=</span> "walrus" assigns inline.</p>
+      </div>
+      <div>
+        <p style="font-size:13px;color:var(--mut);margin-bottom:6px"><strong style="color:var(--cyan)">Bitwise</strong> — operate on binary bits:</p>
+        <table class="ctable"><tr><th>Op</th><th>Name</th></tr>
+          <tr><td><code>&amp;</code></td><td>AND</td></tr><tr><td><code>|</code></td><td>OR</td></tr>
+          <tr><td><code>^</code></td><td>XOR</td></tr><tr><td><code>~</code></td><td>NOT (invert)</td></tr>
+          <tr><td><code>&lt;&lt;</code></td><td>Zero-fill left shift</td></tr><tr><td><code>&gt;&gt;</code></td><td>Signed right shift</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec t-data" id="s17">
+  <div class="sec-head"><div class="num">17</div><h2>Operator Precedence</h2></div>
+  <span class="badge">Order of operations</span>
+  <div class="sbox">Precedence = the <b>order</b> operations run in. <b>Parentheses</b> always win; multiplication beats addition.</div>
+  <div class="g2">
+    <div class="card">
+      <div class="code"><pre><span class="fn">print</span>((<span class="n">6</span><span class="o">+</span><span class="n">3</span>) <span class="o">-</span> (<span class="n">6</span><span class="o">+</span><span class="n">3</span>))  <span class="cm"># 0  → () first</span>
+<span class="fn">print</span>(<span class="n">100</span> <span class="o">+</span> <span class="n">5</span> <span class="o">*</span> <span class="n">3</span>)    <span class="cm"># 115 → * before +</span></pre></div>
+    </div>
+    <div class="card">
+      <h4>High → Low</h4>
+      <table class="ctable"><tr><th>Level</th><th>Operators</th></tr>
+        <tr><td>Highest</td><td><code>( )</code> parentheses</td></tr>
+        <tr><td></td><td><code>**</code> exponentiation</td></tr>
+        <tr><td></td><td><code>+x -x ~x</code> unary</td></tr>
+        <tr><td></td><td><code>* / // %</code></td></tr>
+        <tr><td></td><td><code>+ -</code></td></tr>
+        <tr><td></td><td><code>&lt;&lt; &gt;&gt;</code> shifts</td></tr>
+        <tr><td></td><td><code>&amp;</code> then <code>^</code> then <code>|</code></td></tr>
+        <tr><td></td><td>comparison / identity / membership</td></tr>
+        <tr><td></td><td><code>not</code> → <code>and</code> → <code>or</code></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<div class="band t-func"><div class="ln"></div><h3>Ch 3 · Functions</h3><div class="ln"></div></div>
+
+<section class="sec t-func" id="s18">
+  <div class="sec-head"><div class="num">18</div><h2>Function Basics</h2></div>
+  <span class="badge">Functions</span>
+  <div class="sbox">A <b>function</b> is a block of code that <b>only runs when called</b>. You can pass <b>parameters</b> in, and it can <b>return</b> data.</div>
+  <div class="g2">
+    <div class="card">
+      <h4>Define with <span class="kw">def</span></h4>
+      <div class="code"><pre><span class="k">def</span> <span class="fn">my_function</span>():
+    <span class="fn">print</span>(<span class="s">"Hello from a function"</span>)</pre></div>
+    </div>
+    <div class="card">
+      <h4>Call with <span class="mono">name()</span></h4>
+      <div class="code"><pre><span class="k">def</span> <span class="fn">my_function</span>():
+    <span class="fn">print</span>(<span class="s">"Hello from a function"</span>)
+
+<span class="fn">my_function</span>()   <span class="cm"># runs it</span></pre></div>
+    </div>
+  </div>
+  <div class="card">
+    <h4>Anatomy of a definition</h4>
+    <div class="code"><pre><span class="k">def</span> <span class="fn">greet</span>():
+    <span class="fn">print</span>(<span class="s">'Hello World!'</span>)</pre></div>
+    <ul>
+      <li><span class="kw">def</span> → keyword used to create a function</li>
+      <li><span class="hl">greet</span> → the function name</li>
+      <li><span class="mono">()</span> → parameters (empty here)</li>
+      <li><span class="hl">indentation</span> → required; marks the function body</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec t-func" id="s19">
+  <div class="sec-head"><div class="num">19</div><h2>Parameters vs Arguments</h2></div>
+  <span class="badge">Functions</span>
+  <div class="sbox">The two terms are used loosely, but precisely: a <b>parameter</b> lives in the <b>definition</b>; an <b>argument</b> is the <b>value sent</b> at call-time.</div>
+  <div class="g2">
+    <div class="gcard"><h4>Parameter</h4><p>The variable listed inside the parentheses in the function <span class="hl">definition</span>.</p><p style="font-size:12px;color:var(--dim)">Hook: <b>P</b>arameter = the <b>P</b>lan.</p></div>
+    <div class="gcard"><h4>Argument</h4><p>The value that is <span class="hl">sent</span> to the function when it's called. Often shortened to <span class="mono">args</span>.</p><p style="font-size:12px;color:var(--dim)">Hook: <b>A</b>rgument = what <b>A</b>rrives.</p></div>
+  </div>
+  <div class="card">
+    <div class="code"><pre><span class="k">def</span> <span class="fn">my_function</span>(fname):       <span class="cm"># fname = parameter</span>
+    <span class="fn">print</span>(fname <span class="o">+</span> <span class="s">" Refsnes"</span>)
+
+<span class="fn">my_function</span>(<span class="s">"Emil"</span>)          <span class="cm"># "Emil" = argument</span>
+<span class="fn">my_function</span>(<span class="s">"Tobias"</span>)</pre></div>
+    <p style="margin-top:8px;font-size:13px"><strong>Number of arguments:</strong> by default a call must pass <span class="hl">exactly</span> as many arguments as there are parameters — not more, not fewer, or you get an error.</p>
+  </div>
+</section>
+
+<section class="sec t-func" id="s20">
+  <div class="sec-head"><div class="num">20</div><h2>Argument Types</h2></div>
+  <span class="badge">Functions · the big one</span>
+  <div class="gcard"><h4>*args — Arbitrary Arguments</h4><p>Unknown number of arguments? Put <span class="hl">one <span class="mono">*</span></span> before the parameter. The function receives a <span class="hl">tuple</span>.</p>
+    <div class="code"><pre><span class="k">def</span> <span class="fn">my_function</span>(<span class="o">*</span>kids):
+    <span class="fn">print</span>(<span class="s">"The youngest child is "</span> <span class="o">+</span> kids[<span class="n">2</span>])
+
+<span class="fn">my_function</span>(<span class="s">"Emil"</span>, <span class="s">"Tobias"</span>, <span class="s">"Linus"</span>)</pre></div>
+  </div>
+  <div class="gcard"><h4>Keyword Arguments (kwargs)</h4><p>Send values as <span class="mono">key = value</span>. Order then <span class="hl">doesn't matter</span>.</p>
+    <div class="code"><pre><span class="k">def</span> <span class="fn">my_function</span>(child3, child2, child1):
+    <span class="fn">print</span>(<span class="s">"The youngest is "</span> <span class="o">+</span> child3)
+
+<span class="fn">my_function</span>(child1=<span class="s">"Emil"</span>, child2=<span class="s">"Tobias"</span>, child3=<span class="s">"Linus"</span>)</pre></div>
+  </div>
+  <div class="gcard"><h4>**kwargs — Arbitrary Keyword Arguments</h4><p>Unknown number of keyword args? Put <span class="hl">two <span class="mono">**</span></span> before the parameter. The function receives a <span class="hl">dictionary</span>.</p>
+    <div class="code"><pre><span class="k">def</span> <span class="fn">my_function</span>(<span class="o">**</span>kid):
+    <span class="fn">print</span>(<span class="s">"His last name is "</span> <span class="o">+</span> kid[<span class="s">"lname"</span>])
+
+<span class="fn">my_function</span>(fname=<span class="s">"Tobias"</span>, lname=<span class="s">"Refsnes"</span>)</pre></div>
+  </div>
+  <div class="g2">
+    <div class="gcard"><h4>Default Parameter Value</h4><p>If no argument is passed, the <span class="hl">default</span> is used.</p>
+      <div class="code"><pre><span class="k">def</span> <span class="fn">my_function</span>(country=<span class="s">"Norway"</span>):
+    <span class="fn">print</span>(<span class="s">"I am from "</span> <span class="o">+</span> country)
+
+<span class="fn">my_function</span>()          <span class="cm"># I am from Norway</span>
+<span class="fn">my_function</span>(<span class="s">"Brazil"</span>)</pre></div>
+    </div>
+    <div class="gcard"><h4>Passing a List</h4><p>Any data type can be passed; it stays that type inside.</p>
+      <div class="code"><pre><span class="k">def</span> <span class="fn">my_function</span>(food):
+    <span class="k">for</span> x <span class="k">in</span> food:
+        <span class="fn">print</span>(x)
+
+fruits = [<span class="s">"apple"</span>, <span class="s">"banana"</span>, <span class="s">"cherry"</span>]
+<span class="fn">my_function</span>(fruits)</pre></div>
+    </div>
+  </div>
+  <div class="card">
+    <h4>Positional-only vs Keyword-only</h4>
+    <div class="g3">
+      <div class="tile"><div class="tn">add , /</div><div class="tt">Positional-only</div><p>Args before <span class="mono">/</span> must be positional.</p><div class="code" style="margin-top:6px"><pre><span class="k">def</span> <span class="fn">f</span>(x, /):
+    <span class="fn">print</span>(x)
+<span class="fn">f</span>(<span class="n">3</span>)</pre></div></div>
+      <div class="tile"><div class="tn">add *,</div><div class="tt">Keyword-only</div><p>Args after <span class="mono">*</span> must be keyword.</p><div class="code" style="margin-top:6px"><pre><span class="k">def</span> <span class="fn">f</span>(<span class="o">*</span>, x):
+    <span class="fn">print</span>(x)
+<span class="fn">f</span>(x=<span class="n">3</span>)</pre></div></div>
+      <div class="tile"><div class="tn">combine</div><div class="tt">Both at once</div><p>Before <span class="mono">/</span> positional, after <span class="mono">*</span> keyword.</p><div class="code" style="margin-top:6px"><pre><span class="k">def</span> <span class="fn">f</span>(a,b,/,<span class="o">*</span>,c,d):
+    <span class="fn">print</span>(a+b+c+d)
+<span class="fn">f</span>(<span class="n">5</span>,<span class="n">6</span>,c=<span class="n">7</span>,d=<span class="n">8</span>)</pre></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec t-func" id="s21">
+  <div class="sec-head"><div class="num">21</div><h2>Return Values &amp; pass</h2></div>
+  <span class="badge">Functions</span>
+  <div class="g2">
+    <div class="card"><h4>return — hand a value back</h4>
+      <div class="code"><pre><span class="k">def</span> <span class="fn">my_function</span>(x):
+    <span class="k">return</span> <span class="n">5</span> <span class="o">*</span> x
+
+<span class="fn">print</span>(<span class="fn">my_function</span>(<span class="n">3</span>))   <span class="cm"># 15</span>
+<span class="fn">print</span>(<span class="fn">my_function</span>(<span class="n">5</span>))   <span class="cm"># 25</span></pre></div>
+    </div>
+    <div class="card"><h4>pass — a legal empty body</h4>
+      <p>A definition can't be empty. If you need a placeholder, use <span class="kw">pass</span> to avoid an error.</p>
+      <div class="code"><pre><span class="k">def</span> <span class="fn">myfunction</span>():
+    <span class="k">pass</span></pre></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<div class="band t-oop"><div class="ln"></div><h3>Classes &amp; Object-Oriented Programming</h3><div class="ln"></div></div>
+
+<section class="sec t-oop" id="s22">
+  <div class="sec-head"><div class="num">22</div><h2>Procedural vs Function</h2></div>
+  <span class="badge">Why functions</span>
+  <div class="card">
+    <p>A <span class="hl">function</span> is a reusable block of code that performs a specific task — it helps organize code and <span class="hl">avoid repetition</span>.</p>
+    <div class="g2">
+      <div><p style="color:var(--rose);font-weight:600;font-size:13px;margin-bottom:5px">Without a function (repeats)</p>
+        <div class="code"><pre><span class="fn">print</span>(<span class="s">'Hello'</span>)
+<span class="fn">print</span>(<span class="s">'Hello'</span>)
+<span class="fn">print</span>(<span class="s">'Hello'</span>)</pre></div></div>
+      <div><p style="color:var(--emerald);font-weight:600;font-size:13px;margin-bottom:5px">With a function (reusable)</p>
+        <div class="code"><pre><span class="k">def</span> <span class="fn">greet</span>():
+    <span class="fn">print</span>(<span class="s">'Hello'</span>)</pre></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <h4>Procedural / direct-execution code</h4>
+    <p>Runs immediately, top to bottom, once.</p>
+    <div class="code"><pre>a = <span class="n">33</span>           <span class="cm"># store 33</span>
+b = <span class="n">200</span>          <span class="cm"># store 200</span>
+<span class="k">if</span> b <span class="o">&gt;</span> a:         <span class="cm"># check 200 &gt; 33 → True</span>
+    <span class="fn">print</span>(<span class="s">"b is greater than a"</span>)</pre></div>
+    <p style="font-size:13px;color:var(--rose)">✗ No reuse · ✗ no structure · ✗ no grouping of logic · runs once only.</p>
+  </div>
+  <div class="card">
+    <h4>Same logic as a function</h4>
+    <div class="code"><pre><span class="k">def</span> <span class="fn">compare</span>(a, b):
+    <span class="k">if</span> b <span class="o">&gt;</span> a:
+        <span class="fn">print</span>(<span class="s">"b is greater than a"</span>)
+
+<span class="fn">compare</span>(<span class="n">33</span>, <span class="n">200</span>)</pre></div>
+    <table class="ctable" style="margin-top:8px"><tr><th>Procedural</th><th>Function version</th></tr>
+      <tr><td>Runs immediately</td><td>Doesn't run until called</td></tr>
+      <tr><td>Uses fixed values</td><td>Accepts different values</td></tr>
+      <tr><td>Cannot easily reuse</td><td>Reuse many times</td></tr>
+      <tr><td>No name for the logic</td><td>Groups logic under a name</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="sec t-oop" id="s23">
+  <div class="sec-head"><div class="num">23</div><h2>Classes — __init__ &amp; self</h2></div>
+  <span class="badge">OOP</span>
+  <div class="sbox">A <b>class</b> is a <b>blueprint</b> for creating objects. It defines <b>attributes</b> (variables) and <b>methods</b> (functions inside the class).</div>
+  <div class="card">
+    <h4>Basic structure</h4>
+    <div class="code"><pre><span class="k">class</span> <span class="fn">Student</span>:
+    <span class="k">def</span> <span class="fn">__init__</span>(self, name, age):
+        self.name = name
+        self.age = age</pre></div>
+    <ul>
+      <li><span class="mono">__init__</span> → the <span class="hl">constructor</span> (runs automatically when an object is made)</li>
+      <li><span class="mono">self</span> → refers to the <span class="hl">current object</span></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Adding &amp; using a method</h4>
+    <div class="code"><pre><span class="k">class</span> <span class="fn">Student</span>:
+    <span class="k">def</span> <span class="fn">__init__</span>(self, name):
+        self.name = name
+    <span class="k">def</span> <span class="fn">greet</span>(self):
+        <span class="fn">print</span>(<span class="s">'Hi, I am '</span> <span class="o">+</span> self.name)
+
+student1 = <span class="fn">Student</span>(<span class="s">'Carlos'</span>)
+student1.<span class="fn">greet</span>()        <span class="cm"># Hi, I am Carlos</span></pre></div>
+  </div>
+</section>
+
+<section class="sec t-oop" id="s24">
+  <div class="sec-head"><div class="num">24</div><h2>Objects</h2></div>
+  <span class="badge">OOP</span>
+  <div class="sbox"><b>Class = blueprint</b>. <b>Object = the actual thing</b> created from that blueprint. e.g. Class <span class="hl">Car</span> → Objects <span class="hl">Toyota, Honda, Ford</span>.</div>
+  <div class="card">
+    <h4>Creating objects</h4>
+    <div class="code"><pre>student1 = <span class="fn">Student</span>(<span class="s">'Ana'</span>, <span class="n">20</span>)
+<span class="fn">print</span>(student1.name)   <span class="cm"># Ana</span>
+<span class="fn">print</span>(student1.age)    <span class="cm"># 20</span></pre></div>
+    <div class="code"><pre><span class="k">class</span> <span class="fn">Car</span>:
+    <span class="k">def</span> <span class="fn">__init__</span>(self, brand, color):
+        self.brand = brand
+        self.color = color
+    <span class="k">def</span> <span class="fn">start</span>(self):
+        <span class="fn">print</span>(self.brand <span class="o">+</span> <span class="s">' is starting...'</span>)
+
+car1 = <span class="fn">Car</span>(<span class="s">'Toyota'</span>, <span class="s">'Red'</span>)
+car2 = <span class="fn">Car</span>(<span class="s">'Honda'</span>, <span class="s">'Blue'</span>)
+car1.<span class="fn">start</span>()   <span class="cm"># Toyota is starting...</span></pre></div>
+  </div>
+</section>
+
+<section class="sec t-oop" id="s25">
+  <div class="sec-head"><div class="num">25</div><h2>OOP Principles</h2></div>
+  <span class="badge">OOP</span>
+  <div class="g2">
+    <div class="mnem" style="margin:0">
+      <div class="acr">C O M</div>
+      <div class="phr">The 3 building blocks of OOP</div>
+      <table>
+        <tr><td>C</td><td><strong>Classes</strong> — the blueprints</td></tr>
+        <tr><td>O</td><td><strong>Objects</strong> — instances of classes</td></tr>
+        <tr><td>M</td><td><strong>Methods</strong> — functions inside classes</td></tr>
+      </table>
+    </div>
+    <div class="mnem" style="margin:0">
+      <div class="acr">O M R R</div>
+      <div class="phr">"Organized Means Reusable &amp; Real"</div>
+      <table>
+        <tr><td>O</td><td><strong>Organized</strong> code</td></tr>
+        <tr><td>M</td><td><strong>Maintainable</strong> — easy to maintain</td></tr>
+        <tr><td>R</td><td><strong>Reusable</strong> code</td></tr>
+        <tr><td>R</td><td><strong>Real-world</strong> modeling</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <p>OOP is a programming style that uses <span class="hl">classes, objects, and methods</span> to organize large programs.</p>
+    <p style="font-size:13px;color:var(--dim);margin-top:6px"><strong>One-line summary:</strong> Function → reusable block · Class → blueprint/template · Object → instance of a class · OOP → organizing a program using objects.</p>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<div class="band t-file"><div class="ln"></div><h3>Files &amp; Exceptions</h3><div class="ln"></div></div>
+
+<section class="sec t-file" id="s26">
+  <div class="sec-head"><div class="num">26</div><h2>File Handling &amp; Modes</h2></div>
+  <span class="badge">Files</span>
+  <div class="sbox"><b>File handling</b> = working with files (like <span class="mono">.txt</span>). It lets data live <b>permanently</b> instead of vanishing when the program ends.</div>
+  <div class="mnem">
+    <div class="acr">P D L C</div>
+    <div class="phr">"Please Don't Lose Code" — why file handling matters</div>
+    <table>
+      <tr><td>P</td><td><strong>Permanent storage</strong> — survives after the program ends (unlike variables)</td></tr>
+      <tr><td>D</td><td><strong>Data sharing</strong> — move data between programs/systems</td></tr>
+      <tr><td>L</td><td><strong>Large datasets</strong> — handle data too big for memory</td></tr>
+      <tr><td>C</td><td><strong>Config &amp; logging</strong> — store settings, log activity for debugging</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>open() and the 4 file modes</h4>
+    <p>Open a file before using it; <span class="hl">close it</span> with <span class="mono">close()</span> afterward to free resources.</p>
+    <table class="ctable"><tr><th>Mode</th><th>Name</th><th>Behavior</th></tr>
+      <tr><td><code>r</code></td><td>Read</td><td>File must already exist</td></tr>
+      <tr><td><code>w</code></td><td>Write</td><td>Creates new / <span class="hl">overwrites</span> existing (old content deleted!)</td></tr>
+      <tr><td><code>a</code></td><td>Append</td><td>Adds to the end, keeps old content</td></tr>
+      <tr><td><code>r+</code></td><td>Read/Write</td><td>Both reading and writing</td></tr>
+    </table>
+  </div>
+  <div class="g3">
+    <div class="card"><h4>Read</h4><div class="code"><pre>file = <span class="fn">open</span>(<span class="s">'data.txt'</span>, <span class="s">'r'</span>)
+<span class="fn">print</span>(file.<span class="fn">read</span>())</pre></div><p style="font-size:12px">Gets all content.</p></div>
+    <div class="card"><h4>Write</h4><div class="code"><pre>file = <span class="fn">open</span>(<span class="s">'data.txt'</span>, <span class="s">'w'</span>)
+file.<span class="fn">write</span>(<span class="s">'Hello World'</span>)</pre></div><p style="font-size:12px;color:var(--rose)">Overwrites — use carefully!</p></div>
+    <div class="card"><h4>Append &amp; Delete</h4><div class="code"><pre>file = <span class="fn">open</span>(<span class="s">'data.txt'</span>, <span class="s">'a'</span>)
+file.<span class="fn">write</span>(<span class="s">' New text'</span>)
+
+<span class="k">import</span> os
+os.<span class="fn">remove</span>(<span class="s">'data.txt'</span>)</pre></div></div>
+  </div>
+</section>
+
+<section class="sec t-file" id="s27">
+  <div class="sec-head"><div class="num">27</div><h2>with &amp; Reading Methods</h2></div>
+  <span class="badge">Files</span>
+  <div class="g2">
+    <div class="card">
+      <h4>The <span class="kw">with</span> statement</h4>
+      <p>Guarantees the file <span class="hl">always closes</span>, even if an error happens. Cleaner and more "Pythonic".</p>
+      <div class="code"><pre><span class="k">with</span> <span class="fn">open</span>(<span class="s">'data.txt'</span>) <span class="k">as</span> file:
+    <span class="fn">print</span>(file.<span class="fn">read</span>())
+<span class="cm"># auto-closed here</span></pre></div>
+    </div>
+    <div class="card">
+      <h4>Three ways to read</h4>
+      <table class="ctable"><tr><th>Method</th><th>Returns</th></tr>
+        <tr><td><code>read()</code></td><td>Entire file as one string</td></tr>
+        <tr><td><code>readline()</code></td><td>One line at a time</td></tr>
+        <tr><td><code>readlines()</code></td><td>All lines as a list</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <h4>Practical applications</h4>
+    <div class="g2">
+      <ul><li><span class="hl">Data logging</span> — save logs for debugging/auditing</li><li><span class="hl">Configuration files</span> — store user preferences/settings</li></ul>
+      <ul><li><span class="hl">Data processing</span> — read &amp; process large datasets</li><li><span class="hl">Backup &amp; restore</span> — copy important data</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec t-file" id="s28">
+  <div class="sec-head"><div class="num">28</div><h2>Exceptions (try / except)</h2></div>
+  <span class="badge">Errors</span>
+  <div class="sbox"><b>Exceptions</b> are errors that happen <b>during execution</b> (e.g. "file not found"). Use <span class="mono">try / except</span> to handle them and avoid crashes.</div>
+  <div class="g2">
+    <div class="card">
+      <div class="code"><pre><span class="k">try</span>:
+    file = <span class="fn">open</span>(<span class="s">'data.txt'</span>)
+<span class="k">except</span>:
+    <span class="fn">print</span>(<span class="s">'File not found'</span>)</pre></div>
+    </div>
+    <div class="card">
+      <h4>Why use exceptions?</h4>
+      <ul>
+        <li>Prevent the program from <span class="hl">crashing</span></li>
+        <li>Show <span class="hl">friendly error messages</span></li>
+        <li>Control the program's <span class="hl">flow</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<div class="band t-numpy"><div class="ln"></div><h3>NumPy · Numerical Python</h3><div class="ln"></div></div>
+
+<section class="sec t-numpy" id="s29">
+  <div class="sec-head"><div class="num">29</div><h2>NumPy &amp; Arrays</h2></div>
+  <span class="badge">NumPy</span>
+  <div class="sbox"><b>NumPy = Numerical Python</b>. A library for scientific computing and working with <b>arrays</b> — faster and more efficient than Python lists for big batches of numbers.</div>
+  <div class="mnem">
+    <div class="acr">I C I S D R U</div>
+    <div class="phr">"I Can Instantly Slice Data Really Ultrafast" — the 7 lesson topics</div>
+    <table>
+      <tr><td>I</td><td><strong>Introduction</strong> to NumPy</td></tr>
+      <tr><td>C</td><td><strong>Creating</strong> arrays</td></tr>
+      <tr><td>I</td><td><strong>Indexing</strong></td></tr>
+      <tr><td>S</td><td><strong>Slicing</strong></td></tr>
+      <tr><td>D</td><td><strong>Datatypes</strong></td></tr>
+      <tr><td>R</td><td><strong>Random</strong></td></tr>
+      <tr><td>U</td><td><strong>ufunc</strong> (universal functions)</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Creating arrays</h4>
+    <p>Build from Python lists; supports 1D, 2D, and multi-dimensional arrays. Helpers: <span class="mono">zeros()</span>, <span class="mono">ones()</span>, <span class="mono">arange()</span>.</p>
+    <div class="code"><pre><span class="k">import</span> numpy <span class="k">as</span> np
+
+arr1 = np.<span class="fn">array</span>([<span class="n">1</span>,<span class="n">2</span>,<span class="n">3</span>])
+arr2 = np.<span class="fn">zeros</span>((<span class="n">2</span>,<span class="n">2</span>))
+arr3 = np.<span class="fn">arange</span>(<span class="n">1</span>,<span class="n">10</span>)
+<span class="fn">print</span>(arr1)</pre></div>
+  </div>
+</section>
+
+<section class="sec t-numpy" id="s30">
+  <div class="sec-head"><div class="num">30</div><h2>Index · Slice · Datatypes · Random · ufunc</h2></div>
+  <span class="badge">NumPy</span>
+  <div class="g2">
+    <div class="card"><h4>Indexing</h4><p>Zero-based; can reach rows/columns in 2D arrays.</p>
+      <div class="code"><pre>arr = np.<span class="fn">array</span>([<span class="n">10</span>,<span class="n">20</span>,<span class="n">30</span>])
+<span class="fn">print</span>(arr[<span class="n">0</span>])   <span class="cm"># 10</span></pre></div>
+    </div>
+    <div class="card"><h4>Slicing</h4><p>Extract parts with <span class="mono">start:end:step</span>.</p>
+      <div class="code"><pre>arr = np.<span class="fn">array</span>([<span class="n">1</span>,<span class="n">2</span>,<span class="n">3</span>,<span class="n">4</span>,<span class="n">5</span>])
+<span class="fn">print</span>(arr[<span class="n">1</span>:<span class="n">4</span>])  <span class="cm"># [2 3 4]</span></pre></div>
+    </div>
+    <div class="card"><h4>Datatypes</h4><p>Arrays have fixed dtypes (int, float, bool, string). Check with <span class="mono">.dtype</span>.</p>
+      <div class="code"><pre>arr = np.<span class="fn">array</span>([<span class="n">1</span>,<span class="n">2</span>,<span class="n">3</span>])
+<span class="fn">print</span>(arr.dtype)</pre></div>
+    </div>
+    <div class="card"><h4>Random</h4><p>Generate random numbers — great for simulations &amp; ML. <span class="mono">rand()</span>, <span class="mono">randint()</span>, <span class="mono">choice()</span>.</p>
+      <div class="code"><pre>x = np.random.<span class="fn">randint</span>(<span class="n">1</span>, <span class="n">100</span>)
+<span class="fn">print</span>(x)</pre></div>
+    </div>
+  </div>
+  <div class="card"><h4>ufunc — Universal Functions</h4><p>Fast, element-wise math operations: <span class="mono">add()</span>, <span class="mono">subtract()</span>, <span class="mono">multiply()</span>, <span class="mono">sin()</span>.</p>
+    <div class="code"><pre>a = np.<span class="fn">array</span>([<span class="n">1</span>,<span class="n">2</span>,<span class="n">3</span>])
+b = np.<span class="fn">array</span>([<span class="n">4</span>,<span class="n">5</span>,<span class="n">6</span>])
+<span class="fn">print</span>(np.<span class="fn">add</span>(a, b))   <span class="cm"># [5 7 9]</span></pre></div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<div class="band" style="--accent:var(--gold);--accent-line:rgba(245,197,66,.4)"><div class="ln"></div><h3>★ Finals Cheat Sheet</h3><div class="ln"></div></div>
+
+<section class="sec t-data" id="cheat" style="--accent:var(--gold);--accent-bg:rgba(245,197,66,.1);--accent-line:rgba(245,197,66,.34)">
+  <div class="sec-head"><div class="num">★</div><h2>Mnemonics &amp; Rapid Review</h2></div>
+  <div class="card">
+    <h4>Every mnemonic in one place</h4>
+    <table class="ctable"><tr><th>Topic</th><th>#</th><th>Key</th><th>Phrase</th></tr>
+      <tr><td>Tokens / Lexical Units</td><td>5</td><td class="mono">K I L O P</td><td>"Keep It Logical, Or Panic"</td></tr>
+      <tr><td>Literals</td><td>5</td><td class="mono">S N B N C</td><td>"Smart Nerds Build Neat Code"</td></tr>
+      <tr><td>Numeric types</td><td>3</td><td class="mono">I F C</td><td>"I Find Complexity"</td></tr>
+      <tr><td>Data Type categories</td><td>8</td><td class="mono">T N S M S B B N</td><td>"Ten New Students Make Some Big Brilliant Notes"</td></tr>
+      <tr><td>Multi-word naming</td><td>3</td><td class="mono">C P S</td><td>Camel · Pascal · Snake</td></tr>
+      <tr><td>Operator groups</td><td>7</td><td class="mono">A A C L I M B</td><td>"All Animals Can Leap Into Muddy Bogs"</td></tr>
+      <tr><td>OOP building blocks</td><td>3</td><td class="mono">C O M</td><td>Classes · Objects · Methods</td></tr>
+      <tr><td>Why OOP matters</td><td>4</td><td class="mono">O M R R</td><td>"Organized Means Reusable &amp; Real"</td></tr>
+      <tr><td>Why file handling matters</td><td>4</td><td class="mono">P D L C</td><td>"Please Don't Lose Code"</td></tr>
+      <tr><td>NumPy lesson topics</td><td>7</td><td class="mono">I C I S D R U</td><td>"I Can Instantly Slice Data Really Ultrafast"</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>High-priority identification items</h4>
+    <table class="ctable"><tr><th>Question</th><th>Answer</th></tr>
+      <tr><td>Python is high-level, interpreted, general-purpose, and…</td><td>Dynamic (focuses on code readability)</td></tr>
+      <tr><td>5 types of tokens</td><td>Keywords, Identifiers, Literals, Operators, Punctuators</td></tr>
+      <tr><td>Reserved words that can't be identifiers</td><td>Keywords</td></tr>
+      <tr><td>Max line length in Python</td><td>79 characters</td></tr>
+      <tr><td>Statement terminator symbol</td><td>None — Python uses no terminator</td></tr>
+      <tr><td>EOL stands for</td><td>End Of Line</td></tr>
+      <tr><td>Triple-quoted comment is called</td><td>Docstring</td></tr>
+      <tr><td>Re-pointing a variable to a new type is</td><td>Dynamic typing</td></tr>
+      <tr><td>Function to check a value's type</td><td>type()</td></tr>
+      <tr><td>input() always returns a</td><td>String (cast with int()/float())</td></tr>
+      <tr><td>8 data type categories</td><td>Text, Numeric, Sequence, Mapping, Set, Boolean, Binary, None</td></tr>
+      <tr><td>3 numeric types</td><td>int, float, complex</td></tr>
+      <tr><td>7 operator groups</td><td>Arithmetic, Assignment, Comparison, Logical, Identity, Membership, Bitwise</td></tr>
+      <tr><td>Highest precedence</td><td>Parentheses ( )</td></tr>
+      <tr><td><code>is</code> vs <code>==</code></td><td>is → same object (memory); == → equal value</td></tr>
+      <tr><td>Keyword to define a function</td><td>def</td></tr>
+      <tr><td>Parameter vs Argument</td><td>Parameter = in definition; Argument = value sent at call</td></tr>
+      <tr><td>One * vs two ** before a parameter</td><td>*args → tuple; **kwargs → dictionary</td></tr>
+      <tr><td>Symbol for positional-only / keyword-only</td><td><code>, /</code> (positional) · <code>*,</code> (keyword)</td></tr>
+      <tr><td>Empty-body placeholder keyword</td><td>pass</td></tr>
+      <tr><td>Class vs Object</td><td>Class = blueprint; Object = instance</td></tr>
+      <tr><td>The constructor method</td><td>__init__</td></tr>
+      <tr><td><code>self</code> refers to</td><td>The current object</td></tr>
+      <tr><td>3 OOP building blocks</td><td>Classes, Objects, Methods</td></tr>
+      <tr><td>4 file modes</td><td>r (read), w (write/overwrite), a (append), r+ (read/write)</td></tr>
+      <tr><td>Mode that deletes old content</td><td>w (write)</td></tr>
+      <tr><td>Statement that auto-closes a file</td><td>with</td></tr>
+      <tr><td>3 read methods</td><td>read(), readline(), readlines()</td></tr>
+      <tr><td>Handle errors with</td><td>try / except</td></tr>
+      <tr><td>NumPy stands for</td><td>Numerical Python</td></tr>
+      <tr><td>NumPy is faster than</td><td>Python lists</td></tr>
+      <tr><td>ufunc means</td><td>Universal Functions</td></tr>
+      <tr><td>Slicing syntax</td><td>start:end:step</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Python keywords (quick scan)</h4>
+    <div class="kwgrid">
+      <span>and</span><span>assert</span><span>break</span><span>class</span><span>continue</span><span>def</span><span>del</span><span>elif</span><span>else</span><span>except</span><span>exec</span><span>finally</span><span>for</span><span>from</span><span>global</span><span>if</span><span>import</span><span>in</span><span>is</span><span>lambda</span><span>not</span><span>or</span><span>pass</span><span>print</span><span>raise</span><span>return</span><span>try</span><span>while</span><span>with</span><span>yield</span>
+    </div>
+  </div>
+</section>
+
+<div class="foot">Python Finals Reviewer · Moitet · DCIT23 Computer Programming 2<br>Fundamentals · Data Types &amp; Operators · Functions · Classes &amp; OOP · Files &amp; Exceptions · NumPy</div>
+
+</div>
+</body>
+</html>
