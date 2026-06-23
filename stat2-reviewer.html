@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STAT 2 — Applied Statistics · Cappyworks Field Reviewer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4F0E6; --paper-2:#EFE9DC; --card:#FBF9F2;
+    --ink:#23251F; --ink-2:#3A3C33; --muted:#6E7064; --muted-soft:#90917F;
+    --sage:#6E7E5C; --sage-deep:#46523A;
+    --sage-tint:rgba(110,126,92,.11); --sage-line:rgba(110,126,92,.30);
+    --clay:#A8633A; --clay-tint:rgba(168,99,58,.09); --clay-line:rgba(168,99,58,.28);
+    --line:rgba(35,37,31,.12); --line-soft:rgba(35,37,31,.07);
+    --serif:"Fraunces",Georgia,serif; --sans:"Hanken Grotesk",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+    --u1:#8C6E3A; --u2:#566B45; --u3:#9C5E32; --u4:#695A77; --u5:#446068;
+    --u6:#9E4A40; --u7:#4C6442; --u8:#855A30; --u9:#6F5564;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important}}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--sans);font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(820px 460px at 8% -6%, rgba(110,126,92,.10), transparent 62%);}
+
+  #bar{position:fixed;top:0;left:0;height:2.5px;width:0;z-index:60;background:var(--sage);transition:width .08s linear}
+
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
+    background:rgba(244,240,230,.86);border-bottom:1px solid var(--line)}
+  .navin{max-width:1000px;margin:0 auto;padding:11px 22px;display:flex;align-items:center;gap:14px}
+  .navlogo{font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:var(--sage-deep);text-transform:uppercase;font-weight:600;white-space:nowrap}
+  .navlogo b{color:var(--clay)}
+  .navlinks{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+  .navlinks::-webkit-scrollbar{display:none}
+  .navlinks a{font-family:var(--mono);font-size:12px;color:var(--muted);text-decoration:none;padding:5px 9px;border-radius:5px;white-space:nowrap;transition:.16s}
+  .navlinks a:hover{color:var(--ink);background:var(--paper-2)}
+
+  /* marquee — cappyworks signature */
+  .marquee{overflow:hidden;border-bottom:1px solid var(--line);background:var(--paper-2);white-space:nowrap}
+  .mtrack{display:inline-block;padding:9px 0;animation:scroll 34s linear infinite;font-family:var(--mono);
+    font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--sage-deep)}
+  .mtrack span{padding:0 14px}.mtrack span em{font-style:normal;color:var(--clay)}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+
+  header{padding:78px 0 50px;position:relative}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);margin:0 0 20px}
+  .eyebrow b{color:var(--clay);font-weight:600}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(46px,9.4vw,92px);line-height:.95;margin:0;letter-spacing:-.02em;font-variation-settings:"opsz" 120}
+  h1 em{font-style:italic;color:var(--sage);font-weight:500}
+  .lede{font-size:clamp(17px,2.3vw,20px);color:var(--muted);max-width:58ch;margin:28px 0 0}
+  .lede b{color:var(--ink);font-weight:600}
+
+  /* meta-label row — cappyworks signature */
+  .meta{display:flex;flex-wrap:wrap;gap:0;margin-top:40px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .meta div{flex:1;min-width:120px;padding:16px 18px 16px 0;border-right:1px solid var(--line-soft)}
+  .meta div:last-child{border-right:none}
+  .meta .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-soft);margin-bottom:6px}
+  .meta .v{font-family:var(--serif);font-size:22px;color:var(--ink);font-weight:500}
+  .meta .v em{font-style:italic;color:var(--sage)}
+
+  .legend{display:flex;flex-wrap:wrap;gap:9px;margin-top:30px}
+  .chip{font-family:var(--mono);font-size:11px;letter-spacing:.03em;padding:6px 11px;border-radius:999px;border:1px solid var(--line);color:var(--muted);display:inline-flex;align-items:center;gap:7px;background:var(--card)}
+  .chip i{width:9px;height:9px;border-radius:2px;display:inline-block}
+
+  .unit{padding:50px 0;border-top:1px solid var(--line)}
+  .ukick{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-soft);margin:0 0 14px}
+  .ukick b{color:var(--sage)}
+  .uhead{display:flex;align-items:flex-start;gap:17px}
+  .badge{flex:none;width:52px;height:52px;border-radius:12px;display:grid;place-items:center;
+    font-family:var(--serif);font-weight:600;font-size:23px;color:#FBF9F2;box-shadow:0 5px 16px rgba(35,37,31,.16)}
+  .uhead h2{font-family:var(--serif);font-weight:500;font-size:clamp(27px,4.6vw,40px);line-height:1.02;margin:1px 0 0;letter-spacing:-.01em}
+  .uhead h2 em{font-style:italic;color:var(--sage)}
+  .ubody{margin-top:24px}
+  .ubody>p{color:var(--ink-2);margin:0 0 18px}
+  .ubody>p b{color:var(--ink)}
+  h3.sub{font-family:var(--mono);font-weight:600;font-size:12px;letter-spacing:.1em;color:var(--sage-deep);text-transform:uppercase;margin:30px 0 12px}
+  .ubody ul{margin:0 0 18px;padding-left:0;list-style:none}
+  .ubody ul li{position:relative;padding-left:22px;margin:9px 0;color:var(--ink-2)}
+  .ubody ul li::before{content:"";position:absolute;left:3px;top:11px;width:6px;height:6px;border-radius:2px;background:var(--sage)}
+  .ubody ul li b{color:var(--ink)}
+
+  .formula{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--sage);border-radius:10px;padding:15px 18px;margin:15px 0;overflow-x:auto}
+  .flabel{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-deep);margin-bottom:9px;font-weight:600}
+  .feq{font-family:var(--mono);font-size:15.5px;color:var(--ink);line-height:1.95;white-space:nowrap}
+  .feq + .feq{margin-top:5px}
+  .fnote{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:10px;white-space:normal}
+  .frac{display:inline-flex;flex-direction:column;text-align:center;vertical-align:middle;margin:0 3px}
+  .frac span:first-child{border-bottom:1.5px solid var(--muted);padding:0 6px 2px}
+  .frac span:last-child{padding:2px 6px 0}
+
+  /* mnemonic — the signature box (sage) */
+  .mnem{background:var(--sage-tint);border:1px solid var(--sage-line);border-radius:12px;padding:15px 17px 15px 15px;margin:15px 0;display:flex;gap:12px;align-items:flex-start;position:relative;overflow:hidden}
+  .mnem::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--sage)}
+  .mbrain{flex:none;font-size:18px;line-height:1.35}
+  .mtag{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-deep);margin-bottom:5px;font-weight:600}
+  .mtxt p{margin:0;color:var(--ink-2);font-size:15.5px;line-height:1.55}
+  .mtxt b{color:var(--sage-deep);font-weight:700}
+
+  /* example — clay accent */
+  .ex{background:var(--clay-tint);border:1px solid var(--clay-line);border-radius:12px;padding:15px 17px;margin:15px 0}
+  .extag{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--clay);margin-bottom:8px;font-weight:600;display:flex;align-items:center;gap:7px}
+  .ex p{margin:0 0 8px;color:var(--ink-2);font-size:15.5px}.ex p:last-child{margin-bottom:0}
+  .ex b{color:var(--ink);font-weight:600}
+  .ex .work{font-family:var(--mono);font-size:13px;color:var(--ink-2);background:rgba(35,37,31,.05);border-radius:7px;padding:9px 12px;margin:8px 0;display:block;white-space:pre-wrap;line-height:1.7}
+
+  .tscroll{overflow-x:auto;margin:15px 0;border:1px solid var(--line);border-radius:10px}
+  table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px;background:var(--card)}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sage-deep);background:var(--paper-2);font-weight:600}
+  td{color:var(--ink-2)}td b{color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  td code,.mono{font-family:var(--mono);font-size:13px;color:var(--clay)}
+
+  footer{padding:48px 0 72px;border-top:1px solid var(--line);margin-top:18px}
+  footer .big{font-family:var(--serif);font-weight:500;font-size:clamp(22px,3.6vw,30px);margin:0 0 18px;letter-spacing:-.01em}
+  footer .big em{font-style:italic;color:var(--sage)}
+  footer p{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.03em;margin:6px 0}
+  footer p b{color:var(--clay)}
+
+  .js-anim .reveal{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
+  .js-anim .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<nav>
+  <div class="navin">
+    <span class="navlogo">Cappyworks · <b>STAT 2</b></span>
+    <div class="navlinks">
+      <a href="#u1">I</a><a href="#u2">II</a><a href="#u3">III</a><a href="#u4">IV</a>
+      <a href="#u5">V</a><a href="#u6">VI</a><a href="#u7">VII</a><a href="#u8">VIII</a><a href="#u9">IX</a><a href="#cheat">Cheat</a>
+    </div>
+  </div>
+</nav>
+
+<div class="marquee">
+  <div class="mtrack">
+    <span>Mean</span><span>—</span><span>Median</span><span>—</span><span>Mode</span><span>—</span><span><em>Variance</em></span><span>—</span><span>Sampling</span><span>—</span><span>CLT</span><span>—</span><span>Hypothesis</span><span>—</span><span>Regression</span><span>—</span><span><em>ANOVA</em></span><span>—</span>
+    <span>Mean</span><span>—</span><span>Median</span><span>—</span><span>Mode</span><span>—</span><span><em>Variance</em></span><span>—</span><span>Sampling</span><span>—</span><span>CLT</span><span>—</span><span>Hypothesis</span><span>—</span><span>Regression</span><span>—</span><span><em>ANOVA</em></span><span>—</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Applied Statistics — STAT 2 · <b>CvSU · BSIT</b></p>
+    <h1>The whole course,<br><em>in one sitting.</em></h1>
+    <p class="lede">Nine units, stripped to what matters. Every idea gets a <b>plain definition</b>, the <b>formula</b>, a <b>memory hook</b>, and an example a sixth-grader could follow. Obsessed with what's on the exam. Allergic to filler. The course funnels toward <b>hypothesis testing</b> (the engine) and <b>ANOVA</b> (the final boss) — pace yourself there.</p>
+
+    <div class="meta">
+      <div><div class="k">Units</div><div class="v"><em>Nine</em></div></div>
+      <div><div class="k">Contact hours</div><div class="v">54</div></div>
+      <div><div class="k">Major exams</div><div class="v">3</div></div>
+      <div><div class="k">Reference</div><div class="v">Walpole</div></div>
+    </div>
+
+    <div class="legend">
+      <span class="chip"><i style="background:var(--sage)"></i>Formula</span>
+      <span class="chip"><i style="background:var(--sage-deep)"></i>🧠 Mnemonic</span>
+      <span class="chip"><i style="background:var(--clay)"></i>Picture-this example</span>
+      <span class="chip"><i style="background:var(--u4)"></i>Color-coded units</span>
+    </div>
+  </header>
+
+  <!-- UNIT I -->
+  <section class="unit reveal" id="u1">
+    <p class="ukick">01 / <b>Foundations</b></p>
+    <div class="uhead"><div class="badge" style="background:var(--u1)">I</div>
+      <h2>Introduction to <em>Statistics</em></h2></div>
+    <div class="ubody">
+      <p><b>Statistics</b> is the science of collecting, organizing, analyzing, and interpreting data to make decisions under uncertainty. Two halves: <b>descriptive</b> (summarize what you have) and <b>inferential</b> (use a sample to make claims about a population).</p>
+
+      <h3 class="sub">The four words you must never mix up</h3>
+      <ul>
+        <li><b>Population</b> — the entire group you care about. <b>Sample</b> — the slice you actually measure.</li>
+        <li><b>Parameter</b> — a number describing the population (the truth, usually unknown). <b>Statistic</b> — a number from your sample (your estimate).</li>
+      </ul>
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
+        <p>Population = the whole <b>P</b>izza 🍕; Sample = one <b>S</b>lice. <b>P</b>arameter ↔ <b>P</b>opulation, <b>S</b>tatistic ↔ <b>S</b>ample. Greek letters (μ, σ) = the truth; Roman letters (x̄, s) = your guess.</p></div></div>
+
+      <h3 class="sub">Types of variables</h3>
+      <ul>
+        <li><b>Qualitative</b> (categorical): names/labels. <b>Quantitative</b> (numeric): amounts.</li>
+        <li><b>Discrete</b>: countable jumps (kids in a class). <b>Continuous</b>: any value on a scale (weight, time).</li>
+        <li><b>Levels of measurement</b>: Nominal → Ordinal → Interval → Ratio (low to high info).</li>
+      </ul>
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
+        <p>Levels = <b>NOIR</b> (Nominal, Ordinal, Interval, Ratio). <b>D</b>iscrete = <b>D</b>ots you count; <b>C</b>ontinuous = a <b>C</b>urve you measure.</p></div></div>
+
+      <h3 class="sub">Summation notation</h3>
+      <div class="formula"><div class="flabel">Sigma just means "add them all up"</div>
+        <div class="feq">Σx = x₁ + x₂ + x₃ + … + xₙ</div>
+        <div class="fnote">If x = {2, 4, 6}, then Σx = 12 and Σx² = 4 + 16 + 36 = 56. (Square first, then add.)</div></div>
+
+      <div class="ex"><div class="extag">📐 Picture this</div>
+        <p>You want the average height of <b>all</b> Grade-6 kids in the Philippines — the <b>population</b>, too many to measure. So you measure <b>100 kids</b> (your <b>sample</b>). The true average of every kid = <b>parameter</b>. Your 100-kid average = <b>statistic</b>. Statistics is the art of trusting the 100 to speak for the millions.</p></div>
+    </div>
+  </section>
+
+  <!-- UNIT II -->
+  <section class="unit reveal" id="u2">
+    <p class="ukick">02 / <b>Handling Data</b></p>
+    <div class="uhead"><div class="badge" style="background:var(--u2)">II</div>
+      <h2>Collection &amp; <em>Presentation</em> of Data</h2></div>
+    <div class="ubody">
+      <p>Garbage in, garbage out — how you collect data decides whether any of the later math means anything.</p>
+      <h3 class="sub">Ways to collect</h3>
+      <ul><li><b>Direct</b> (interview), <b>Indirect</b> (questionnaire), <b>Registration</b> (records), <b>Observation</b>, <b>Experiment</b>.</li></ul>
+      <h3 class="sub">Ways to present</h3>
+      <ul><li><b>Textual</b> = words in a paragraph. <b>Tabular</b> = rows &amp; columns. <b>Graphical</b> = charts (bar, pie, histogram).</li></ul>
+      <h3 class="sub">Frequency Distribution Table (FDT)</h3>
+      <p>Raw scores are noise. An FDT groups them into <b>classes</b> so a pattern appears.</p>
+      <div class="formula"><div class="flabel">Class width</div>
+        <div class="feq">Width = <span class="frac"><span>Range</span><span>Number of classes</span></span> &nbsp;,&nbsp; Range = Highest − Lowest</div>
+        <div class="fnote">Always round the width <b>up</b>. Rule of thumb: 5–15 classes.</div></div>
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
+        <p>Build an FDT in order: <b>R-C-W-T</b> — find the <b>R</b>ange, decide <b>C</b>lasses, get the <b>W</b>idth, then <b>T</b>ally.</p></div></div>
+      <div class="ex"><div class="extag">📐 Picture this</div>
+        <p>Thirty kids took a test. Listing all 30 scores is a wall of numbers. Instead group them: <b>0–10 → 2, 11–20 → 5, 21–30 → 9…</b> Now you can see the class bunches up in the middle. Draw bars over those groups and you've got a histogram — same data, readable at a glance.</p></div>
+    </div>
+  </section>
+
+  <!-- UNIT III -->
+  <section class="unit reveal" id="u3">
+    <p class="ukick">03 / <b>The Center</b></p>
+    <div class="uhead"><div class="badge" style="background:var(--u3)">III</div>
+      <h2>Central Tendency &amp; <em>Location</em></h2></div>
+    <div class="ubody">
+      <p>One number to represent the "center." Three flavors — they agree when data is symmetric, and <b>disagree when it's skewed</b> (the interesting case).</p>
+      <div class="formula"><div class="flabel">The big three</div>
+        <div class="feq">Mean:  x̄ = <span class="frac"><span>Σx</span><span>n</span></span></div>
+        <div class="feq">Median:  the middle value once data is sorted</div>
+        <div class="feq">Mode:  the value that appears most often</div>
+        <div class="fnote">Median position = (n + 1) ÷ 2 → the <b>seat number</b>, not the score sitting in it.</div></div>
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
+        <p>All start with <b>M</b>: <b>Mean</b> = add &amp; divide · <b>Median</b> = the <b>Middle</b> (sort first!) · <b>Mode</b> = the <b>Most</b>. And: the Mean is a people-pleaser — one billionaire drags it up. The Median doesn't care.</p></div></div>
+      <h3 class="sub">Measures of location ("non-central")</h3>
+      <ul>
+        <li><b>Quartiles</b> (Q1, Q2, Q3) cut sorted data into 4 equal parts — Q2 <em>is</em> the median.</li>
+        <li><b>Deciles</b> = 10 parts, <b>Percentiles</b> = 100 parts. Same idea, finer cuts.</li>
+      </ul>
+      <div class="ex"><div class="extag">📐 Picture this</div>
+        <p>Five kids' scores: <b>3, 5, 5, 7, 10</b>.</p>
+        <span class="work">Mean   = (3+5+5+7+10) ÷ 5 = 30 ÷ 5 = 6
+Median = middle of sorted list      = 5
+Mode   = appears most often          = 5</span>
+        <p>The "average" student is ~5–6. If a sixth kid scored <b>100</b>, the mean jumps to ~21 (misleading!) but the median barely moves to 6. <b>That's when you report the median.</b></p></div>
+    </div>
+  </section>
+
+  <!-- UNIT IV -->
+  <section class="unit reveal" id="u4">
+    <p class="ukick">04 / <b>The Spread</b></p>
+    <div class="uhead"><div class="badge" style="background:var(--u4)">IV</div>
+      <h2>Dispersion &amp; <em>Skewness</em></h2></div>
+    <div class="ubody">
+      <p>The center tells you <em>where</em>; dispersion tells you <em>how spread out</em>. Two datasets can share a mean and tell completely different stories.</p>
+      <div class="formula"><div class="flabel">Spread, from lazy to powerful</div>
+        <div class="feq">Range = Highest − Lowest</div>
+        <div class="feq">Sample variance:  s² = <span class="frac"><span>Σx² − (Σx)² / n</span><span>n − 1</span></span></div>
+        <div class="feq">Standard deviation:  s = √s²</div>
+        <div class="feq">Coefficient of variation:  CV = ( s ÷ x̄ ) × 100%</div>
+        <div class="fnote">Use the computational form (Σx², (Σx)²) — far fewer keystrokes. Carry decimals; round only at the end.</div></div>
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
+        <p><b>Variance Vexes</b> (weird squared units), <b>SD Saves it</b> (square-root → real units). Divide by <b>n−1</b> because <b>S</b>amples are <b>S</b>hy by one. <b>CV</b> lets you <b>C</b>ompare <b>V</b>ariability across different things (₱ vs kg).</p></div></div>
+      <h3 class="sub">Skewness — the lopsidedness</h3>
+      <ul>
+        <li>Long tail on the <b>right</b> → <b>positive / right-skew</b> (few high outliers).</li>
+        <li>Long tail on the <b>left</b> → <b>negative / left-skew</b> (few low outliers).</li>
+        <li>Symmetric → skew ≈ 0; mean ≈ median.</li>
+      </ul>
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
+        <p><b>The tail tells the tale.</b> Skew is named after the long tail's direction — and the <b>mean chases the tail</b> (pulled toward the outliers).</p></div></div>
+      <div class="ex"><div class="extag">📐 Picture this</div>
+        <p>Two classes both <b>average 80</b>. Class A: everyone 78–82 (tight, tiny SD — average is trustworthy). Class B: 50 to 100 (huge SD — half lost, half bored). <b>Same mean, opposite reality.</b> That's why SD is never optional.</p></div>
+    </div>
+  </section>
+
+  <!-- UNIT V -->
+  <section class="unit reveal" id="u5">
+    <p class="ukick">05 / <b>The Keystone</b></p>
+    <div class="uhead"><div class="badge" style="background:var(--u5)">V</div>
+      <h2>Sampling Distribution &amp; <em>CLT</em></h2></div>
+    <div class="ubody">
+      <p>The <b>keystone unit</b>. Understand <em>why</em> sample averages behave predictably and every test in Units VI–IX stops being magic.</p>
+      <h3 class="sub">Why &amp; how we sample</h3>
+      <ul>
+        <li><b>Why:</b> cheaper, faster, and sometimes the test destroys the item (you can't crash-test every car).</li>
+        <li><b>Random</b> (pure lottery), <b>Systematic</b> (every kth one), <b>Stratified</b> (split into layers, sample each), <b>Cluster</b> (grab whole groups).</li>
+      </ul>
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
+        <p><b>Really Smart Stats Cluster</b> → <b>R</b>andom, <b>S</b>ystematic, <b>S</b>tratified, <b>C</b>luster. Stratified = slice into <b>LAYERS</b> then sample each. Cluster = pick whole <b>GROUPS</b> (entire classrooms).</p></div></div>
+      <h3 class="sub">Standard error &amp; the Central Limit Theorem</h3>
+      <div class="formula"><div class="flabel">The two ideas that run everything</div>
+        <div class="feq">Standard error:  SE = σ ÷ √n</div>
+        <div class="feq">CLT:  for n ≥ 30, the distribution of x̄ is ≈ Normal — <em>whatever shape the population has</em></div>
+        <div class="fnote">SE is the SD of the sample mean. Bigger n → smaller SE → a steadier, more reliable average.</div></div>
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
+        <p><b>The average of averages goes bell-shaped.</b> <b>n ≥ 30 is the magic number.</b> SE shrinks as n grows.</p></div></div>
+      <div class="ex"><div class="extag">📐 Picture this</div>
+        <p>Roll <b>one</b> die: any number 1–6, totally flat, no bell. Now roll <b>five</b> dice and write the <b>average</b>, hundreds of times. Those averages pile up around 3.5 in a <b>bell shape</b> — all-1s or all-6s are rare. The original was flat, yet the averages went bell-curve. <b>That's the CLT</b>, and it's why a sample mean is trustworthy.</p></div>
+    </div>
+  </section>
+
+  <!-- UNIT VI -->
+  <section class="unit reveal" id="u6">
+    <p class="ukick">06 / <b>The Engine</b></p>
+    <div class="uhead"><div class="badge" style="background:var(--u6)">VI</div>
+      <h2>Test of <em>Hypothesis</em></h2></div>
+    <div class="ubody">
+      <p>A courtroom for data. Assume "nothing's going on," then check whether the evidence is strong enough to overturn that assumption.</p>
+      <h3 class="sub">The two hypotheses</h3>
+      <ul>
+        <li><b>H₀ (null)</b> — the boring status quo: "no difference / no effect." <b>Always wears the = sign.</b></li>
+        <li><b>H₁ (alternative)</b> — the new claim you're trying to prove: "there IS a difference."</li>
+      </ul>
+      <h3 class="sub">The 5 steps (every test, same dance)</h3>
+      <div class="formula"><div class="flabel">Procedure</div>
+        <div class="feq">1. State H₀ &amp; H₁   2. Pick α (usually 0.05)   3. Compute the test statistic</div>
+        <div class="feq">4. Find the critical value from the table   5. Decide &amp; conclude in plain words</div></div>
+      <div class="formula"><div class="flabel">The two workhorse statistics</div>
+        <div class="feq">z (σ known / large n):  z = <span class="frac"><span>x̄ − μ</span><span>σ / √n</span></span></div>
+        <div class="feq">t (σ unknown / small n):  t = <span class="frac"><span>x̄ − μ</span><span>s / √n</span></span> ,  df = n − 1</div>
+        <div class="fnote">By hand you compare against a <b>critical value</b>, not an exact p-value. Reject H₀ when |statistic| &gt; critical (it landed in the tail).</div></div>
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
+        <p>Steps = <b>H-A-T-C-D</b> (Hypotheses, Alpha, Test-stat, Compare, Decide). <b>p Low → null must Go; p High → null gets by.</b> Tails: <b>≠</b> → two-tailed, <b>&lt;</b> or <b>&gt;</b> → one-tailed.</p></div></div>
+      <h3 class="sub">Two ways to be wrong</h3>
+      <ul>
+        <li><b>Type I (α):</b> reject a true H₀ — a false alarm.</li>
+        <li><b>Type II (β):</b> fail to reject a false H₀ — you missed a real effect.</li>
+      </ul>
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
+        <p><b>Type I = cry wolf</b> when there's none (false alarm). <b>Type II = miss the wolf</b> that's really there. And: <b>statistically significant ≠ important</b> — a tiny effect looks "significant" if n is huge.</p></div></div>
+      <div class="ex"><div class="extag">📐 Picture this</div>
+        <p>A candy company swears each bag holds <b>50 pieces</b> → <b>H₀: μ = 50</b>. You suspect shorting → <b>H₁: μ &lt; 50</b>. You count 30 bags; average is <b>47</b>. The question: is 47 "far enough" below 50 to <b>prove</b> cheating, or just random bag luck? Deep in the tail → reject H₀ → guilty. <b>Type I</b> = accuse an honest company. <b>Type II</b> = let real cheaters walk.</p></div>
+    </div>
+  </section>
+
+  <!-- UNIT VII -->
+  <section class="unit reveal" id="u7">
+    <p class="ukick">07 / <b>The Line</b></p>
+    <div class="uhead"><div class="badge" style="background:var(--u7)">VII</div>
+      <h2>Correlation &amp; <em>Regression</em></h2></div>
+    <div class="ubody">
+      <p><b>Correlation</b> measures how tightly two things move together. <b>Regression</b> draws the best straight line so you can <b>predict</b>.</p>
+      <div class="formula"><div class="flabel">Correlation coefficient r (lives between −1 and +1)</div>
+        <div class="feq">r = <span class="frac"><span>nΣxy − ΣxΣy</span><span>√[ nΣx² − (Σx)² ] [ nΣy² − (Σy)² ]</span></span></div>
+        <div class="fnote">+1 = perfect upward line · 0 = random cloud · −1 = perfect downward line.</div></div>
+      <div class="formula"><div class="flabel">Regression line  ŷ = a + bx</div>
+        <div class="feq">slope:  b = <span class="frac"><span>nΣxy − ΣxΣy</span><span>nΣx² − (Σx)²</span></span></div>
+        <div class="feq">intercept:  a = ȳ − b·x̄</div>
+        <div class="feq">coefficient of determination:  r² = (r)²</div>
+        <div class="fnote">Your Casio's regression mode gives a, b and r directly — use the formulas as a sanity check.</div></div>
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
+        <p><b>ŷ = a + bx</b> is just <b>y = mx + b in a lab coat</b>. <b>b</b> is the <b>boost</b> — how much y jumps per +1 of x. <b>Square r to get the share</b> of variation explained (r = 0.9 → r² = 0.81 → 81%).</p></div></div>
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic — the trap</div>
+        <p><b>Correlation ≠ causation.</b> Ice-cream sales and drownings rise together — but the <b>SUN</b> causes both, not each other. Always hunt for the hidden third factor.</p></div></div>
+      <div class="ex"><div class="extag">📐 Picture this</div>
+        <p>Plot <b>hours studied</b> (x) against <b>test score</b> (y). The dots drift up-right — more study, higher score: <b>positive correlation</b>. Draw the single best straight line (<b>regression</b>) and predict: "study 5 hours → expect ~85." The <b>causation trap</b>: kids with bigger feet read better — feet don't cause reading, <b>age</b> does (older kids have both).</p></div>
+    </div>
+  </section>
+
+  <!-- UNIT VIII -->
+  <section class="unit reveal" id="u8">
+    <p class="ukick">08 / <b>The Setup</b></p>
+    <div class="uhead"><div class="badge" style="background:var(--u8)">VIII</div>
+      <h2>Elements of <em>Experimentation</em></h2></div>
+    <div class="ubody">
+      <p>Before you can analyze an experiment (Unit IX), you have to <b>design</b> it so the results actually mean something.</p>
+      <h3 class="sub">The vocabulary</h3>
+      <ul>
+        <li><b>Treatment</b> — the thing you're testing (the "what-if").</li>
+        <li><b>Experimental unit</b> — what receives the treatment (the "who-gets-it").</li>
+        <li><b>Response variable</b> — what you measure afterward (the "what-happens").</li>
+        <li><b>Factor</b> — a variable you deliberately change; its settings are <b>levels</b>.</li>
+      </ul>
+      <h3 class="sub">Fisher's three principles (the heart of design)</h3>
+      <ul>
+        <li><b>Randomization</b> — assign treatments by chance, so no group gets an unfair edge.</li>
+        <li><b>Replication</b> — repeat each treatment many times, so one fluke can't fool you.</li>
+        <li><b>Local control / Blocking</b> — group similar units together before comparing, to cancel nuisance differences.</li>
+      </ul>
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
+        <p><b>Randomize to be fair, Replicate to be sure, Block to be smart.</b> Roles: <b>Treatment</b> = the WHAT-IF · <b>Unit</b> = WHO-GETS-IT · <b>Response</b> = WHAT-HAPPENS.</p></div></div>
+      <div class="ex"><div class="extag">📐 Picture this</div>
+        <p>Which fertilizer grows the tallest plants? <b>Treatments</b> = fertilizers A, B, C. <b>Units</b> = the pots. <b>Response</b> = height. <b>Replication</b>: many pots per fertilizer (one could be lucky). <b>Randomization</b>: don't put all of A on the sunny sill — assign spots by chance. <b>Blocking</b>: group pots by sunlight first, then compare fertilizers <em>within</em> each sun-group. Now it's fair.</p></div>
+    </div>
+  </section>
+
+  <!-- UNIT IX -->
+  <section class="unit reveal" id="u9">
+    <p class="ukick">09 / <b>The Final Boss</b></p>
+    <div class="uhead"><div class="badge" style="background:var(--u9)">IX</div>
+      <h2>Analysis of Variance <em>(ANOVA)</em></h2></div>
+    <div class="ubody">
+      <p>The biggest block in your syllabus and almost certainly your <b>entire Final</b>. Good news: every design (one-way, two-way, RCBD, factorial, split-plot) is the <b>same template</b> with the Sum of Squares sliced differently.</p>
+      <h3 class="sub">What ANOVA does</h3>
+      <p>Comparing 3+ group means with many t-tests is messy and error-prone. <b>ANOVA compares them all at once</b> by asking: <em>is the difference</em> BETWEEN <em>the groups bigger than the random wobble</em> WITHIN <em>each group?</em></p>
+      <div class="formula"><div class="flabel">The ANOVA pipeline — memorize this skeleton, not five procedures</div>
+        <div class="feq">SS_total = SS_between (treatment) + SS_within (error)</div>
+        <div class="feq">MS = SS ÷ df</div>
+        <div class="feq">F = MS_between ÷ MS_within</div>
+        <div class="fnote">df: treatment = k − 1 · error = N − k · total = N − 1  (k = #groups, N = total obs). The F-table needs <b>two</b> df — numerator AND denominator — plus α.</div></div>
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
+        <p>The pipeline is <b>SS → df → MS → F</b>. Logic: <b>Between bigger than Within → big F → groups really differ</b> (reject H₀). One factor = <b>one-way</b>; two factors (and do they team up?) = <b>two-way</b>.</p></div></div>
+      <h3 class="sub">Interaction (the two-way twist)</h3>
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
+        <p><b>Interaction = "it depends."</b> Coffee helps you focus — but coffee + no sleep = jitters. The <b>combo</b> matters, not just each factor alone.</p></div></div>
+      <div class="ex"><div class="extag">📐 Picture this</div>
+        <p>Three brands of plant food, several pots each. A averages 30 cm, B 32, C 31. Are they <b>really</b> different, or normal plant-to-plant variation? ANOVA stacks the <b>between-brand</b> gap against the <b>within-brand</b> wobble:</p>
+        <span class="work">Brands differ a lot, plants inside each barely vary
+   → between ≫ within → BIG F → brands genuinely differ ✓
+
+Brands differ a little, plants inside each vary wildly
+   → between ≈ within → small F → it's just noise ✗</span>
+        <p>One F-value, one verdict, no messy pile of t-tests.</p></div>
+    </div>
+  </section>
+
+  <!-- CHEAT -->
+  <section class="unit reveal" id="cheat">
+    <p class="ukick">★ / <b>Exam Day</b></p>
+    <div class="uhead"><div class="badge" style="background:var(--sage)">★</div>
+      <h2>Exam <em>Cheat Sheet</em></h2></div>
+    <div class="ubody">
+      <h3 class="sub">1 · Which test do I use?</h3>
+      <div class="tscroll"><table>
+        <tr><th>Your goal</th><th>Data type</th><th>Test</th><th>Table</th></tr>
+        <tr><td>Compare 1 mean to a target number</td><td>numeric</td><td><b>z</b> (σ known / large n) or <b>t</b> (σ unknown / small n)</td><td><code>z / t</code></td></tr>
+        <tr><td>Compare 2 group means</td><td>numeric, 2 groups</td><td><b>2-sample t</b></td><td><code>t</code></td></tr>
+        <tr><td>Compare 3+ group means</td><td>numeric, 3+ groups</td><td><b>ANOVA (F)</b></td><td><code>F</code></td></tr>
+        <tr><td>Test one proportion</td><td>yes / no</td><td><b>z</b> for proportion</td><td><code>z</code></td></tr>
+        <tr><td>Compare two proportions</td><td>yes / no, 2 groups</td><td><b>z</b> for two proportions</td><td><code>z</code></td></tr>
+        <tr><td>Are two categories related?</td><td>categorical</td><td><b>Chi-square</b> (independence)</td><td><code>χ²</code></td></tr>
+        <tr><td>Relationship between two numerics</td><td>numeric pairs</td><td><b>correlation / regression</b></td><td><code>t</code></td></tr>
+      </table></div>
+
+      <h3 class="sub">2 · Master formula list</h3>
+      <div class="tscroll"><table>
+        <tr><th>Quantity</th><th>Formula</th><th>Note</th></tr>
+        <tr><td>Mean</td><td><code>x̄ = Σx / n</code></td><td>—</td></tr>
+        <tr><td>Median position</td><td><code>(n + 1) / 2</code></td><td>seat, not score</td></tr>
+        <tr><td>Sample variance</td><td><code>s² = [Σx² − (Σx)²/n] / (n−1)</code></td><td>computational form</td></tr>
+        <tr><td>Standard deviation</td><td><code>s = √s²</code></td><td>real units</td></tr>
+        <tr><td>Coeff. of variation</td><td><code>CV = (s / x̄) × 100%</code></td><td>compare across things</td></tr>
+        <tr><td>Standard error</td><td><code>SE = σ / √n</code></td><td>SD of the mean</td></tr>
+        <tr><td>z-score</td><td><code>z = (x − μ) / σ</code></td><td>standardize a value</td></tr>
+        <tr><td>One-sample z</td><td><code>z = (x̄ − μ) / (σ/√n)</code></td><td>σ known / large n</td></tr>
+        <tr><td>One-sample t</td><td><code>t = (x̄ − μ) / (s/√n)</code></td><td>df = n − 1</td></tr>
+        <tr><td>Correlation r</td><td><code>[nΣxy − ΣxΣy] / √([nΣx²−(Σx)²][nΣy²−(Σy)²])</code></td><td>−1 to +1</td></tr>
+        <tr><td>Regression slope</td><td><code>b = [nΣxy − ΣxΣy] / [nΣx²−(Σx)²]</code></td><td>a = ȳ − bx̄</td></tr>
+        <tr><td>Chi-square</td><td><code>χ² = Σ[(O − E)² / E]</code></td><td>O = observed, E = expected</td></tr>
+        <tr><td>ANOVA F</td><td><code>F = MS_between / MS_within</code></td><td>MS = SS / df</td></tr>
+      </table></div>
+
+      <h3 class="sub">3 · Five mistakes that cost points (no-PC edition)</h3>
+      <ul>
+        <li><b>Wrong degrees of freedom</b> → wrong critical value → wrong verdict. Memorize the df rule per test.</li>
+        <li><b>One-tailed vs two-tailed</b> changes which column you read in the table.</li>
+        <li><b>Rounding mid-calculation</b> — carry 4+ decimals, round only the final answer.</li>
+        <li><b>Mixing Greek &amp; Roman</b> — μ, σ describe populations; x̄, s describe samples.</li>
+        <li><b>Reading the F-table with one df</b> — it always needs two (numerator + denominator).</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p class="big">Built for the exam. <em>Allergic to average.</em></p>
+    <p>STAT 2 — Applied Statistics · Field Reviewer · aligned to the Walpole / Wegner outline</p>
+    <p>Study order → lock Portfolio + Attendance (40%) · Prelim: I–IV · Midterm: V–VII · Final: VIII–IX</p>
+    <p>© 2026 <b>Cappyworks</b>. Engineered in Cavite.</p>
+  </footer>
+</div>
+
+<script>
+  var bar=document.getElementById('bar');
+  function prog(){var h=document.documentElement;bar.style.width=((h.scrollTop)/(h.scrollHeight-h.clientHeight)*100)+'%';}
+  window.addEventListener('scroll',prog,{passive:true});window.addEventListener('resize',prog);prog();
+  if(!window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+    document.documentElement.classList.add('js-anim');
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  }
+</script>
+</body>
+</html>
