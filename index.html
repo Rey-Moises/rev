@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STAT 2 — Applied Statistics · Cappyworks Field Reviewer</title>
+<title>Applied Statistics — A Study Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -116,6 +116,23 @@
   tr:last-child td{border-bottom:none}
   td code,.mono{font-family:var(--mono);font-size:13px;color:var(--clay)}
 
+  /* references */
+  .reflist{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+  @media(max-width:680px){.reflist{grid-template-columns:1fr}}
+  .refitem{display:block;text-decoration:none;background:var(--card);border:1px solid var(--line);
+    border-left:3px solid var(--clay);border-radius:10px;padding:15px 16px;transition:transform .16s ease,box-shadow .16s ease,border-color .16s}
+  .refitem:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(35,37,31,.10);border-left-color:var(--sage)}
+  .rname{font-family:var(--serif);font-weight:600;font-size:17px;color:var(--ink);line-height:1.18;letter-spacing:-.01em}
+  .rwho{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-soft);margin:5px 0 8px}
+  .rfor{font-size:13.5px;color:var(--ink-2);line-height:1.5;margin-bottom:9px}
+  .rfor b{color:var(--ink)}
+  .rurl{font-family:var(--mono);font-size:11.5px;color:var(--sage-deep);letter-spacing:.01em;word-break:break-word}
+  .rurl::before{content:"\21B3  ";color:var(--clay)}
+  .fnoteblock{font-size:14px;color:var(--ink-2);background:var(--sage-tint);border:1px solid var(--sage-line);
+    border-radius:10px;padding:14px 16px;margin-top:18px;line-height:1.55}
+  .fnoteblock b{color:var(--sage-deep)}.fnoteblock em{font-style:italic;color:var(--sage-deep)}
+  .fnoteblock .t{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);font-weight:600;display:block;margin-bottom:5px}
+
   footer{padding:48px 0 72px;border-top:1px solid var(--line);margin-top:18px}
   footer .big{font-family:var(--serif);font-weight:500;font-size:clamp(22px,3.6vw,30px);margin:0 0 18px;letter-spacing:-.01em}
   footer .big em{font-style:italic;color:var(--sage)}
@@ -131,10 +148,10 @@
 
 <nav>
   <div class="navin">
-    <span class="navlogo">Cappyworks · <b>STAT 2</b></span>
+    <span class="navlogo">Applied <b>Statistics</b></span>
     <div class="navlinks">
       <a href="#u1">I</a><a href="#u2">II</a><a href="#u3">III</a><a href="#u4">IV</a>
-      <a href="#u5">V</a><a href="#u6">VI</a><a href="#u7">VII</a><a href="#u8">VIII</a><a href="#u9">IX</a><a href="#cheat">Cheat</a>
+      <a href="#u5">V</a><a href="#u6">VI</a><a href="#u7">VII</a><a href="#u8">VIII</a><a href="#u9">IX</a><a href="#cheat">Cheat</a><a href="#refs">Sources</a>
     </div>
   </div>
 </nav>
@@ -148,9 +165,9 @@
 
 <div class="wrap">
   <header>
-    <p class="eyebrow">Applied Statistics — STAT 2 · <b>CvSU · BSIT</b></p>
-    <h1>The whole course,<br><em>in one sitting.</em></h1>
-    <p class="lede">Nine units, stripped to what matters. Every idea gets a <b>plain definition</b>, the <b>formula</b>, a <b>memory hook</b>, and an example that everyone could follow. Obsessed with what's on the exam. Allergic to filler. The course funnels toward <b>hypothesis testing</b> (the engine) and <b>ANOVA</b> (the final boss) — pace yourself there.</p>
+    <p class="eyebrow">Applied Statistics · <b>From Data to ANOVA</b></p>
+    <h1>The whole subject,<br><em>in one sitting.</em></h1>
+    <p class="lede">Nine units, stripped to what matters. Every idea gets a <b>plain definition</b>, the <b>formula</b>, a <b>memory hook</b>, and an example simple enough for a beginner. The aim is understanding, not memorising. The subject builds toward <b>hypothesis testing</b> (the engine) and <b>ANOVA</b> (the final boss) — so it's worth pacing yourself there.</p>
 
     <div class="meta">
       <div><div class="k">Units</div><div class="v"><em>Nine</em></div></div>
@@ -295,6 +312,22 @@ Mode   = appears most often          = 5</span>
       </ul>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p><b>Really Smart Stats Cluster</b> → <b>R</b>andom, <b>S</b>ystematic, <b>S</b>tratified, <b>C</b>luster. Stratified = slice into <b>LAYERS</b> then sample each. Cluster = pick whole <b>GROUPS</b> (entire classrooms).</p></div></div>
+      <h3 class="sub">How big a sample? — Slovin's Formula</h3>
+      <p>A staple of research methods for deciding how many people to survey. When the population size <b>N</b> is known but little is known about its behaviour, Slovin's formula gives the <b>minimum sample size</b> for a chosen margin of error.</p>
+      <div class="formula"><div class="flabel">Slovin's sample-size formula</div>
+        <div class="feq">n = <span class="frac"><span>N</span><span>1 + N·e²</span></span></div>
+        <div class="fnote">n = sample size · N = population size · e = margin of error as a decimal (5% → 0.05). Round to a whole number. Tighten e and the required n grows.</div></div>
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
+        <p><b>S</b>lovin's <b>S</b>izes the <b>S</b>ample: <b>N on top, (1 + N·e²) on the bottom.</b> Smaller error (e↓) → bigger sample (n↑). It's a quick heuristic — it ignores how spread-out the population is, so it's for fast estimates, not high-stakes precision.</p></div></div>
+      <div class="ex"><div class="extag">📐 Picture this</div>
+        <p>A study covers all <b>5,000</b> students in a college, and you'll accept a <b>5%</b> margin of error.</p>
+        <span class="work">N = 5000 ,  e = 0.05
+n = 5000 / (1 + 5000 × 0.05²)
+  = 5000 / (1 + 5000 × 0.0025)
+  = 5000 / (1 + 12.5)
+  = 5000 / 13.5
+  = 370.4   →   survey 370 students</span>
+        <p>You don't need all 5,000 — <b>370</b> well-chosen students represent them within 5%.</p></div>
       <h3 class="sub">Standard error &amp; the Central Limit Theorem</h3>
       <div class="formula"><div class="flabel">The two ideas that run everything</div>
         <div class="feq">Standard error:  SE = σ ÷ √n</div>
@@ -355,7 +388,7 @@ Mode   = appears most often          = 5</span>
         <div class="feq">slope:  b = <span class="frac"><span>nΣxy − ΣxΣy</span><span>nΣx² − (Σx)²</span></span></div>
         <div class="feq">intercept:  a = ȳ − b·x̄</div>
         <div class="feq">coefficient of determination:  r² = (r)²</div>
-        <div class="fnote">Your Casio's regression mode gives a, b and r directly — use the formulas as a sanity check.</div></div>
+        <div class="fnote">A scientific calculator's regression mode returns a, b and r directly — use the formulas as a sanity check.</div></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p><b>ŷ = a + bx</b> is just <b>y = mx + b in a lab coat</b>. <b>b</b> is the <b>boost</b> — how much y jumps per +1 of x. <b>Square r to get the share</b> of variation explained (r = 0.9 → r² = 0.81 → 81%).</p></div></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic — the trap</div>
@@ -398,7 +431,7 @@ Mode   = appears most often          = 5</span>
     <div class="uhead"><div class="badge" style="background:var(--u9)">IX</div>
       <h2>Analysis of Variance <em>(ANOVA)</em></h2></div>
     <div class="ubody">
-      <p>The biggest block in your syllabus and almost certainly your <b>entire Final</b>. Good news: every design (one-way, two-way, RCBD, factorial, split-plot) is the <b>same template</b> with the Sum of Squares sliced differently.</p>
+      <p>The largest topic in most applied-statistics courses, and a frequent centrepiece of final exams. The good news: every design (one-way, two-way, RCBD, factorial, split-plot) is the <b>same template</b> with the Sum of Squares sliced differently.</p>
       <h3 class="sub">What ANOVA does</h3>
       <p>Comparing 3+ group means with many t-tests is messy and error-prone. <b>ANOVA compares them all at once</b> by asking: <em>is the difference</em> BETWEEN <em>the groups bigger than the random wobble</em> WITHIN <em>each group?</em></p>
       <div class="formula"><div class="flabel">The ANOVA pipeline — memorize this skeleton, not five procedures</div>
@@ -430,7 +463,7 @@ Brands differ a little, plants inside each vary wildly
     <div class="ubody">
       <h3 class="sub">1 · Which test do I use?</h3>
       <div class="tscroll"><table>
-        <tr><th>Your goal</th><th>Data type</th><th>Test</th><th>Table</th></tr>
+        <tr><th>Goal</th><th>Data type</th><th>Test</th><th>Table</th></tr>
         <tr><td>Compare 1 mean to a target number</td><td>numeric</td><td><b>z</b> (σ known / large n) or <b>t</b> (σ unknown / small n)</td><td><code>z / t</code></td></tr>
         <tr><td>Compare 2 group means</td><td>numeric, 2 groups</td><td><b>2-sample t</b></td><td><code>t</code></td></tr>
         <tr><td>Compare 3+ group means</td><td>numeric, 3+ groups</td><td><b>ANOVA (F)</b></td><td><code>F</code></td></tr>
@@ -448,6 +481,7 @@ Brands differ a little, plants inside each vary wildly
         <tr><td>Sample variance</td><td><code>s² = [Σx² − (Σx)²/n] / (n−1)</code></td><td>computational form</td></tr>
         <tr><td>Standard deviation</td><td><code>s = √s²</code></td><td>real units</td></tr>
         <tr><td>Coeff. of variation</td><td><code>CV = (s / x̄) × 100%</code></td><td>compare across things</td></tr>
+        <tr><td>Slovin's sample size</td><td><code>n = N / (1 + N·e²)</code></td><td>e = margin of error</td></tr>
         <tr><td>Standard error</td><td><code>SE = σ / √n</code></td><td>SD of the mean</td></tr>
         <tr><td>z-score</td><td><code>z = (x − μ) / σ</code></td><td>standardize a value</td></tr>
         <tr><td>One-sample z</td><td><code>z = (x̄ − μ) / (σ/√n)</code></td><td>σ known / large n</td></tr>
@@ -469,11 +503,91 @@ Brands differ a little, plants inside each vary wildly
     </div>
   </section>
 
+  <!-- REFERENCES -->
+  <section class="unit reveal" id="refs">
+    <p class="ukick">10 / <b>Go Deeper</b></p>
+    <div class="uhead"><div class="badge" style="background:var(--clay)">§</div>
+      <h2>Sources &amp; <em>Further Reading</em></h2></div>
+    <div class="ubody">
+      <p>This reviewer is the compression — the 20% that earns 80% of the marks. Below are the authorities it's built on, each one <b>free</b>, so you can blow any unit back up to full size when you need the derivation, more worked examples, or practice sets. Built to stay factual: this is where to verify.</p>
+
+      <h3 class="sub">1 · Free open references — zero-cost, exam-grade</h3>
+      <div class="reflist">
+        <a class="refitem" href="https://www.itl.nist.gov/div898/handbook/" target="_blank" rel="noopener">
+          <div class="rname">NIST/SEMATECH e-Handbook of Statistical Methods</div>
+          <div class="rwho">U.S. National Institute of Standards &amp; Technology</div>
+          <div class="rfor">The engineering-grade reference, written for scientists and engineers. <b>Best for Units IV–IX:</b> exploratory data analysis, hypothesis testing, design of experiments, ANOVA. The rigorous backbone of the set.</div>
+          <div class="rurl">itl.nist.gov/div898/handbook</div>
+        </a>
+        <a class="refitem" href="https://openstax.org/details/books/introductory-statistics-2e" target="_blank" rel="noopener">
+          <div class="rname">OpenStax — Introductory Statistics 2e</div>
+          <div class="rwho">Illowsky &amp; Dean · peer-reviewed · CC-licensed</div>
+          <div class="rfor">A complete one-semester college text covering <b>every unit I–IX</b> with step-by-step examples and thousands of exercises. The single best end-to-end companion to this card.</div>
+          <div class="rurl">openstax.org/details/books/introductory-statistics-2e</div>
+        </a>
+        <a class="refitem" href="https://www.openintro.org/book/os/" target="_blank" rel="noopener">
+          <div class="rname">OpenIntro Statistics (4e)</div>
+          <div class="rwho">Diez, Çetinkaya-Rundel &amp; Barr · free PDF</div>
+          <div class="rfor">A rigorous applied intro used "from community colleges to the Ivy League." <b>Strongest on Units V–VII:</b> inference, the CLT, and linear regression, with clean real-data cases.</div>
+          <div class="rurl">openintro.org/os</div>
+        </a>
+        <a class="refitem" href="https://online.stat.psu.edu/stat500/" target="_blank" rel="noopener">
+          <div class="rname">Penn State — STAT 500 / 501 / 502</div>
+          <div class="rwho">Penn State Dept. of Statistics · open notes</div>
+          <div class="rfor">University lecture notes, free under Creative Commons. <b>500</b> for inference (Unit VI), <b>501</b> for regression (VII), <b>502</b> for ANOVA &amp; design of experiments (VIII–IX) — the toughest material to master.</div>
+          <div class="rurl">online.stat.psu.edu/stat500</div>
+        </a>
+        <a class="refitem" href="https://www.khanacademy.org/math/statistics-probability" target="_blank" rel="noopener">
+          <div class="rname">Khan Academy — Statistics &amp; Probability</div>
+          <div class="rwho">325 free videos · ~38 hrs</div>
+          <div class="rfor">The first-pass intuition layer. When a concept won't click from text, watch the 5-minute video — including the full ANOVA F-statistic walkthrough. <b>Best for the initial "oh, that's it" on any unit.</b></div>
+          <div class="rurl">khanacademy.org/math/statistics-probability</div>
+        </a>
+        <a class="refitem" href="https://openstax.org/details/books/introductory-business-statistics-2e" target="_blank" rel="noopener">
+          <div class="rname">OpenStax — Introductory Business Statistics 2e</div>
+          <div class="rwho">peer-reviewed · CC-licensed</div>
+          <div class="rfor">Formula-forward, with extensive step-by-step walkthroughs — it leans into deriving and applying each formula. Mirrors the <b>Wegner</b> business-stats angle (Units II–VII).</div>
+          <div class="rurl">openstax.org/details/books/introductory-business-statistics-2e</div>
+        </a>
+      </div>
+
+      <h3 class="sub">2 · Standard course textbooks</h3>
+      <div class="reflist">
+        <a class="refitem" href="https://www.google.com/search?q=Walpole+Probability+and+Statistics+for+Engineers+and+Scientists" target="_blank" rel="noopener" style="border-left-color:var(--sage)">
+          <div class="rname">Probability &amp; Statistics for Engineers &amp; Scientists</div>
+          <div class="rwho">Walpole, Myers, Myers &amp; Ye · Pearson</div>
+          <div class="rfor">A <b>standard</b> engineering-statistics text. Definitive for the formal definitions, the regression chapter, and the ANOVA tables that exam problems are usually modelled on.</div>
+          <div class="rurl">Search: "Walpole Probability and Statistics for Engineers"</div>
+        </a>
+        <a class="refitem" href="https://www.google.com/search?q=Wegner+Applied+Business+Statistics" target="_blank" rel="noopener" style="border-left-color:var(--sage)">
+          <div class="rname">Applied Business Statistics</div>
+          <div class="rwho">Wegner · applied-business statistics</div>
+          <div class="rfor">The <b>applications</b> companion — methods framed through business and real-world decision problems. Good for seeing why each test exists, not just how to run it.</div>
+          <div class="rurl">Search: "Wegner Applied Business Statistics"</div>
+        </a>
+      </div>
+
+      <h3 class="sub">3 · Where to go deeper, by unit</h3>
+      <div class="tscroll"><table>
+        <tr><th>Unit</th><th>Best free source</th><th>Why</th></tr>
+        <tr><td><b>I–II</b> · Foundations &amp; Data</td><td>OpenStax Ch. 1; Khan "Analyzing data"</td><td>cleanest intro to terms, sampling, frequency tables</td></tr>
+        <tr><td><b>III–IV</b> · Center &amp; Spread</td><td>OpenStax Ch. 2; NIST §1 (EDA)</td><td>worked mean/SD + the why behind n−1 and skew</td></tr>
+        <tr><td><b>V</b> · Sampling &amp; CLT</td><td>OpenIntro Ch. 5; Khan "Sampling distributions"</td><td>the CLT shown by simulation — it finally clicks</td></tr>
+        <tr><td><b>VI</b> · Hypothesis testing</td><td>Penn State STAT 500; OpenIntro Ch. 5–7</td><td>full z/t/χ² procedures with university-grade rigor</td></tr>
+        <tr><td><b>VII</b> · Regression &amp; correlation</td><td>Penn State STAT 501; NIST §4</td><td>least-squares derivation + r² interpretation</td></tr>
+        <tr><td><b>VIII–IX</b> · DOE &amp; ANOVA</td><td>Penn State STAT 502; NIST §3; Walpole</td><td>the one-way / two-way ANOVA tables, every cell</td></tr>
+      </table></div>
+
+      <div class="fnoteblock"><span class="t">Provenance · Unit VIII</span>
+        The three pillars of experimental design — <b>randomization, replication, and local control (blocking)</b> — trace to <b>R.A. Fisher's</b> <em>The Design of Experiments</em> (1935). Every modern design-of-experiments and ANOVA chapter, Walpole's included, descends from that book — worth knowing whose shoulders Unit IX stands on.</div>
+    </div>
+  </section>
+
   <footer>
-    <p class="big">Built for the exam. <em>Allergic to average.</em></p>
-    <p>STAT 2 — Applied Statistics · Field Reviewer · aligned to the Walpole / Wegner outline</p>
-    <p>Study order → lock Portfolio + Attendance (40%) · Prelim: I–IV · Midterm: V–VII · Final: VIII–IX</p>
-    <p>© 2026 <b>Cappyworks</b>. Engineered in Cavite.</p>
+    <p class="big">Built to be understood, <em>not just memorised.</em></p>
+    <p>Applied Statistics · A Study Guide · aligned to the Walpole / Wegner outline</p>
+    <p>Suggested order → Foundations (I–IV) · Inference (V–VII) · Experimental design (VIII–IX)</p>
+    <p>A self-study reviewer · compiled from open educational resources</p>
   </footer>
 </div>
 
