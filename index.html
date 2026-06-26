@@ -116,6 +116,16 @@
   tr:last-child td{border-bottom:none}
   td code,.mono{font-family:var(--mono);font-size:13px;color:var(--clay)}
 
+  /* glossary */
+  .gloss{display:grid;grid-template-columns:1fr 1fr;gap:11px 28px;margin:14px 0}
+  @media(max-width:680px){.gloss{grid-template-columns:1fr}}
+  .gcat{grid-column:1/-1;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--clay);font-weight:600;margin:18px 0 -2px;padding-bottom:5px;border-bottom:1px solid var(--line-soft)}
+  .gcat.first{margin-top:0}
+  .gterm{break-inside:avoid;font-size:13.5px;color:var(--ink-2);line-height:1.5}
+  .gterm .gt{font-family:var(--serif);font-weight:600;font-size:15px;color:var(--ink);display:block;letter-spacing:-.01em;margin-bottom:1px}
+  .gterm b{color:var(--ink);font-weight:600}
+
   /* references */
   .reflist{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
   @media(max-width:680px){.reflist{grid-template-columns:1fr}}
@@ -151,7 +161,7 @@
     <span class="navlogo">Applied <b>Statistics</b></span>
     <div class="navlinks">
       <a href="#u1">I</a><a href="#u2">II</a><a href="#u3">III</a><a href="#u4">IV</a>
-      <a href="#u5">V</a><a href="#u6">VI</a><a href="#u7">VII</a><a href="#u8">VIII</a><a href="#u9">IX</a><a href="#cheat">Cheat</a><a href="#refs">Sources</a>
+      <a href="#u5">V</a><a href="#u6">VI</a><a href="#u7">VII</a><a href="#u8">VIII</a><a href="#u9">IX</a><a href="#cheat">Cheat</a><a href="#gloss">Glossary</a><a href="#refs">Sources</a>
     </div>
   </div>
 </nav>
@@ -332,7 +342,7 @@ n = 5000 / (1 + 5000 × 0.05²)
       <div class="formula"><div class="flabel">The two ideas that run everything</div>
         <div class="feq">Standard error:  SE = σ ÷ √n</div>
         <div class="feq">CLT:  for n ≥ 30, the distribution of x̄ is ≈ Normal — <em>whatever shape the population has</em></div>
-        <div class="fnote">SE is the SD of the sample mean. Bigger n → smaller SE → a steadier, more reliable average.</div></div>
+        <div class="fnote">A <b>normal distribution</b> is the symmetric, bell-shaped curve where most values sit near the mean and extremes are rare. SE is the SD of the sample mean — bigger n → smaller SE → a steadier, more reliable average.</div></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p><b>The average of averages goes bell-shaped.</b> <b>n ≥ 30 is the magic number.</b> SE shrinks as n grows.</p></div></div>
       <div class="ex"><div class="extag">📐 Picture this</div>
@@ -359,7 +369,7 @@ n = 5000 / (1 + 5000 × 0.05²)
       <div class="formula"><div class="flabel">The two workhorse statistics</div>
         <div class="feq">z (σ known / large n):  z = <span class="frac"><span>x̄ − μ</span><span>σ / √n</span></span></div>
         <div class="feq">t (σ unknown / small n):  t = <span class="frac"><span>x̄ − μ</span><span>s / √n</span></span> ,  df = n − 1</div>
-        <div class="fnote">By hand you compare against a <b>critical value</b>, not an exact p-value. Reject H₀ when |statistic| &gt; critical (it landed in the tail).</div></div>
+        <div class="fnote"><b>Quick terms — α</b> (significance level): the false-alarm risk you accept up front, usually 0.05. <b>df</b> (degrees of freedom): the number of values free to vary, here n−1. <b>Critical value</b>: the cut-off from the table. <b>p-value</b>: the chance of data this extreme if H₀ were true (small p = evidence against H₀). By hand you compare your statistic to the critical value — reject H₀ when |statistic| &gt; critical (it landed in the tail).</div></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p>Steps = <b>H-A-T-C-D</b> (Hypotheses, Alpha, Test-stat, Compare, Decide). <b>p Low → null must Go; p High → null gets by.</b> Tails: <b>≠</b> → two-tailed, <b>&lt;</b> or <b>&gt;</b> → one-tailed.</p></div></div>
       <h3 class="sub">Two ways to be wrong</h3>
@@ -503,6 +513,50 @@ Brands differ a little, plants inside each vary wildly
     </div>
   </section>
 
+  <!-- GLOSSARY -->
+  <section class="unit reveal" id="gloss">
+    <p class="ukick">10 / <b>Define Everything</b></p>
+    <div class="uhead"><div class="badge" style="background:var(--u4)">G</div>
+      <h2>Glossary of <em>Key Terms</em></h2></div>
+    <div class="ubody">
+      <p>Every term the units lean on, defined plainly in one place — so nothing is left to guess. Definitions are checked against the sources listed under <a href="#refs" style="color:var(--clay)">Sources</a>.</p>
+
+      <div class="gloss">
+        <div class="gcat first">Foundations &amp; data</div>
+        <div class="gterm"><span class="gt">Nominal scale</span>Unordered labels (sex, course). Categories only — no ranking.</div>
+        <div class="gterm"><span class="gt">Ordinal scale</span>Ranked labels (low / medium / high). Order matters, but the gaps between ranks aren't equal.</div>
+        <div class="gterm"><span class="gt">Interval scale</span>Equal gaps but no true zero (temperature in °C). Differences mean something; ratios don't.</div>
+        <div class="gterm"><span class="gt">Ratio scale</span>Equal gaps and a true zero (height, weight, income). Every comparison is valid.</div>
+        <div class="gterm"><span class="gt">Outlier</span>A value far from the rest of the data. It drags the mean and inflates the SD.</div>
+        <div class="gterm"><span class="gt">Margin of error (e)</span>The largest gap you'll tolerate between a sample estimate and the true value, at a chosen confidence.</div>
+
+        <div class="gcat">Inference &amp; testing</div>
+        <div class="gterm"><span class="gt">Normal distribution</span>The symmetric, bell-shaped curve where values cluster near the mean and extremes are rare. Fixed by its mean <b>μ</b> and SD <b>σ</b>.</div>
+        <div class="gterm"><span class="gt">Standard normal distribution</span>The normal curve with mean 0 and SD 1 — the scale z-scores live on.</div>
+        <div class="gterm"><span class="gt">Standard error (SE)</span>The standard deviation of a sample statistic, like the sample mean. Shrinks as n grows.</div>
+        <div class="gterm"><span class="gt">Degrees of freedom (df)</span>The number of values free to vary once the constraints are fixed — roughly sample size minus the quantities you estimate (n−1 for one sample).</div>
+        <div class="gterm"><span class="gt">Significance level (α)</span>The false-alarm risk you accept before testing, usually 0.05. Equivalently, the Type I error rate.</div>
+        <div class="gterm"><span class="gt">Test statistic</span>The single number from your sample (z, t, F, χ²) that you compare against the critical value.</div>
+        <div class="gterm"><span class="gt">Critical value</span>The cut-off from the reference distribution. If your test statistic is more extreme, reject H₀.</div>
+        <div class="gterm"><span class="gt">p-value</span>The probability of data at least as extreme as observed, <b>assuming H₀ is true</b>. Small p = strong evidence against H₀. It is <b>not</b> the probability that H₀ is true.</div>
+        <div class="gterm"><span class="gt">Confidence level</span>The long-run share of such intervals that would capture the true value (e.g. 95%) — the complement of α.</div>
+
+        <div class="gcat">Regression &amp; ANOVA</div>
+        <div class="gterm"><span class="gt">Least-squares</span>The method that fits the regression line by making the total squared vertical distance from the points to the line as small as possible.</div>
+        <div class="gterm"><span class="gt">Sum of squares (SS)</span>The total of squared deviations from a mean — the raw amount of variation that ANOVA splits apart.</div>
+        <div class="gterm"><span class="gt">Mean square (MS)</span>A sum of squares divided by its degrees of freedom. A variance estimate.</div>
+        <div class="gterm"><span class="gt">F-statistic</span>The ratio of two mean squares (between ÷ within). A large F signals genuine differences among group means.</div>
+
+        <div class="gcat">Experimental design</div>
+        <div class="gterm"><span class="gt">Completely Randomized Design (CRD)</span>Treatments assigned to units entirely at random. Used when the units are alike.</div>
+        <div class="gterm"><span class="gt">Randomized Complete Block Design (RCBD)</span>Units sorted into blocks of similar units first, then treatments randomized within each block — cancelling block-to-block nuisance variation.</div>
+        <div class="gterm"><span class="gt">Factorial design</span>Two or more factors tested together across all their level combinations. The only way to see interactions.</div>
+        <div class="gterm"><span class="gt">Split-plot design</span>A factorial where a hard-to-change factor is applied to large "whole plots" and an easy-to-change factor to subunits within them.</div>
+        <div class="gterm"><span class="gt">Interaction</span>When the effect of one factor depends on the level of another — "it depends."</div>
+      </div>
+    </div>
+  </section>
+
   <!-- REFERENCES -->
   <section class="unit reveal" id="refs">
     <p class="ukick">10 / <b>Go Deeper</b></p>
@@ -548,6 +602,24 @@ Brands differ a little, plants inside each vary wildly
           <div class="rwho">peer-reviewed · CC-licensed</div>
           <div class="rfor">Formula-forward, with extensive step-by-step walkthroughs — it leans into deriving and applying each formula. Mirrors the <b>Wegner</b> business-stats angle (Units II–VII).</div>
           <div class="rurl">openstax.org/details/books/introductory-business-statistics-2e</div>
+        </a>
+        <a class="refitem" href="https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108" target="_blank" rel="noopener">
+          <div class="rname">ASA Statement on p-Values</div>
+          <div class="rwho">American Statistical Association · 2016</div>
+          <div class="rfor">The authoritative word on what a p-value <b>is and isn't</b> — the source behind the Unit VI and Glossary definition. Read it before you ever write "p &lt; 0.05" in a report.</div>
+          <div class="rurl">doi.org/10.1080/00031305.2016.1154108</div>
+        </a>
+        <a class="refitem" href="https://www.scribbr.com/category/statistics/" target="_blank" rel="noopener">
+          <div class="rname">Scribbr — Statistics Guides</div>
+          <div class="rwho">student-facing · worked definitions</div>
+          <div class="rfor">Plain-English definitions with examples for the tricky terms — degrees of freedom, p-value, the normal distribution. Good when a definition needs unpacking.</div>
+          <div class="rurl">scribbr.com/category/statistics</div>
+        </a>
+        <a class="refitem" href="https://statisticsbyjim.com/" target="_blank" rel="noopener">
+          <div class="rname">Statistics By Jim</div>
+          <div class="rwho">Jim Frost · practitioner intuition</div>
+          <div class="rfor">Intuitive deep-dives on the concepts students fumble most — degrees of freedom, sums of squares, experimental design. Strong on the "why," not just the formula.</div>
+          <div class="rurl">statisticsbyjim.com</div>
         </a>
       </div>
 
