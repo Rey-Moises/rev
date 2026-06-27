@@ -116,6 +116,32 @@
   tr:last-child td{border-bottom:none}
   td code,.mono{font-family:var(--mono);font-size:13px;color:var(--clay)}
 
+  /* practice */
+  .method{background:var(--sage-tint);border:1px solid var(--sage-line);border-radius:12px;padding:15px 18px;margin:14px 0 22px}
+  .method .mt{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-deep);font-weight:600;margin-bottom:8px}
+  .method ul{margin:0;padding-left:0;list-style:none}
+  .method li{position:relative;padding-left:20px;margin:6px 0;font-size:14px;color:var(--ink-2);line-height:1.5}
+  .method li::before{content:"\2192";position:absolute;left:0;color:var(--sage);font-weight:700}
+  .method li b{color:var(--ink)}
+  .punit{font-family:var(--serif);font-weight:600;font-size:20px;color:var(--ink);margin:26px 0 4px;letter-spacing:-.01em;border-bottom:1px solid var(--line);padding-bottom:6px}
+  .prob{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:14px 16px;margin:11px 0}
+  .plevel{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:7px}
+  .plevel .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+  .lv1{color:#4c6442}.lv1 .dot{background:#6fcf7f}
+  .lv2{color:#855a30}.lv2 .dot{background:#e7b24a}
+  .lv3{color:#9e4a40}.lv3 .dot{background:#ef6f6f}
+  .prob .q{font-size:14.5px;color:var(--ink-2);line-height:1.55}
+  .prob .q b{color:var(--ink)}
+  .prob .hint{font-size:12.5px;color:var(--muted);font-style:italic;margin-top:6px}
+  details.sol{margin-top:9px}
+  details.sol summary{cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--clay);font-weight:600;list-style:none;display:inline-flex;align-items:center;gap:6px;padding:4px 0;user-select:none}
+  details.sol summary::-webkit-details-marker{display:none}
+  details.sol summary::before{content:"\25B8";transition:transform .15s ease;display:inline-block}
+  details.sol[open] summary::before{transform:rotate(90deg)}
+  details.sol .sbody{margin-top:8px;font-size:13.5px;color:var(--ink-2);line-height:1.6;border-left:2px solid var(--sage);padding-left:13px}
+  details.sol .sbody b{color:var(--ink)}
+  details.sol .calc{font-family:var(--mono);font-size:12.5px;color:var(--sage-deep);background:var(--paper-2);border-radius:6px;padding:8px 11px;margin:6px 0;white-space:pre-wrap;line-height:1.6}
+
   /* glossary */
   .gloss{display:grid;grid-template-columns:1fr 1fr;gap:11px 28px;margin:14px 0}
   @media(max-width:680px){.gloss{grid-template-columns:1fr}}
@@ -161,7 +187,7 @@
     <span class="navlogo">Applied <b>Statistics</b></span>
     <div class="navlinks">
       <a href="#u1">I</a><a href="#u2">II</a><a href="#u3">III</a><a href="#u4">IV</a>
-      <a href="#u5">V</a><a href="#u6">VI</a><a href="#u7">VII</a><a href="#u8">VIII</a><a href="#u9">IX</a><a href="#cheat">Cheat</a><a href="#gloss">Glossary</a><a href="#refs">Sources</a>
+      <a href="#u5">V</a><a href="#u6">VI</a><a href="#u7">VII</a><a href="#u8">VIII</a><a href="#u9">IX</a><a href="#practice">Practice</a><a href="#cheat">Cheat</a><a href="#gloss">Glossary</a><a href="#refs">Sources</a>
     </div>
   </div>
 </nav>
@@ -466,6 +492,199 @@ Brands differ a little, plants inside each vary wildly
   </section>
 
   <!-- CHEAT -->
+  <!-- PRACTICE -->
+  <section class="unit reveal" id="practice">
+    <p class="ukick">10 / <b>Train</b></p>
+    <div class="uhead"><div class="badge" style="background:var(--u7)">P</div>
+      <h2>Practice <em>Problems</em></h2></div>
+    <div class="ubody">
+      <p>Three problems per unit, built to climb: <b>① Warm-up</b> for fluency, <b>② Exam-level</b> for the full procedure, <b>③ Challenge</b> for whether you <em>truly</em> get it. Solutions are hidden on purpose.</p>
+
+      <div class="method"><div class="mt">How to use this — the method that works for math</div>
+        <ul>
+          <li><b>Try before you peek.</b> Attempting and struggling first (then checking) builds memory far better than re-reading a solution. Reveal the answer only after a real attempt.</li>
+          <li><b>Estimate first.</b> Before computing, predict the ballpark or the direction. Catching "that can't be right" is half the skill.</li>
+          <li><b>The three levels are a ladder.</b> ① locks the mechanics, ② is what an exam asks, ③ removes the scaffolding and tests understanding — most ③s target the exact mistake students make.</li>
+          <li><b>Read the solution even when you're right.</b> Check your <em>reasoning</em>, not just the final number.</li>
+          <li><b>Re-do a missed problem a day later.</b> Spacing it out is what makes it stick.</li>
+        </ul>
+      </div>
+
+      <!-- I -->
+      <div class="punit">Unit I — Introduction</div>
+      <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
+        <div class="q">For the data <b>x = {4, 7, 7, 10, 12}</b>, compute <b>Σx</b> and <b>Σx²</b>.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <div class="calc">Σx  = 4 + 7 + 7 + 10 + 12 = 40
+Σx² = 16 + 49 + 49 + 100 + 144 = 358</div>
+          Remember: square <b>first</b>, then add. Σx² ≠ (Σx)².</div></details></div>
+      <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
+        <div class="q">A researcher records the blood type of 500 students to estimate the proportion of type O in the whole city. Identify the <b>(a)</b> population, <b>(b)</b> sample, <b>(c)</b> variable and its type, <b>(d)</b> whether "proportion of type O in the city" is a parameter or a statistic.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <b>(a)</b> Population = all people in the city. <b>(b)</b> Sample = the 500 students. <b>(c)</b> Variable = blood type — qualitative, nominal. <b>(d)</b> The city proportion is a <b>parameter</b> (unknown truth); the proportion from the 500 would be the <b>statistic</b> estimating it.</div></details></div>
+      <div class="prob"><div class="plevel lv3"><span class="dot"></span>③ Challenge</div>
+        <div class="q">A set of 10 values has Σx = 50. You add a new value of 17. Find the new mean. Then judge a classmate's claim: <b>"adding a value always raises the mean."</b></div>
+        <div class="hint">Predict first: will the mean go up or down — and what does that depend on?</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          Old mean = 50/10 = 5. New: Σx = 67, n = 11, mean = 67/11 ≈ <b>6.09</b> — it rose, because the new value (17) is <b>above</b> the old mean. The claim is <b>false</b>: adding a value <em>below</em> the current mean lowers it. The mean always shifts toward the value you add, relative to where it already sits.</div></details></div>
+
+      <!-- II -->
+      <div class="punit">Unit II — Collection &amp; Presentation</div>
+      <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
+        <div class="q">Data ranges from a low of <b>12</b> to a high of <b>87</b>. Using <b>6 classes</b>, find the class width.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <div class="calc">Range = 87 − 12 = 75
+Width = 75 / 6 = 12.5  →  round UP to 13</div>
+          Always round the width up, or the top values won't fit in any class.</div></details></div>
+      <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
+        <div class="q">Using width <b>13</b> and starting at the lowest value <b>12</b>, write the <b>class limits, class boundaries, and midpoint</b> of the first two classes.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <div class="calc">Class 1:  limits 12–24   boundaries 11.5–24.5   midpoint 18
+Class 2:  limits 25–37   boundaries 24.5–37.5   midpoint 31</div>
+          Lower limits step by the width (12 → 25). Boundaries = limits ± 0.5 (they close the gaps). Midpoint = (lower + upper limit)/2.</div></details></div>
+      <div class="prob"><div class="plevel lv3"><span class="dot"></span>③ Challenge</div>
+        <div class="q">A dataset of 50 values (range 200) could be grouped into <b>4 classes</b> (width 50) or <b>20 classes</b> (width 10). Give one drawback of each, and state the trade-off in choosing the number of classes.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <b>4 classes</b> → too coarse: it over-smooths and hides the real shape of the data. <b>20 classes</b> → too fine: many near-empty classes, a jagged, noisy picture with no clear pattern. The trade-off is <b>detail vs. clarity</b> — roughly 5–15 classes usually balances them.</div></details></div>
+
+      <!-- III -->
+      <div class="punit">Unit III — Central Tendency</div>
+      <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
+        <div class="q">Find the <b>mean, median, and mode</b> of <b>{3, 8, 8, 9, 12}</b>.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <div class="calc">Mean   = (3+8+8+9+12)/5 = 40/5 = 8
+Median = middle of sorted list      = 8
+Mode   = most frequent value        = 8</div>
+          Here all three agree — a sign the data is fairly symmetric.</div></details></div>
+      <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
+        <div class="q">Monthly incomes (₱ thousands): <b>18, 20, 22, 25, 200</b>. Compute the mean and median. Which better represents a "typical" income here, and why?</div>
+        <div class="hint">Estimate first: which will be larger, the mean or the median?</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <div class="calc">Mean   = 285 / 5 = 57
+Median = 22 (the middle value)</div>
+          The <b>median (22)</b> is the better summary. The single value 200 is an <b>outlier</b> that drags the mean up to 57 — far above what four of the five people actually earn.</div></details></div>
+      <div class="prob"><div class="plevel lv3"><span class="dot"></span>③ Challenge</div>
+        <div class="q">Seven numbers have a median of <b>10</b>. You append the value <b>50</b>. Explain why the median <em>barely</em> moves, even though 50 is large — and contrast this with what 50 would do to the mean.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          The median is <b>position-based</b>: appending one value makes n = 8, so the median becomes the average of the 4th and 5th sorted values — both still near 10. A single large number only nudges the middle. The <b>mean</b>, by contrast, sums every value, so 50 pulls it up substantially. This is exactly why the median is called <b>resistant to outliers</b> and the mean is not.</div></details></div>
+
+      <!-- IV -->
+      <div class="punit">Unit IV — Dispersion &amp; Skewness</div>
+      <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
+        <div class="q">For the sample <b>{2, 4, 6}</b>, compute the sample variance <b>s²</b> and standard deviation <b>s</b> (use the computational form).</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <div class="calc">Σx = 12 ,  Σx² = 4+16+36 = 56 ,  n = 3
+s² = [Σx² − (Σx)²/n] / (n−1)
+   = [56 − 144/3] / 2
+   = [56 − 48] / 2  =  8/2  =  4
+s  = √4 = 2</div>
+          Divide by n−1 (not n) — it's a sample.</div></details></div>
+      <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
+        <div class="q">Two machines fill bottles. <b>Machine A:</b> mean 500 mL, SD 2 mL. <b>Machine B:</b> mean 500 mL, SD 8 mL. Which is more consistent? Compute each <b>coefficient of variation</b> and interpret.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <div class="calc">CV_A = (2/500)×100% = 0.4%
+CV_B = (8/500)×100% = 1.6%</div>
+          <b>Machine A is more consistent</b> — its spread relative to the mean is four times smaller. Same mean, but A's values cluster far tighter around 500 mL.</div></details></div>
+      <div class="prob"><div class="plevel lv3"><span class="dot"></span>③ Challenge</div>
+        <div class="q">A dataset is <b>right-skewed</b>. Without any calculation, order the <b>mean, median, and mode</b> from smallest to largest, and justify it with the "tail" idea.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <b>mode &lt; median &lt; mean.</b> The long tail points right, and the mean is dragged toward the tail (the few large values pull it up). The mode sits at the tall peak on the left; the median lands between the two. (Left-skew is the mirror image: mean &lt; median &lt; mode.)</div></details></div>
+
+      <!-- V -->
+      <div class="punit">Unit V — Sampling &amp; CLT</div>
+      <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
+        <div class="q">A population has <b>N = 2,400</b>. Using Slovin's formula with a <b>5%</b> margin of error, find the required sample size.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <div class="calc">n = N / (1 + N·e²)
+  = 2400 / (1 + 2400 × 0.05²)
+  = 2400 / (1 + 2400 × 0.0025)
+  = 2400 / (1 + 6)
+  = 2400 / 7  ≈  342.86  →  343</div></div></details></div>
+      <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
+        <div class="q">A population has <b>σ = 15</b>. <b>(a)</b> Find the standard error for n = 25. <b>(b)</b> For n = 100. <b>(c)</b> By what factor did SE shrink, and why didn't it shrink to a quarter when n grew four-fold?</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <div class="calc">(a) SE = 15/√25  = 15/5  = 3
+(b) SE = 15/√100 = 15/10 = 1.5</div>
+          <b>(c)</b> SE <b>halved</b> (3 → 1.5). Because SE = σ/√n depends on <b>√n</b>, quadrupling n divides SE by √4 = 2, not by 4. The "square-root law": to halve your error you need <b>four times</b> the data.</div></details></div>
+      <div class="prob"><div class="plevel lv3"><span class="dot"></span>③ Challenge</div>
+        <div class="q">A population is heavily skewed. A student insists: <b>"the sample mean can't be normal because the population isn't."</b> For a sample of <b>n = 50</b>, is the student right? What changes for <b>n = 5</b>?</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          For <b>n = 50</b> the student is <b>wrong</b>: the Central Limit Theorem says the distribution of the sample mean is approximately normal for large n (≥ 30) <em>regardless</em> of the population's shape. For <b>n = 5</b>, the CLT hasn't kicked in — with so few values the sample mean's distribution still mirrors the population's skew. The magic is in the sample size, not the population.</div></details></div>
+
+      <!-- VI -->
+      <div class="punit">Unit VI — Hypothesis Testing</div>
+      <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
+        <div class="q">Write <b>H₀</b> and <b>H₁</b> for: "A company claims its batteries last <b>40 hours</b> on average; a consumer group suspects they last <b>less</b>." Is it one- or two-tailed?</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <b>H₀: μ = 40</b> (the status quo, always with =). <b>H₁: μ &lt; 40</b> (the suspicion). Because H₁ uses "&lt;", it's a <b>one-tailed</b> (left-tailed) test.</div></details></div>
+      <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
+        <div class="q">A sample of <b>n = 36</b> gives <b>x̄ = 38</b>, with population <b>σ = 6</b>. Test at <b>α = 0.05</b> whether the true mean is below 40 (H₀: μ = 40, H₁: μ &lt; 40). The critical value is <b>z = −1.645</b>. Compute the test statistic and decide.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <div class="calc">z = (x̄ − μ) / (σ/√n)
+  = (38 − 40) / (6/√36)
+  = −2 / (6/6)
+  = −2 / 1  =  −2.0</div>
+          Since <b>−2.0 &lt; −1.645</b>, the statistic lands in the rejection tail → <b>reject H₀</b>. There's evidence the mean is below 40 hours.</div></details></div>
+      <div class="prob"><div class="plevel lv3"><span class="dot"></span>③ Challenge</div>
+        <div class="q">You rejected H₀ above. Suppose in reality the true mean <em>is</em> 40 (the company was honest). <b>(a)</b> What error did you make? <b>(b)</b> If α had been <b>0.01</b> (critical z = −2.33), would your decision change? <b>(c)</b> What does this reveal about α?</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <b>(a)</b> Rejecting a true H₀ is a <b>Type I error</b> (a false alarm). <b>(b)</b> At α = 0.01 the cutoff is −2.33; since −2.0 is <em>not</em> beyond −2.33, you'd now <b>fail to reject</b>. <b>(c)</b> A smaller α makes rejection harder, <b>lowering the Type I error rate</b> — but it raises the chance of missing a real effect (Type II). You can't shrink both at once; it's a trade-off.</div></details></div>
+
+      <!-- VII -->
+      <div class="punit">Unit VII — Correlation &amp; Regression</div>
+      <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
+        <div class="q">Given <b>n = 5, Σx = 15, Σy = 25, Σxy = 88, Σx² = 55</b>, compute the regression slope <b>b</b>.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <div class="calc">b = [nΣxy − ΣxΣy] / [nΣx² − (Σx)²]
+  = [5·88 − 15·25] / [5·55 − 15²]
+  = [440 − 375] / [275 − 225]
+  = 65 / 50  =  1.3</div>
+          (Bonus: intercept a = ȳ − b·x̄ = 5 − 1.3·3 = 1.1, so ŷ = 1.1 + 1.3x.)</div></details></div>
+      <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
+        <div class="q">A study finds <b>r = 0.85</b> between hours studied and exam score. <b>(a)</b> Interpret the strength and direction. <b>(b)</b> Compute <b>r²</b> and interpret it. <b>(c)</b> If the line is <b>ŷ = 50 + 8x</b>, predict the score for <b>5 hours</b>.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <b>(a)</b> A <b>strong positive</b> linear relationship — more study, higher score. <b>(b)</b> r² = 0.85² = <b>0.7225</b> → about <b>72%</b> of the variation in scores is explained by hours studied. <b>(c)</b> ŷ = 50 + 8(5) = <b>90</b>.</div></details></div>
+      <div class="prob"><div class="plevel lv3"><span class="dot"></span>③ Challenge</div>
+        <div class="q">A headline reads: <b>"Cities with more libraries have higher crime (r = 0.7)."</b> Does cutting libraries reduce crime? Name the flaw and a plausible hidden variable.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          No. This is the <b>correlation ≠ causation</b> trap. A <b>hidden variable — population (city size)</b> — drives both: larger cities have more libraries <em>and</em> more total crime. The headline mistakes a shared cause for a direct one. Cutting libraries would do nothing to crime.</div></details></div>
+
+      <!-- VIII -->
+      <div class="punit">Unit VIII — Experimentation</div>
+      <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
+        <div class="q">A farmer tests <b>3 fertilizers</b> on tomato plants and measures <b>yield (kg)</b>. Identify the treatments, the experimental units, and the response variable.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <b>Treatments</b> = the 3 fertilizers (the "what-if"). <b>Experimental units</b> = the tomato plants/plots (what receives the treatment). <b>Response</b> = yield in kg (what's measured).</div></details></div>
+      <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
+        <div class="q">A researcher compares a new teaching method vs. the old one on test scores, but lets students <b>choose</b> their group. Name the flaw, the Fisher principle it violates, and the fix.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          The flaw is <b>self-selection bias</b> — more motivated students may flock to the new method, so any score difference could be due to <em>who chose it</em>, not the method. It violates <b>randomization</b>. <b>Fix:</b> randomly assign students to the two groups.</div></details></div>
+      <div class="prob"><div class="plevel lv3"><span class="dot"></span>③ Challenge</div>
+        <div class="q">An experiment tests 3 fertilizers but uses <b>only one plant per fertilizer</b>. Even if the yields differ, why can't we trust the conclusion? Which principle is missing, and what does it protect against?</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          With one plant each, a yield difference could come from <b>that individual plant</b> (natural plant-to-plant variation) rather than the fertilizer — you can't tell signal from noise. The missing principle is <b>replication</b>. It protects against mistaking random variation for a real treatment effect, and it's what lets you estimate the experimental error in the first place.</div></details></div>
+
+      <!-- IX -->
+      <div class="punit">Unit IX — ANOVA</div>
+      <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
+        <div class="q">An ANOVA has <b>SS_between = 60</b> (df = 3) and <b>SS_within = 90</b> (df = 18). Compute MS_between, MS_within, and <b>F</b>.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <div class="calc">MS_between = 60 / 3  = 20
+MS_within  = 90 / 18 = 5
+F = MS_between / MS_within = 20 / 5 = 4.0</div>
+          Follow the pipeline: SS → df → MS → F.</div></details></div>
+      <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
+        <div class="q">Three diets are compared on weight loss; the ANOVA gives <b>F = 4.0</b> with critical <b>F = 3.35</b> (α = 0.05). <b>(a)</b> State H₀ and H₁. <b>(b)</b> Decide. <b>(c)</b> What does rejecting H₀ tell you — and what does it <em>not</em>?</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <b>(a)</b> H₀: μ₁ = μ₂ = μ₃ (all three diet means equal); H₁: at least one mean differs. <b>(b)</b> F = 4.0 &gt; 3.35 → <b>reject H₀</b>. <b>(c)</b> It tells you <b>at least one</b> diet's mean is different — it does <b>not</b> tell you <em>which</em> one(s). Pinning that down needs a post-hoc test.</div></details></div>
+      <div class="prob"><div class="plevel lv3"><span class="dot"></span>③ Challenge</div>
+        <div class="q">In a two-way ANOVA (factors: <b>Drug × Diet</b>), the <b>interaction</b> term is significant. A student concludes "Drug A is always best." Why might that be wrong? Explain what a significant interaction means here.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          A significant interaction means the effect of one factor <b>depends on the level of the other</b>. Drug A might be best on Diet 1 but worst on Diet 2 — so no blanket "always best" claim holds. You have to read the Drug effect <em>separately within each Diet</em>. Interaction is the formal version of "it depends."</div></details></div>
+
+    </div>
+  </section>
+
   <section class="unit reveal" id="cheat">
     <p class="ukick">★ / <b>Exam Day</b></p>
     <div class="uhead"><div class="badge" style="background:var(--sage)">★</div>
