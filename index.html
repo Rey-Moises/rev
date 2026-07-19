@@ -115,6 +115,12 @@
   td{color:var(--ink-2)}td b{color:var(--ink)}
   tr:last-child td{border-bottom:none}
   td code,.mono{font-family:var(--mono);font-size:13px;color:var(--clay)}
+  .trow-total td{font-weight:600;color:var(--ink)!important;background:var(--paper-2)}
+
+  .steps{margin:10px 0 18px;padding-left:0;list-style:none;counter-reset:step}
+  .steps li{position:relative;padding-left:36px;margin:9px 0;font-size:14.5px;color:var(--ink-2);line-height:1.55;counter-increment:step;min-height:23px}
+  .steps li::before{content:counter(step);position:absolute;left:0;top:0;width:23px;height:23px;border-radius:50%;background:var(--sage);color:#fff;font-family:var(--mono);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .steps li b{color:var(--ink)}
 
   /* practice */
   .method{background:var(--sage-tint);border:1px solid var(--sage-line);border-radius:12px;padding:15px 18px;margin:14px 0 22px}
@@ -321,6 +327,92 @@ Mode   = appears most often          = 5</span>
         <div class="fnote">Use the computational form (Σx², (Σx)²) — far fewer keystrokes. Carry decimals; round only at the end.</div></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p><b>Variance Vexes</b> (weird squared units), <b>SD Saves it</b> (square-root → real units). Divide by <b>n−1</b> because <b>S</b>amples are <b>S</b>hy by one. <b>CV</b> lets you <b>C</b>ompare <b>V</b>ariability across different things (₱ vs kg).</p></div></div>
+
+      <h3 class="sub">Mean Absolute Deviation — the honest average distance</h3>
+      <p>Before variance, ask the simpler question underneath it: <b>on average, how far does each value sit from the mean?</b> That's the whole idea. Variance gets there by squaring; MAD gets there by just averaging the distances, honestly, with no exaggeration.</p>
+      <div class="formula"><div class="flabel">Mean Absolute Deviation</div>
+        <div class="feq">MAD = Σ|x − x̄| / n</div>
+        <div class="fnote">The bars <b>| |</b> mean "absolute value" — strip the negative sign, keep only the size of the distance. A value 3 below the mean and a value 3 above it are both simply "3 away."</div></div>
+
+      <p><b>The process — four steps, every time:</b></p>
+      <ol class="steps">
+        <li>Find the mean, <b>x̄</b>.</li>
+        <li>Subtract the mean from every value: <b>x − x̄</b>. Some will be negative — that's expected, for now.</li>
+        <li>Drop the sign: take the <b>absolute value</b>, |x − x̄|.</li>
+        <li>Average those distances: add them all up, divide by <b>n</b>.</li>
+      </ol>
+
+      <div class="ex"><div class="extag">📐 Worked example — MAD</div>
+        <p>Data: <b>4, 6, 8, 10, 12</b> &nbsp;→&nbsp; x̄ = 40/5 = <b>8</b></p>
+        <div class="tscroll"><table>
+          <tr><th>x</th><th>x − x̄</th><th>|x − x̄|</th></tr>
+          <tr><td>4</td><td>−4</td><td>4</td></tr>
+          <tr><td>6</td><td>−2</td><td>2</td></tr>
+          <tr><td>8</td><td>0</td><td>0</td></tr>
+          <tr><td>10</td><td>2</td><td>2</td></tr>
+          <tr><td>12</td><td>4</td><td>4</td></tr>
+          <tr class="trow-total"><td>Σ</td><td></td><td>12</td></tr>
+        </table></div>
+        <p><b>MAD = 12 / 5 = 2.4</b> — on average, a value in this dataset sits 2.4 units from the mean. Plain, honest, in the data's original units.</p></div>
+
+      <h3 class="sub">Why variance squares it instead — and why sample divides by n − 1</h3>
+      <p>MAD is honest, but mathematically clumsy — absolute value has a sharp corner at zero, which makes it hard to build more advanced theory on top of. <b>Variance</b> solves the same "negatives cancel out" problem a different way: instead of stripping the sign, it <b>squares</b> every deviation. Squaring also erases the negative — and it behaves far better mathematically, which is why nearly every method later in this course (regression, ANOVA, confidence intervals) is quietly built on squared deviations. The cost: squared units mean nothing on their own (₱² isn't a real thing), so at the end you take a square root — the <b>standard deviation</b> — to land back in real, interpretable units.</p>
+
+      <div class="formula"><div class="flabel">Population vs. sample — same idea, two situations</div>
+        <div class="feq">Population variance:  σ² = Σ(x − μ)² / N &nbsp;·&nbsp; σ = √σ²</div>
+        <div class="feq">Sample variance:  s² = Σ(x − x̄)² / (n − 1) &nbsp;·&nbsp; s = √s²</div>
+        <div class="fnote">Data on <b>everyone</b> → population → Greek letters (σ, μ, N) → divide by the full <b>N</b>.<br>Data on a <b>subset</b> → sample → plain letters (s, x̄, n) → divide by <b>n − 1</b>.</div></div>
+
+      <p><b>Why n − 1, really — not just a rule to memorize:</b> your sample mean x̄ isn't the true population mean μ; it's an estimate, computed <em>from the very data you're measuring</em>. Because x̄ is built to sit as close as mathematically possible to your own sample, that sample's deviations are, on average, a touch smaller than they'd be from the real μ. Dividing by the slightly smaller n − 1 nudges the result back up to correct for that built-in optimism. This has a name — <b>Bessel's correction</b> — it's a genuine bias fix, not an arbitrary quirk.</p>
+
+      <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
+        <p><b>Population = Greek, whole group, ÷N. Sample = plain letters, subset, ÷(n−1).</b> Can't measure everyone? You're estimating — and an estimate costs you one degree of freedom.</p></div></div>
+
+      <div class="ex"><div class="extag">📐 Worked example — sample variance &amp; standard deviation</div>
+        <p>Sample data: <b>7, 9, 10, 12</b> &nbsp;→&nbsp; x̄ = 38/4 = <b>9.5</b></p>
+        <div class="tscroll"><table>
+          <tr><th>x</th><th>x − x̄</th><th>(x − x̄)²</th></tr>
+          <tr><td>7</td><td>−2.5</td><td>6.25</td></tr>
+          <tr><td>9</td><td>−0.5</td><td>0.25</td></tr>
+          <tr><td>10</td><td>0.5</td><td>0.25</td></tr>
+          <tr><td>12</td><td>2.5</td><td>6.25</td></tr>
+          <tr class="trow-total"><td>Σ</td><td></td><td>13</td></tr>
+        </table></div>
+        <p><b>s² = 13 / (4 − 1) = 13/3 ≈ 4.33</b> &nbsp;→&nbsp; <b>s = √4.33 ≈ 2.08</b></p></div>
+
+      <h3 class="sub">Grouped data — the same formulas, weighted by frequency</h3>
+      <p>Once raw data is organized into an FDT, you no longer have individual values in hand — you have <em>classes</em>, each hiding several values you can't see one by one. The fix: treat every value inside a class as if it sat exactly at that class's <b>midpoint (x)</b>, and weight everything by <b>how many</b> values are actually in there (<b>f</b>).</p>
+      <div class="formula"><div class="flabel">Grouped-data formulas</div>
+        <div class="feq">Grouped mean:  x̄ = Σfx / n</div>
+        <div class="feq">Grouped MAD:  MAD = Σf|x − x̄| / n</div>
+        <div class="feq">Grouped variance:  s² = Σf(x − x̄)² / (n − 1) &nbsp;·&nbsp; s = √s²</div></div>
+
+      <p><b>The process — build the table left to right; each column feeds the next:</b></p>
+      <ol class="steps">
+        <li><b>f</b> — the frequency of each class, straight from your FDT.</li>
+        <li><b>x</b> — the class mark (midpoint) of each class.</li>
+        <li><b>fx</b> — multiply f × x, then sum the whole column → gives Σfx.</li>
+        <li>Compute the grouped mean: <b>x̄ = Σfx / n</b>.</li>
+        <li><b>x − x̄</b> — each class mark's distance from that mean.</li>
+        <li><b>|x − x̄|</b> for MAD, or <b>(x − x̄)²</b> for variance.</li>
+        <li>Multiply that column by <b>f</b> again, sum it, then divide by <b>n</b> (MAD) or <b>n − 1</b> (variance).</li>
+      </ol>
+
+      <div class="ex"><div class="extag">📐 Worked example — one table, mean → MAD → variance → SD</div>
+        <div class="tscroll"><table>
+          <tr><th>Class</th><th>f</th><th>x</th><th>fx</th><th>x−x̄</th><th>|x−x̄|</th><th>f|x−x̄|</th><th>(x−x̄)²</th><th>f(x−x̄)²</th></tr>
+          <tr><td>30–34</td><td>3</td><td>32</td><td>96</td><td>−6.79</td><td>6.79</td><td>20.37</td><td>46.10</td><td>138.30</td></tr>
+          <tr><td>35–39</td><td>5</td><td>37</td><td>185</td><td>−1.79</td><td>1.79</td><td>8.95</td><td>3.20</td><td>16.02</td></tr>
+          <tr><td>40–44</td><td>4</td><td>42</td><td>168</td><td>3.21</td><td>3.21</td><td>12.84</td><td>10.30</td><td>41.22</td></tr>
+          <tr><td>45–49</td><td>2</td><td>47</td><td>94</td><td>8.21</td><td>8.21</td><td>16.42</td><td>67.40</td><td>134.81</td></tr>
+          <tr class="trow-total"><td>Total</td><td>14</td><td></td><td>543</td><td></td><td></td><td>58.58</td><td></td><td>330.35</td></tr>
+        </table></div>
+        <p><b>Mean:</b> x̄ = 543 / 14 = <b>38.79</b><br>
+        <b>MAD:</b> 58.58 / 14 = <b>4.18</b><br>
+        <b>Variance:</b> s² = 330.35 / (14 − 1) = 330.35/13 = <b>25.41</b><br>
+        <b>SD:</b> s = √25.41 ≈ <b>5.04</b></p>
+        <p>One table, every spread measure you need — because MAD, variance, and SD are all just different lenses on the same question: <em>how far, on average, from the center?</em></p></div>
+
       <h3 class="sub">Skewness — the lopsidedness</h3>
       <ul>
         <li>Long tail on the <b>right</b> → <b>positive / right-skew</b> (few high outliers).</li>
