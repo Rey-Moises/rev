@@ -116,6 +116,9 @@
   tr:last-child td{border-bottom:none}
   td code,.mono{font-family:var(--mono);font-size:13px;color:var(--clay)}
   .trow-total td{font-weight:600;color:var(--ink)!important;background:var(--paper-2)}
+  .tlegend{font-size:12px;color:var(--muted);line-height:1.6;margin:12px 0 -4px;padding:9px 13px;background:var(--paper-2);border-radius:8px 8px 0 0;border:1px solid var(--line);border-bottom:none}
+  .tlegend b{color:var(--sage-deep);font-weight:600}
+  .tlegend+.tscroll{margin-top:0;border-radius:0 0 10px 10px}
 
   .steps{margin:10px 0 18px;padding-left:0;list-style:none;counter-reset:step}
   .steps li{position:relative;padding-left:36px;margin:9px 0;font-size:14.5px;color:var(--ink-2);line-height:1.55;counter-increment:step;min-height:23px}
@@ -239,6 +242,13 @@
         <li><b>Population</b> — the entire group you care about. <b>Sample</b> — the slice you actually measure.</li>
         <li><b>Parameter</b> — a number describing the population (the truth, usually unknown). <b>Statistic</b> — a number from your sample (your estimate).</li>
       </ul>
+      <p><b>How to tell them apart in a word problem — ask two questions in order:</b></p>
+      <ol class="steps">
+        <li>Who does the question <b>ultimately</b> want to know about? → that's the <b>population</b>.</li>
+        <li>Who did the researcher <b>actually</b> measure? → that's the <b>sample</b> (often smaller than the population).</li>
+        <li>A number describing the population's truth (uses N, μ, σ) → <b>parameter</b>. It's usually unknown — that's the whole reason to sample.</li>
+        <li>A number computed from the sample (uses n, x̄, s) → <b>statistic</b>. This is your estimate of the parameter.</li>
+      </ol>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p>Population = the whole <b>P</b>izza 🍕; Sample = one <b>S</b>lice. <b>P</b>arameter ↔ <b>P</b>opulation, <b>S</b>tatistic ↔ <b>S</b>ample. Greek letters (μ, σ) = the truth; Roman letters (x̄, s) = your guess.</p></div></div>
 
@@ -254,10 +264,19 @@
       <h3 class="sub">Summation notation</h3>
       <div class="formula"><div class="flabel">Sigma just means "add them all up"</div>
         <div class="feq">Σx = x₁ + x₂ + x₃ + … + xₙ</div>
-        <div class="fnote">If x = {2, 4, 6}, then Σx = 12 and Σx² = 4 + 16 + 36 = 56. (Square first, then add.)</div></div>
+        <div class="fnote">Σx² means <b>square first, then add</b> — it is <em>not</em> the same as (Σx)², which means add first, then square. Mixing these two up is the single most common Unit I error.</div></div>
 
-      <div class="ex"><div class="extag">📐 Picture this</div>
-        <p>You want the average height of <b>all</b> Grade-6 kids in the Philippines — the <b>population</b>, too many to measure. So you measure <b>100 kids</b> (your <b>sample</b>). The true average of every kid = <b>parameter</b>. Your 100-kid average = <b>statistic</b>. Statistics is the art of trusting the 100 to speak for the millions.</p></div>
+      <div class="ex"><div class="extag">📐 Worked example — Σx vs. Σx²</div>
+        <p>Data: <b>x = {2, 4, 6}</b></p>
+        <div class="tlegend"><b>x²</b> = each value multiplied by itself</div>
+        <div class="tscroll"><table>
+          <tr><th>x</th><th>x²</th></tr>
+          <tr><td>2</td><td>4</td></tr>
+          <tr><td>4</td><td>16</td></tr>
+          <tr><td>6</td><td>36</td></tr>
+          <tr class="trow-total"><td>Σ = 12</td><td>Σ = 56</td></tr>
+        </table></div>
+        <p><b>Σx = 12</b> (add the raw values). <b>Σx² = 56</b> (square each one first, then add). Notice (Σx)² = 12² = 144 — nowhere close to 56. Two different numbers, two different meanings.</p></div>
     </div>
   </section>
 
@@ -273,14 +292,40 @@
       <h3 class="sub">Ways to present</h3>
       <ul><li><b>Textual</b> = words in a paragraph. <b>Tabular</b> = rows &amp; columns. <b>Graphical</b> = charts (bar, pie, histogram).</li></ul>
       <h3 class="sub">Frequency Distribution Table (FDT)</h3>
-      <p>Raw scores are noise. An FDT groups them into <b>classes</b> so a pattern appears.</p>
+      <p>Raw scores are noise — 20, 30, 50 numbers with no visible pattern. An FDT groups them into <b>classes</b> so a shape appears: where values cluster, where they thin out.</p>
       <div class="formula"><div class="flabel">Class width</div>
         <div class="feq">Width = <span class="frac"><span>Range</span><span>Number of classes</span></span> &nbsp;,&nbsp; Range = Highest − Lowest</div>
-        <div class="fnote">Always round the width <b>up</b>. Rule of thumb: 5–15 classes.</div></div>
+        <div class="fnote">Always round the width <b>up</b>, never to nearest and never down — round down and your last class won't hold the highest value. Rule of thumb: 5–15 classes.</div></div>
+
+      <p><b>The process — six steps, in order:</b></p>
+      <ol class="steps">
+        <li>Find the <b>Range</b> = Highest value − Lowest value.</li>
+        <li>Decide the number of classes, <b>k</b> (given in the problem, or your own reasonable choice, 5–15).</li>
+        <li>Compute the <b>width</b> = Range ÷ k, then round <b>up</b> to a whole number.</li>
+        <li>Build the <b>class limits</b>: start at the lowest value; each next class starts width-many numbers later.</li>
+        <li>Add <b>class boundaries</b>: subtract 0.5 from every lower limit, add 0.5 to every upper limit — this closes the gaps between classes.</li>
+        <li><b>Tally</b> each raw value into its class, then count the tally marks for the <b>frequency (f)</b>.</li>
+      </ol>
+
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p>Build an FDT in order: <b>R-C-W-T</b> — find the <b>R</b>ange, decide <b>C</b>lasses, get the <b>W</b>idth, then <b>T</b>ally.</p></div></div>
-      <div class="ex"><div class="extag">📐 Picture this</div>
-        <p>Thirty kids took a test. Listing all 30 scores is a wall of numbers. Instead group them: <b>0–10 → 2, 11–20 → 5, 21–30 → 9…</b> Now you can see the class bunches up in the middle. Draw bars over those groups and you've got a histogram — same data, readable at a glance.</p></div>
+
+      <div class="ex"><div class="extag">📐 Worked example — raw data to a complete FDT</div>
+        <p>Raw scores of 20 students: <b>12, 22, 27, 30, 33, 36, 39, 42, 45, 47, 48, 50, 52, 55, 58, 60, 66, 70, 74, 87</b></p>
+        <p><b>Steps 1–3:</b> Range = 87 − 12 = 75. Choose k = 6 classes. Width = 75/6 = 12.5 → round up to <b>13</b>.</p>
+        <p><b>Steps 4–6:</b> starting at 12, step forward by 13 each time, apply the ±0.5 boundary rule, then tally:</p>
+        <div class="tlegend"><b>Boundaries</b> = lower limit − 0.5, upper limit + 0.5 &nbsp;·&nbsp; <b>Midpoint</b> = (lower limit + upper limit) ÷ 2</div>
+        <div class="tscroll"><table>
+          <tr><th>Class limits</th><th>Class boundaries</th><th>Midpoint</th><th>Tally</th><th>f</th></tr>
+          <tr><td>12–24</td><td>11.5–24.5</td><td>18</td><td>II</td><td>2</td></tr>
+          <tr><td>25–37</td><td>24.5–37.5</td><td>31</td><td>IIII</td><td>4</td></tr>
+          <tr><td>38–50</td><td>37.5–50.5</td><td>44</td><td>IIII I</td><td>6</td></tr>
+          <tr><td>51–63</td><td>50.5–63.5</td><td>57</td><td>IIII</td><td>4</td></tr>
+          <tr><td>64–76</td><td>63.5–76.5</td><td>70</td><td>III</td><td>3</td></tr>
+          <tr><td>77–89</td><td>76.5–89.5</td><td>83</td><td>I</td><td>1</td></tr>
+          <tr class="trow-total"><td>Total</td><td></td><td></td><td></td><td>20</td></tr>
+        </table></div>
+        <p>That's a finished FDT — 20 messy raw scores now visibly cluster in the 38–50 class. <b>Hold onto this exact table</b>: Unit III reuses it to compute the grouped mean, median, and mode.</p></div>
     </div>
   </section>
 
@@ -309,6 +354,46 @@
 Median = middle of sorted list      = 5
 Mode   = appears most often          = 5</span>
         <p>The "average" student is ~5–6. If a sixth kid scored <b>100</b>, the mean jumps to ~21 (misleading!) but the median barely moves to 6. <b>That's when you report the median.</b></p></div>
+
+      <h3 class="sub">Mean, median &amp; mode from grouped data (an FDT)</h3>
+      <p>Once data is organized into classes, you can no longer add up individual raw values — they're hidden inside the classes. All three measures adapt the same way: treat every class as if all its values sit exactly at the <b>midpoint</b>, weighted by <b>how many</b> values (f) actually landed there.</p>
+      <div class="formula"><div class="flabel">Grouped mean</div>
+        <div class="feq">x̄ = Σfx / n</div>
+        <div class="fnote">Identical to the ungrouped mean formula — <b>x</b> is just now the class midpoint instead of a raw value.</div></div>
+      <div class="formula"><div class="flabel">Grouped median</div>
+        <div class="feq">Median = L + <span class="frac"><span>(n/2) − CF</span><span>f</span></span> × width</div>
+        <div class="fnote"><b>L</b> = lower boundary of the <b>median class</b> (the first class whose cumulative frequency reaches n/2). <b>CF</b> = cumulative frequency <em>before</em> that class. <b>f</b> = frequency <em>of</em> that class.</div></div>
+      <div class="formula"><div class="flabel">Grouped mode</div>
+        <div class="feq">Mode = L + <span class="frac"><span>d₁</span><span>d₁ + d₂</span></span> × width</div>
+        <div class="fnote"><b>L</b> = lower boundary of the <b>modal class</b> (highest frequency). <b>d₁</b> = modal f − f of the class before it. <b>d₂</b> = modal f − f of the class after it.</div></div>
+
+      <p><b>The process — five steps:</b></p>
+      <ol class="steps">
+        <li>From your FDT, list <b>f</b>, the class <b>midpoint (x)</b>, and build a running <b>cumulative frequency (CF)</b> column.</li>
+        <li><b>Mean:</b> multiply f × x for every class → sum → divide by n.</li>
+        <li><b>Median:</b> find <b>n/2</b>, locate the first class where CF reaches it — that's your median class. Plug L, CF (of the class before), f, and width into the formula.</li>
+        <li><b>Mode:</b> find the class with the highest f — that's your modal class. Plug L, d₁, d₂, and width into the formula.</li>
+        <li>Sanity check: mode ≤ median ≤ mean (or reversed) should roughly match the skew direction you'd expect from the frequency shape.</li>
+      </ol>
+
+      <div class="ex"><div class="extag">📐 Worked example — same FDT as Unit II, now solved</div>
+        <div class="tlegend"><b>CF</b> = running total of f, top to bottom</div>
+        <div class="tscroll"><table>
+          <tr><th>Class boundaries</th><th>x (midpoint)</th><th>f</th><th>fx</th><th>CF</th></tr>
+          <tr><td>11.5–24.5</td><td>18</td><td>2</td><td>36</td><td>2</td></tr>
+          <tr><td>24.5–37.5</td><td>31</td><td>4</td><td>124</td><td>6</td></tr>
+          <tr><td>37.5–50.5</td><td>44</td><td>6</td><td>264</td><td>12</td></tr>
+          <tr><td>50.5–63.5</td><td>57</td><td>4</td><td>228</td><td>16</td></tr>
+          <tr><td>63.5–76.5</td><td>70</td><td>3</td><td>210</td><td>19</td></tr>
+          <tr><td>76.5–89.5</td><td>83</td><td>1</td><td>83</td><td>20</td></tr>
+          <tr class="trow-total"><td>Total</td><td></td><td>20</td><td>945</td><td></td></tr>
+        </table></div>
+        <p><b>Mean:</b> x̄ = 945 / 20 = <b>47.25</b></p>
+        <p><b>Median:</b> n/2 = 10. Scanning CF (2, 6, 12, …), the first class reaching 10 is <b>37.5–50.5</b> (CF = 12) — that's the median class, with CF-before = 6 and f = 6.<br>
+        Median = 37.5 + [(10 − 6)/6] × 13 = 37.5 + 8.67 = <b>46.17</b></p>
+        <p><b>Mode:</b> highest f is <b>6</b>, in the same class <b>37.5–50.5</b> — the modal class. d₁ = 6 − 4 = 2 (vs. class before), d₂ = 6 − 4 = 2 (vs. class after).<br>
+        Mode = 37.5 + [2/(2+2)] × 13 = 37.5 + 6.5 = <b>44.0</b></p>
+        <p>Mode (44.0) &lt; Median (46.17) &lt; Mean (47.25) — a mild right-skew, exactly what you'd expect: the classes trail off more slowly on the high side (4, 3, 1) than they build up on the low side (2, 4).</p></div>
     </div>
   </section>
 
@@ -344,6 +429,7 @@ Mode   = appears most often          = 5</span>
 
       <div class="ex"><div class="extag">📐 Worked example — MAD</div>
         <p>Data: <b>4, 6, 8, 10, 12</b> &nbsp;→&nbsp; x̄ = 40/5 = <b>8</b></p>
+        <div class="tlegend"><b>x − x̄</b> = value minus the mean &nbsp;·&nbsp; <b>|x − x̄|</b> = that distance, sign removed</div>
         <div class="tscroll"><table>
           <tr><th>x</th><th>x − x̄</th><th>|x − x̄|</th></tr>
           <tr><td>4</td><td>−4</td><td>4</td></tr>
@@ -370,6 +456,7 @@ Mode   = appears most often          = 5</span>
 
       <div class="ex"><div class="extag">📐 Worked example — sample variance &amp; standard deviation</div>
         <p>Sample data: <b>7, 9, 10, 12</b> &nbsp;→&nbsp; x̄ = 38/4 = <b>9.5</b></p>
+        <div class="tlegend"><b>x − x̄</b> = value minus the mean &nbsp;·&nbsp; <b>(x − x̄)²</b> = that distance, squared</div>
         <div class="tscroll"><table>
           <tr><th>x</th><th>x − x̄</th><th>(x − x̄)²</th></tr>
           <tr><td>7</td><td>−2.5</td><td>6.25</td></tr>
@@ -399,6 +486,7 @@ Mode   = appears most often          = 5</span>
       </ol>
 
       <div class="ex"><div class="extag">📐 Worked example — one table, mean → MAD → variance → SD</div>
+        <div class="tlegend"><b>x</b> = class midpoint &nbsp;·&nbsp; <b>fx</b> = f × x &nbsp;·&nbsp; <b>x−x̄</b> = midpoint minus grouped mean &nbsp;·&nbsp; <b>f|x−x̄|</b> = f × |x−x̄| &nbsp;·&nbsp; <b>f(x−x̄)²</b> = f × (x−x̄)²</div>
         <div class="tscroll"><table>
           <tr><th>Class</th><th>f</th><th>x</th><th>fx</th><th>x−x̄</th><th>|x−x̄|</th><th>f|x−x̄|</th><th>(x−x̄)²</th><th>f(x−x̄)²</th></tr>
           <tr><td>30–34</td><td>3</td><td>32</td><td>96</td><td>−6.79</td><td>6.79</td><td>20.37</td><td>46.10</td><td>138.30</td></tr>
@@ -444,26 +532,40 @@ Mode   = appears most often          = 5</span>
       <p>A staple of research methods for deciding how many people to survey. When the population size <b>N</b> is known but little is known about its behaviour, Slovin's formula gives the <b>minimum sample size</b> for a chosen margin of error.</p>
       <div class="formula"><div class="flabel">Slovin's sample-size formula</div>
         <div class="feq">n = <span class="frac"><span>N</span><span>1 + N·e²</span></span></div>
-        <div class="fnote">n = sample size · N = population size · e = margin of error as a decimal (5% → 0.05). Round to a whole number. Tighten e and the required n grows.</div></div>
+        <div class="fnote">n = sample size · N = population size · e = margin of error as a decimal (5% → 0.05). <b>Always round the result up</b> — round down and you'd fall short of the margin of error you asked for.</div></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p><b>S</b>lovin's <b>S</b>izes the <b>S</b>ample: <b>N on top, (1 + N·e²) on the bottom.</b> Smaller error (e↓) → bigger sample (n↑). It's a quick heuristic — it ignores how spread-out the population is, so it's for fast estimates, not high-stakes precision.</p></div></div>
-      <div class="ex"><div class="extag">📐 Picture this</div>
+      <p><b>The process — three steps:</b></p>
+      <ol class="steps">
+        <li>Identify <b>N</b> (the whole population) and <b>e</b> (your acceptable margin of error, as a decimal).</li>
+        <li>Plug into n = N / (1 + N·e²) and compute.</li>
+        <li><b>Round up</b> to the next whole number — always up, regardless of the decimal.</li>
+      </ol>
+      <div class="ex"><div class="extag">📐 Worked example</div>
         <p>A study covers all <b>5,000</b> students in a college, and you'll accept a <b>5%</b> margin of error.</p>
         <span class="work">N = 5000 ,  e = 0.05
 n = 5000 / (1 + 5000 × 0.05²)
   = 5000 / (1 + 5000 × 0.0025)
   = 5000 / (1 + 12.5)
   = 5000 / 13.5
-  = 370.4   →   survey 370 students</span>
-        <p>You don't need all 5,000 — <b>370</b> well-chosen students represent them within 5%.</p></div>
+  = 370.4   →   round UP →   371 students</span>
+        <p>You don't need all 5,000 — <b>371</b> well-chosen students represent them within 5%. (370.4 rounds up to 371, never down to 370 — the sample-size rounding rule always rounds up.)</p></div>
       <h3 class="sub">Standard error &amp; the Central Limit Theorem</h3>
       <div class="formula"><div class="flabel">The two ideas that run everything</div>
         <div class="feq">Standard error:  SE = σ ÷ √n</div>
         <div class="feq">CLT:  for n ≥ 30, the distribution of x̄ is ≈ Normal — <em>whatever shape the population has</em></div>
         <div class="fnote">A <b>normal distribution</b> is the symmetric, bell-shaped curve where most values sit near the mean and extremes are rare. SE is the SD of the sample mean — bigger n → smaller SE → a steadier, more reliable average.</div></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
-        <p><b>The average of averages goes bell-shaped.</b> <b>n ≥ 30 is the magic number.</b> SE shrinks as n grows.</p></div></div>
-      <div class="ex"><div class="extag">📐 Picture this</div>
+        <p><b>The average of averages goes bell-shaped.</b> <b>n ≥ 30 is the magic number.</b> SE shrinks as n grows — but only as the <b>square root</b> of n, never in direct proportion.</p></div></div>
+      <div class="ex"><div class="extag">📐 Worked example — SE shrinks with the square root of n</div>
+        <div class="tlegend"><b>SE</b> = σ ÷ √n</div>
+        <div class="tscroll"><table>
+          <tr><th>σ</th><th>n</th><th>√n</th><th>SE = σ/√n</th></tr>
+          <tr><td>20</td><td>16</td><td>4</td><td>5.0</td></tr>
+          <tr><td>20</td><td>64</td><td>8</td><td>2.5</td></tr>
+        </table></div>
+        <p>Quadrupling n (16 → 64) only <b>halved</b> SE (5.0 → 2.5), not quartered it — because SE depends on <b>√n</b>, not n itself. To cut your error in half, you need <b>four times</b> the data.</p></div>
+      <div class="ex"><div class="extag">📐 Picture this — why the CLT works</div>
         <p>Roll <b>one</b> die: any number 1–6, totally flat, no bell. Now roll <b>five</b> dice and write the <b>average</b>, hundreds of times. Those averages pile up around 3.5 in a <b>bell shape</b> — all-1s or all-6s are rare. The original was flat, yet the averages went bell-curve. <b>That's the CLT</b>, and it's why a sample mean is trustworthy.</p></div>
     </div>
   </section>
@@ -481,15 +583,32 @@ n = 5000 / (1 + 5000 × 0.05²)
         <li><b>H₁ (alternative)</b> — the new claim you're trying to prove: "there IS a difference."</li>
       </ul>
       <h3 class="sub">The 5 steps (every test, same dance)</h3>
-      <div class="formula"><div class="flabel">Procedure</div>
-        <div class="feq">1. State H₀ &amp; H₁   2. Pick α (usually 0.05)   3. Compute the test statistic</div>
-        <div class="feq">4. Find the critical value from the table   5. Decide &amp; conclude in plain words</div></div>
+      <p><b>The process — memorize this order, apply it to literally every test in this unit:</b></p>
+      <ol class="steps">
+        <li>State <b>H₀</b> and <b>H₁</b>.</li>
+        <li>Pick <b>α</b> (the significance level — usually 0.05).</li>
+        <li>Compute the <b>test statistic</b> (z or t) from your sample.</li>
+        <li>Find the <b>critical value</b> from the table, using α (and df, for t).</li>
+        <li><b>Decide:</b> compare statistic to critical value, then conclude in plain words.</li>
+      </ol>
       <div class="formula"><div class="flabel">The two workhorse statistics</div>
         <div class="feq">z (σ known / large n):  z = <span class="frac"><span>x̄ − μ</span><span>σ / √n</span></span></div>
         <div class="feq">t (σ unknown / small n):  t = <span class="frac"><span>x̄ − μ</span><span>s / √n</span></span> ,  df = n − 1</div>
         <div class="fnote"><b>Quick terms — α</b> (significance level): the false-alarm risk you accept up front, usually 0.05. <b>df</b> (degrees of freedom): the number of values free to vary, here n−1. <b>Critical value</b>: the cut-off from the table. <b>p-value</b>: the chance of data this extreme if H₀ were true (small p = evidence against H₀). By hand you compare your statistic to the critical value — reject H₀ when |statistic| &gt; critical (it landed in the tail).</div></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p>Steps = <b>H-A-T-C-D</b> (Hypotheses, Alpha, Test-stat, Compare, Decide). <b>p Low → null must Go; p High → null gets by.</b> Tails: <b>≠</b> → two-tailed, <b>&lt;</b> or <b>&gt;</b> → one-tailed.</p></div></div>
+
+      <div class="ex"><div class="extag">📐 Worked example — the 5 steps, fully applied</div>
+        <p>A machine is supposed to fill bottles with <b>100 mL</b> on average. Population SD is known: <b>σ = 7 mL</b>. A sample of <b>n = 49</b> bottles averages <b>x̄ = 101 mL</b>. Test at <b>α = 0.05</b> (two-tailed) whether the machine is off-target.</p>
+        <ol class="steps">
+          <li><b>H₀: μ = 100</b> (on target)  ·  <b>H₁: μ ≠ 100</b> (off-target — two-tailed, since "off" could mean too high <em>or</em> too low).</li>
+          <li><b>α = 0.05</b>, two-tailed → split between both tails, 0.025 each.</li>
+          <li>Test statistic: z = (101 − 100) / (7/√49) = 1 / (7/7) = 1 / 1 = <b>1.0</b></li>
+          <li>Critical value for α = 0.05 two-tailed: <b>z = ±1.96</b>.</li>
+          <li>Decide: |1.0| is <b>not</b> beyond 1.96 — it doesn't reach the tail. <b>Fail to reject H₀.</b> There isn't enough evidence the machine is off-target; a 1 mL difference is within normal sampling wobble.</li>
+        </ol>
+        <p>Notice this example <b>fails to reject</b> — not every test ends in rejection. A statistic has to genuinely land in the tail, not just differ slightly from H₀.</p></div>
+
       <h3 class="sub">Two ways to be wrong</h3>
       <ul>
         <li><b>Type I (α):</b> reject a true H₀ — a false alarm.</li>
@@ -521,8 +640,34 @@ n = 5000 / (1 + 5000 × 0.05²)
         <p><b>ŷ = a + bx</b> is just <b>y = mx + b in a lab coat</b>. <b>b</b> is the <b>boost</b> — how much y jumps per +1 of x. <b>Square r to get the share</b> of variation explained (r = 0.9 → r² = 0.81 → 81%).</p></div></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic — the trap</div>
         <p><b>Correlation ≠ causation.</b> Ice-cream sales and drownings rise together — but the <b>SUN</b> causes both, not each other. Always hunt for the hidden third factor.</p></div></div>
-      <div class="ex"><div class="extag">📐 Picture this</div>
-        <p>Plot <b>hours studied</b> (x) against <b>test score</b> (y). The dots drift up-right — more study, higher score: <b>positive correlation</b>. Draw the single best straight line (<b>regression</b>) and predict: "study 5 hours → expect ~85." The <b>causation trap</b>: kids with bigger feet read better — feet don't cause reading, <b>age</b> does (older kids have both).</p></div>
+
+      <p><b>The process — build one table, read four numbers off it:</b></p>
+      <ol class="steps">
+        <li>List each pair <b>(x, y)</b>, then add columns for <b>xy</b>, <b>x²</b>, and <b>y²</b>.</li>
+        <li>Sum every column: Σx, Σy, Σxy, Σx², Σy².</li>
+        <li>Plug the five sums into <b>r</b> to measure the relationship's strength.</li>
+        <li>Plug the same sums into <b>b</b> and <b>a</b> to get the regression line.</li>
+        <li>Square r to get <b>r²</b> — the share of y's variation that x explains.</li>
+      </ol>
+
+      <div class="ex"><div class="extag">📐 Worked example — one table, full regression</div>
+        <p>Hours studied (x) vs. exam score (y), five students:</p>
+        <div class="tlegend"><b>xy</b> = x × y &nbsp;·&nbsp; <b>x²</b> = x × x &nbsp;·&nbsp; <b>y²</b> = y × y</div>
+        <div class="tscroll"><table>
+          <tr><th>x</th><th>y</th><th>xy</th><th>x²</th><th>y²</th></tr>
+          <tr><td>1</td><td>52</td><td>52</td><td>1</td><td>2,704</td></tr>
+          <tr><td>2</td><td>58</td><td>116</td><td>4</td><td>3,364</td></tr>
+          <tr><td>3</td><td>65</td><td>195</td><td>9</td><td>4,225</td></tr>
+          <tr><td>4</td><td>70</td><td>280</td><td>16</td><td>4,900</td></tr>
+          <tr><td>5</td><td>80</td><td>400</td><td>25</td><td>6,400</td></tr>
+          <tr class="trow-total"><td>Σ = 15</td><td>Σ = 325</td><td>Σ = 1,043</td><td>Σ = 55</td><td>Σ = 21,593</td></tr>
+        </table></div>
+        <p><b>r</b> = [5(1043) − (15)(325)] / √{[5(55) − 15²][5(21593) − 325²]} = 340 / √(50 × 2340) = 340/342.05 ≈ <b>0.99</b> — an extremely strong positive relationship.</p>
+        <p><b>b</b> = 340/50 = <b>6.8</b> &nbsp;·&nbsp; <b>a</b> = (325/5) − 6.8(15/5) = 65 − 20.4 = <b>44.6</b> &nbsp;→&nbsp; <b>ŷ = 44.6 + 6.8x</b></p>
+        <p><b>r²</b> = 0.99² ≈ <b>0.988</b> → about <b>99%</b> of the variation in exam scores is explained by hours studied. Prediction check: at x = 3, ŷ = 44.6 + 6.8(3) = 65.0 — matching the actual data point almost exactly, which is what a high r promises.</p></div>
+
+      <div class="ex"><div class="extag">📐 Picture this — the causation trap</div>
+        <p>Kids with bigger feet tend to read better. Do big feet cause good reading? No — <b>age</b> is the hidden variable: older kids have both bigger feet <em>and</em> better reading, unrelated to each other directly. Whenever a correlation surprises you, ask what third factor might be driving both sides at once.</p></div>
     </div>
   </section>
 
@@ -534,18 +679,21 @@ n = 5000 / (1 + 5000 × 0.05²)
     <div class="ubody">
       <p>Before you can analyze an experiment (Unit IX), you have to <b>design</b> it so the results actually mean something.</p>
       <h3 class="sub">The vocabulary</h3>
-      <ul>
-        <li><b>Treatment</b> — the thing you're testing (the "what-if").</li>
-        <li><b>Experimental unit</b> — what receives the treatment (the "who-gets-it").</li>
-        <li><b>Response variable</b> — what you measure afterward (the "what-happens").</li>
-        <li><b>Factor</b> — a variable you deliberately change; its settings are <b>levels</b>.</li>
-      </ul>
+      <p>Four terms, and every experiment you'll ever design maps onto them:</p>
+      <div class="tscroll"><table>
+        <tr><th>Term</th><th>Plain meaning</th><th>In the fertilizer study below</th></tr>
+        <tr><td><b>Treatment</b></td><td>the thing you're testing — the "what-if"</td><td>fertilizers A, B, C</td></tr>
+        <tr><td><b>Experimental unit</b></td><td>what receives the treatment — the "who-gets-it"</td><td>each pot</td></tr>
+        <tr><td><b>Response variable</b></td><td>what you measure afterward — the "what-happens"</td><td>plant height</td></tr>
+        <tr><td><b>Factor</b></td><td>a variable you deliberately change; its settings are <b>levels</b></td><td>fertilizer type (3 levels)</td></tr>
+      </table></div>
       <h3 class="sub">Fisher's three principles (the heart of design)</h3>
-      <ul>
+      <p><b>The process — apply all three before you collect a single data point:</b></p>
+      <ol class="steps">
         <li><b>Randomization</b> — assign treatments by chance, so no group gets an unfair edge.</li>
         <li><b>Replication</b> — repeat each treatment many times, so one fluke can't fool you.</li>
-        <li><b>Local control / Blocking</b> — group similar units together before comparing, to cancel nuisance differences.</li>
-      </ul>
+        <li><b>Local control / Blocking</b> — group similar units together before comparing, to cancel out nuisance differences.</li>
+      </ol>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p><b>Randomize to be fair, Replicate to be sure, Block to be smart.</b> Roles: <b>Treatment</b> = the WHAT-IF · <b>Unit</b> = WHO-GETS-IT · <b>Response</b> = WHAT-HAPPENS.</p></div></div>
       <div class="ex"><div class="extag">📐 Picture this</div>
@@ -569,6 +717,35 @@ n = 5000 / (1 + 5000 × 0.05²)
         <div class="fnote">df: treatment = k − 1 · error = N − k · total = N − 1  (k = #groups, N = total obs). The F-table needs <b>two</b> df — numerator AND denominator — plus α.</div></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p>The pipeline is <b>SS → df → MS → F</b>. Logic: <b>Between bigger than Within → big F → groups really differ</b> (reject H₀). One factor = <b>one-way</b>; two factors (and do they team up?) = <b>two-way</b>.</p></div></div>
+
+      <p><b>The process — six steps to a finished ANOVA table:</b></p>
+      <ol class="steps">
+        <li>Find each group's mean, and the <b>grand mean</b> (mean of every value, ignoring groups).</li>
+        <li><b>SS_between</b>: for each group, (group mean − grand mean)², times that group's size — sum across groups.</li>
+        <li><b>SS_within</b>: for each value, (value − its own group's mean)² — sum every one of these, across all groups.</li>
+        <li>df: between = k − 1, within = N − k, total = N − 1 (k = number of groups, N = total observations).</li>
+        <li><b>MS</b> = SS ÷ its own df, for both rows.</li>
+        <li><b>F</b> = MS_between ÷ MS_within. Compare to the critical F; larger F favors rejecting H₀.</li>
+      </ol>
+
+      <div class="ex"><div class="extag">📐 Worked example — full one-way ANOVA</div>
+        <p>Three fertilizers, four plants each — plant heights in cm:</p>
+        <span class="work">A: 5, 7, 6, 8   (mean = 6.5)
+B: 9, 10, 8, 9  (mean = 9.0)
+C: 4, 5, 3, 4   (mean = 4.0)
+
+Grand mean = (26 + 36 + 16) / 12 = 78/12 = 6.5</span>
+        <div class="tlegend"><b>SS</b> = sum of squares &nbsp;·&nbsp; <b>MS</b> = SS ÷ df &nbsp;·&nbsp; <b>F</b> = MS_between ÷ MS_within</div>
+        <div class="tscroll"><table>
+          <tr><th>Source</th><th>SS</th><th>df</th><th>MS</th><th>F</th></tr>
+          <tr><td>Between (treatment)</td><td>50</td><td>2</td><td>25</td><td>25</td></tr>
+          <tr><td>Within (error)</td><td>9</td><td>9</td><td>1</td><td></td></tr>
+          <tr class="trow-total"><td>Total</td><td>59</td><td>11</td><td></td><td></td></tr>
+        </table></div>
+        <p><b>SS_between</b> = 4(6.5−6.5)² + 4(9.0−6.5)² + 4(4.0−6.5)² = 0 + 25 + 25 = 50, on df = 3−1 = 2 → MS = 50/2 = 25.<br>
+        <b>SS_within</b> = sum of every (value − its group mean)² inside A, B, and C = 5 + 2 + 2 = 9, on df = 12−3 = 9 → MS = 9/9 = 1.<br>
+        <b>F = 25/1 = 25</b> — with critical F around 4.26 (df 2, 9 at α = 0.05), 25 is far beyond it. <b>Reject H₀</b>: the fertilizers genuinely produce different average heights; this isn't just plant-to-plant noise.</p></div>
+
       <h3 class="sub">Interaction (the two-way twist)</h3>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p><b>Interaction = "it depends."</b> Coffee helps you focus — but coffee + no sleep = jitters. The <b>combo</b> matters, not just each factor alone.</p></div></div>
