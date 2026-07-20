@@ -254,12 +254,19 @@
 
       <h3 class="sub">Types of variables</h3>
       <ul>
-        <li><b>Qualitative</b> (categorical): names/labels. <b>Quantitative</b> (numeric): amounts.</li>
-        <li><b>Discrete</b>: countable jumps (kids in a class). <b>Continuous</b>: any value on a scale (weight, time).</li>
-        <li><b>Levels of measurement</b>: Nominal → Ordinal → Interval → Ratio (low to high info).</li>
+        <li><b>Qualitative</b> (categorical): names/labels, no math on them (favorite color). <b>Quantitative</b> (numeric): amounts you can actually calculate with (height).</li>
+        <li><b>Discrete</b>: countable jumps, whole numbers only — you can't have 2.5 kids in a class. <b>Continuous</b>: any value on a scale, decimals allowed — weight, time, height.</li>
       </ul>
+      <p><b>Levels of measurement</b> — four tiers of "how much information does this number actually carry?" Each level keeps everything the one before it could do, and adds one new power:</p>
+      <div class="tscroll"><table>
+        <tr><th>Level</th><th>What it can do</th><th>Example</th></tr>
+        <tr><td><b>Nominal</b></td><td>label / name only — no order</td><td>eye color: brown, blue, green</td></tr>
+        <tr><td><b>Ordinal</b></td><td>+ can rank, but gaps aren't equal</td><td>race results: 1st, 2nd, 3rd</td></tr>
+        <tr><td><b>Interval</b></td><td>+ equal gaps, but no true zero</td><td>temperature: 0°C isn't "no temperature"</td></tr>
+        <tr><td><b>Ratio</b></td><td>+ a true zero — ratios make sense</td><td>weight: 0 kg really is nothing; 20 kg is twice 10 kg</td></tr>
+      </table></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
-        <p>Levels = <b>NOIR</b> (Nominal, Ordinal, Interval, Ratio). <b>D</b>iscrete = <b>D</b>ots you count; <b>C</b>ontinuous = a <b>C</b>urve you measure.</p></div></div>
+        <p>Levels = <b>NOIR</b> (Nominal, Ordinal, Interval, Ratio) — each letter adds one new power. <b>D</b>iscrete = <b>D</b>ots you count; <b>C</b>ontinuous = a <b>C</b>urve you measure.</p></div></div>
 
       <h3 class="sub">Summation notation</h3>
       <div class="formula"><div class="flabel">Sigma just means "add them all up"</div>
@@ -343,11 +350,37 @@
         <div class="fnote">Median position = (n + 1) ÷ 2 → the <b>seat number</b>, not the score sitting in it.</div></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p>All start with <b>M</b>: <b>Mean</b> = add &amp; divide · <b>Median</b> = the <b>Middle</b> (sort first!) · <b>Mode</b> = the <b>Most</b>. And: the Mean is a people-pleaser — one billionaire drags it up. The Median doesn't care.</p></div></div>
+
+      <h3 class="sub">Weighted mean — when not every value counts equally</h3>
+      <p>The regular mean silently assumes every value matters the same amount. Sometimes that's wrong — a final exam should count more than one quiz. The <b>weighted mean</b> lets you say, explicitly, how much each value counts.</p>
+      <div class="formula"><div class="flabel">Weighted mean</div>
+        <div class="feq">x̄<sub>w</sub> = <span class="frac"><span>Σ(w·x)</span><span>Σw</span></span></div>
+        <div class="fnote">In plain words: multiply each value <b>x</b> by its own weight <b>w</b>, add those up, then divide by the <b>total of the weights</b> — not by how many values there are. If every weight is equal, this collapses right back into the plain mean.</div></div>
+      <div class="ex"><div class="extag">📐 Worked example — weighted mean</div>
+        <p>A student's grades and each subject's unit-load (the weight):</p>
+        <div class="tlegend"><b>w·x</b> = weight × grade</div>
+        <div class="tscroll"><table>
+          <tr><th>Subject</th><th>Grade (x)</th><th>Units (w)</th><th>w·x</th></tr>
+          <tr><td>Math</td><td>90</td><td>3</td><td>270</td></tr>
+          <tr><td>English</td><td>85</td><td>2</td><td>170</td></tr>
+          <tr><td>PE</td><td>95</td><td>1</td><td>95</td></tr>
+          <tr class="trow-total"><td>Total</td><td></td><td>Σw = 6</td><td>Σ(w·x) = 535</td></tr>
+        </table></div>
+        <p><b>x̄<sub>w</sub> = 535 / 6 ≈ 89.17</b> — notice this is <em>not</em> the same as the plain mean of 90, 85, 95 (which is 90). Math pulled the weighted average down toward it less than PE pulled it up, because Math and PE don't carry equal weight.</p></div>
+
       <h3 class="sub">Measures of location ("non-central")</h3>
+      <p>The median cuts sorted data exactly in half. <b>Quartiles, deciles, and percentiles</b> are the same idea, just cutting into more pieces — useful when you want to know someone's standing, not just the group's center.</p>
       <ul>
         <li><b>Quartiles</b> (Q1, Q2, Q3) cut sorted data into 4 equal parts — Q2 <em>is</em> the median.</li>
         <li><b>Deciles</b> = 10 parts, <b>Percentiles</b> = 100 parts. Same idea, finer cuts.</li>
       </ul>
+      <div class="ex"><div class="extag">📐 Worked example — quartiles</div>
+        <p>Sorted scores of 8 students: <b>4, 8, 10, 12, 15, 18, 20, 24</b></p>
+        <p><b>Q2</b> (the median) sits between the 4th and 5th values: (12+15)/2 = <b>13.5</b>.<br>
+        <b>Q1</b> is the median of the <em>lower</em> half (4, 8, 10, 12): (8+10)/2 = <b>9</b>.<br>
+        <b>Q3</b> is the median of the <em>upper</em> half (15, 18, 20, 24): (18+20)/2 = <b>19</b>.</p>
+        <p>A student scoring 19 sits at Q3 — better than roughly <b>75%</b> of the class. That single number tells you standing, which the mean alone never can.</p></div>
+
       <div class="ex"><div class="extag">📐 Picture this</div>
         <p>Five kids' scores: <b>3, 5, 5, 7, 10</b>.</p>
         <span class="work">Mean   = (3+5+5+7+10) ÷ 5 = 30 ÷ 5 = 6
@@ -363,16 +396,18 @@ Mode   = appears most often          = 5</span>
       <div class="formula"><div class="flabel">Grouped median</div>
         <div class="feq">Median = L + <span class="frac"><span>(n/2) − CF</span><span>f</span></span> × width</div>
         <div class="fnote"><b>L</b> = lower boundary of the <b>median class</b> (the first class whose cumulative frequency reaches n/2). <b>CF</b> = cumulative frequency <em>before</em> that class. <b>f</b> = frequency <em>of</em> that class.</div></div>
+      <p><b>In plain words — why this formula works:</b> you already know the median <em>class</em> (say the 15 kids before it, plus n/2 more, lands somewhere inside it), but not the exact spot inside that class. So you <b>walk into the class proportionally</b>: (n/2 − CF) tells you how many more values you still need past the class's start, and dividing by f (how many values total live in that class) turns that into a fraction of the way through. Multiply by the class's width and add it to L, the class's starting edge — that's your best estimate of exactly where inside the class the median falls. This technique is called <b>interpolation</b>: estimating a point <em>between</em> known values.</p>
       <div class="formula"><div class="flabel">Grouped mode</div>
         <div class="feq">Mode = L + <span class="frac"><span>d₁</span><span>d₁ + d₂</span></span> × width</div>
         <div class="fnote"><b>L</b> = lower boundary of the <b>modal class</b> (highest frequency). <b>d₁</b> = modal f − f of the class before it. <b>d₂</b> = modal f − f of the class after it.</div></div>
+      <p><b>In plain words:</b> the mode should lean toward whichever neighboring class is more "crowded." If the class before the modal class is nearly as full (small d₁), the mode sits close to L. If the class after is nearly as full instead (small d₂), the mode sits closer to the far edge. d₁/(d₁+d₂) is just that lean, expressed as a fraction of the class width.</p>
 
       <p><b>The process — five steps:</b></p>
       <ol class="steps">
-        <li>From your FDT, list <b>f</b>, the class <b>midpoint (x)</b>, and build a running <b>cumulative frequency (CF)</b> column.</li>
-        <li><b>Mean:</b> multiply f × x for every class → sum → divide by n.</li>
-        <li><b>Median:</b> find <b>n/2</b>, locate the first class where CF reaches it — that's your median class. Plug L, CF (of the class before), f, and width into the formula.</li>
-        <li><b>Mode:</b> find the class with the highest f — that's your modal class. Plug L, d₁, d₂, and width into the formula.</li>
+        <li>From your FDT, list <b>f</b> (each class's frequency), the class <b>midpoint (x)</b>, and build a running <b>cumulative frequency (CF)</b> column — CF is just each row's f added to the running total of every f before it.</li>
+        <li><b>Mean:</b> multiply f × x for every class → sum → divide by <b>n</b> (the total number of values, i.e. Σf).</li>
+        <li><b>Median:</b> find <b>n/2</b>, locate the first class where CF reaches it — that's your median class. Plug in <b>L</b> (that class's lower boundary), <b>CF</b> (the cumulative frequency of the class <em>before</em> it), <b>f</b> (that class's own frequency), and the class <b>width</b>.</li>
+        <li><b>Mode:</b> find the class with the highest f — that's your modal class. Plug in <b>L</b> (its lower boundary), <b>d₁</b> (modal f minus the frequency of the class before it), <b>d₂</b> (modal f minus the frequency of the class after it), and <b>width</b>.</li>
         <li>Sanity check: mode ≤ median ≤ mean (or reversed) should roughly match the skew direction you'd expect from the frequency shape.</li>
       </ol>
 
@@ -409,7 +444,7 @@ Mode   = appears most often          = 5</span>
         <div class="feq">Sample variance:  s² = <span class="frac"><span>Σx² − (Σx)² / n</span><span>n − 1</span></span></div>
         <div class="feq">Standard deviation:  s = √s²</div>
         <div class="feq">Coefficient of variation:  CV = ( s ÷ x̄ ) × 100%</div>
-        <div class="fnote">Use the computational form (Σx², (Σx)²) — far fewer keystrokes. Carry decimals; round only at the end.</div></div>
+        <div class="fnote">This is called the <b>computational form</b> — a shortcut. It gives the exact same answer as squaring every (x − x̄) one by one, but you only need two sums, <b>Σx²</b> and <b>Σx</b>, instead of first finding x̄ and then re-visiting every value to subtract it. Same result, far fewer keystrokes. Carry decimals; round only at the end.</div></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p><b>Variance Vexes</b> (weird squared units), <b>SD Saves it</b> (square-root → real units). Divide by <b>n−1</b> because <b>S</b>amples are <b>S</b>hy by one. <b>CV</b> lets you <b>C</b>ompare <b>V</b>ariability across different things (₱ vs kg).</p></div></div>
 
@@ -424,7 +459,7 @@ Mode   = appears most often          = 5</span>
         <li>Find the mean, <b>x̄</b>.</li>
         <li>Subtract the mean from every value: <b>x − x̄</b>. Some will be negative — that's expected, for now.</li>
         <li>Drop the sign: take the <b>absolute value</b>, |x − x̄|.</li>
-        <li>Average those distances: add them all up, divide by <b>n</b>.</li>
+        <li>Average those distances: add them all up, divide by <b>n</b> (the number of values).</li>
       </ol>
 
       <div class="ex"><div class="extag">📐 Worked example — MAD</div>
@@ -450,6 +485,7 @@ Mode   = appears most often          = 5</span>
         <div class="fnote">Data on <b>everyone</b> → population → Greek letters (σ, μ, N) → divide by the full <b>N</b>.<br>Data on a <b>subset</b> → sample → plain letters (s, x̄, n) → divide by <b>n − 1</b>.</div></div>
 
       <p><b>Why n − 1, really — not just a rule to memorize:</b> your sample mean x̄ isn't the true population mean μ; it's an estimate, computed <em>from the very data you're measuring</em>. Because x̄ is built to sit as close as mathematically possible to your own sample, that sample's deviations are, on average, a touch smaller than they'd be from the real μ. Dividing by the slightly smaller n − 1 nudges the result back up to correct for that built-in optimism. This has a name — <b>Bessel's correction</b> — it's a genuine bias fix, not an arbitrary quirk.</p>
+      <p><b>The simplest version of that idea:</b> imagine grading your own test using an answer key <em>you</em> wrote after seeing your own answers — you'd naturally score a little better than if a stranger's fixed key were used. Using x̄ (built from your own sample) as the "target" for variance has the same effect: it flatters your own data slightly. Dividing by n − 1 instead of n is how statisticians dock a small penalty to correct for grading your own paper.</p>
 
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p><b>Population = Greek, whole group, ÷N. Sample = plain letters, subset, ÷(n−1).</b> Can't measure everyone? You're estimating — and an estimate costs you one degree of freedom.</p></div></div>
@@ -466,6 +502,24 @@ Mode   = appears most often          = 5</span>
           <tr class="trow-total"><td>Σ</td><td></td><td>13</td></tr>
         </table></div>
         <p><b>s² = 13 / (4 − 1) = 13/3 ≈ 4.33</b> &nbsp;→&nbsp; <b>s = √4.33 ≈ 2.08</b></p></div>
+
+      <div class="ex"><div class="extag">📐 Worked example — one table, MAD → variance → SD together</div>
+        <p>Six exam scores: <b>8, 12, 15, 15, 18, 22</b> &nbsp;→&nbsp; x̄ = 90/6 = <b>15</b></p>
+        <div class="tlegend"><b>x − x̄</b> = value minus the mean &nbsp;·&nbsp; <b>|x − x̄|</b> = that distance, sign removed (feeds MAD) &nbsp;·&nbsp; <b>(x − x̄)²</b> = that distance, squared (feeds variance)</div>
+        <div class="tscroll"><table>
+          <tr><th>x</th><th>x − x̄</th><th>|x − x̄|</th><th>(x − x̄)²</th></tr>
+          <tr><td>8</td><td>−7</td><td>7</td><td>49</td></tr>
+          <tr><td>12</td><td>−3</td><td>3</td><td>9</td></tr>
+          <tr><td>15</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>15</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>18</td><td>3</td><td>3</td><td>9</td></tr>
+          <tr><td>22</td><td>7</td><td>7</td><td>49</td></tr>
+          <tr class="trow-total"><td>Σ</td><td></td><td>20</td><td>116</td></tr>
+        </table></div>
+        <p><b>MAD</b> = 20 / 6 ≈ <b>3.33</b> (n on the bottom — MAD always divides by the full count).<br>
+        <b>Variance:</b> s² = 116 / (6 − 1) = 116/5 = <b>23.2</b> (n − 1 on the bottom — Bessel's correction, since this is sample data).<br>
+        <b>SD:</b> s = √23.2 ≈ <b>4.82</b></p>
+        <p>One dataset, one table, every spread measure — and notice <b>SD (4.82) &gt; MAD (3.33)</b> here, which is typical: squaring gives extra weight to the two values furthest from the mean (8 and 22), so SD usually comes out a bit larger than MAD on the same data.</p></div>
 
       <h3 class="sub">Grouped data — the same formulas, weighted by frequency</h3>
       <p>Once raw data is organized into an FDT, you no longer have individual values in hand — you have <em>classes</em>, each hiding several values you can't see one by one. The fix: treat every value inside a class as if it sat exactly at that class's <b>midpoint (x)</b>, and weight everything by <b>how many</b> values are actually in there (<b>f</b>).</p>
@@ -500,6 +554,24 @@ Mode   = appears most often          = 5</span>
         <b>Variance:</b> s² = 330.35 / (14 − 1) = 330.35/13 = <b>25.41</b><br>
         <b>SD:</b> s = √25.41 ≈ <b>5.04</b></p>
         <p>One table, every spread measure you need — because MAD, variance, and SD are all just different lenses on the same question: <em>how far, on average, from the center?</em></p></div>
+
+      <div class="ex"><div class="extag">📐 Worked example — finishing the story from Units II &amp; III</div>
+        <p>Remember the 20 students' raw scores you organized into an FDT back in Unit II, then found the mean (47.25), median (46.17), and mode (44.0) for in Unit III? Same table — let's find its spread too.</p>
+        <div class="tlegend"><b>x</b> = class midpoint &nbsp;·&nbsp; <b>fx</b> = f × x &nbsp;·&nbsp; <b>x−x̄</b> = midpoint minus 47.25 &nbsp;·&nbsp; <b>f|x−x̄|</b> = f × |x−x̄| &nbsp;·&nbsp; <b>f(x−x̄)²</b> = f × (x−x̄)²</div>
+        <div class="tscroll"><table>
+          <tr><th>Class boundaries</th><th>f</th><th>x</th><th>fx</th><th>x−x̄</th><th>|x−x̄|</th><th>f|x−x̄|</th><th>(x−x̄)²</th><th>f(x−x̄)²</th></tr>
+          <tr><td>11.5–24.5</td><td>2</td><td>18</td><td>36</td><td>−29.25</td><td>29.25</td><td>58.50</td><td>855.56</td><td>1711.13</td></tr>
+          <tr><td>24.5–37.5</td><td>4</td><td>31</td><td>124</td><td>−16.25</td><td>16.25</td><td>65.00</td><td>264.06</td><td>1056.25</td></tr>
+          <tr><td>37.5–50.5</td><td>6</td><td>44</td><td>264</td><td>−3.25</td><td>3.25</td><td>19.50</td><td>10.56</td><td>63.38</td></tr>
+          <tr><td>50.5–63.5</td><td>4</td><td>57</td><td>228</td><td>9.75</td><td>9.75</td><td>39.00</td><td>95.06</td><td>380.25</td></tr>
+          <tr><td>63.5–76.5</td><td>3</td><td>70</td><td>210</td><td>22.75</td><td>22.75</td><td>68.25</td><td>517.56</td><td>1552.69</td></tr>
+          <tr><td>76.5–89.5</td><td>1</td><td>83</td><td>83</td><td>35.75</td><td>35.75</td><td>35.75</td><td>1278.06</td><td>1278.06</td></tr>
+          <tr class="trow-total"><td>Total</td><td>20</td><td></td><td>945</td><td></td><td></td><td>286.00</td><td></td><td>6041.75</td></tr>
+        </table></div>
+        <p><b>MAD</b> = 286.00 / 20 = <b>14.3</b> — on average, a student's score sits 14.3 points from the mean of 47.25.<br>
+        <b>Variance:</b> s² = 6041.75 / (20 − 1) = 6041.75/19 ≈ <b>318.0</b><br>
+        <b>SD:</b> s = √318.0 ≈ <b>17.83</b></p>
+        <p>Compare the two worked examples side by side: the 30–49 class-interval data (tightly packed, SD ≈ 5.04) versus these 20 students (spread across almost the whole 12–89 range, SD ≈ 17.83). Same formulas, wildly different spread — which is exactly what SD is supposed to tell you at a glance.</p></div>
 
       <h3 class="sub">Skewness — the lopsidedness</h3>
       <ul>
@@ -585,10 +657,10 @@ n = 5000 / (1 + 5000 × 0.05²)
       <h3 class="sub">The 5 steps (every test, same dance)</h3>
       <p><b>The process — memorize this order, apply it to literally every test in this unit:</b></p>
       <ol class="steps">
-        <li>State <b>H₀</b> and <b>H₁</b>.</li>
-        <li>Pick <b>α</b> (the significance level — usually 0.05).</li>
-        <li>Compute the <b>test statistic</b> (z or t) from your sample.</li>
-        <li>Find the <b>critical value</b> from the table, using α (and df, for t).</li>
+        <li>State <b>H₀</b> (the null — "no difference," always with =) and <b>H₁</b> (the alternative — the claim you're testing for).</li>
+        <li>Pick <b>α</b> (the significance level — your accepted false-alarm risk, usually 0.05).</li>
+        <li>Compute the <b>test statistic</b> — <b>z</b> if σ is known, <b>t</b> if you only have the sample SD <b>s</b> instead.</li>
+        <li>Find the <b>critical value</b> from the table, using α (and <b>df</b> = n − 1, for t only).</li>
         <li><b>Decide:</b> compare statistic to critical value, then conclude in plain words.</li>
       </ol>
       <div class="formula"><div class="flabel">The two workhorse statistics</div>
@@ -645,8 +717,8 @@ n = 5000 / (1 + 5000 × 0.05²)
       <ol class="steps">
         <li>List each pair <b>(x, y)</b>, then add columns for <b>xy</b>, <b>x²</b>, and <b>y²</b>.</li>
         <li>Sum every column: Σx, Σy, Σxy, Σx², Σy².</li>
-        <li>Plug the five sums into <b>r</b> to measure the relationship's strength.</li>
-        <li>Plug the same sums into <b>b</b> and <b>a</b> to get the regression line.</li>
+        <li>Plug the five sums into <b>r</b> (the correlation coefficient) to measure the relationship's strength, from −1 to +1.</li>
+        <li>Plug the same sums into <b>b</b> (the slope — how much y changes per +1 of x) and <b>a</b> (the intercept — predicted y when x = 0) to get the regression line.</li>
         <li>Square r to get <b>r²</b> — the share of y's variation that x explains.</li>
       </ol>
 
