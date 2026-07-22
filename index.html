@@ -120,6 +120,25 @@
   .tlegend b{color:var(--sage-deep);font-weight:600}
   .tlegend+.tscroll{margin-top:0;border-radius:0 0 10px 10px}
 
+  table.ztable{min-width:680px;font-size:12px}
+  table.ztable th,table.ztable td{padding:6px 8px;text-align:center}
+  table.ztable th{position:sticky;top:0;z-index:2}
+  table.ztable td.zrow{font-family:var(--mono);font-weight:700;color:var(--clay);background:var(--paper-2);position:sticky;left:0;z-index:1}
+  table.ztable tr:nth-child(even) td:not(.zrow){background:var(--paper-2)}
+  table.ztable td.zhi{background:var(--clay)!important;color:#fff;font-weight:700;border-radius:4px}
+
+  .ztable table{min-width:680px;font-size:12.5px}
+  .ztable th,.ztable td{padding:7px 9px;text-align:center}
+  .ztable th:first-child,.ztable td:first-child{position:sticky;left:0;background:var(--paper-2);font-weight:700;color:var(--ink);border-right:2px solid var(--sage-line)}
+  .ztable th:first-child{z-index:2;background:var(--sage);color:#fff}
+  .ztable tr:hover td{background:var(--sage-tint)}
+  .zrecipe{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+  @media(max-width:680px){.zrecipe{grid-template-columns:1fr}}
+  .zcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 15px}
+  .zcard .zt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--clay);font-weight:600;margin-bottom:5px}
+  .zcard .zf{font-family:var(--mono);font-size:14px;color:var(--sage-deep);margin-bottom:5px}
+  .zcard p{font-size:13px;color:var(--ink-2);margin:0;line-height:1.5}
+
   .steps{margin:10px 0 18px;padding-left:0;list-style:none;counter-reset:step}
   .steps li{position:relative;padding-left:36px;margin:9px 0;font-size:14.5px;color:var(--ink-2);line-height:1.55;counter-increment:step;min-height:23px}
   .steps li::before{content:counter(step);position:absolute;left:0;top:0;width:23px;height:23px;border-radius:50%;background:var(--sage);color:#fff;font-family:var(--mono);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -196,7 +215,7 @@
     <span class="navlogo">Applied <b>Statistics</b></span>
     <div class="navlinks">
       <a href="#u1">I</a><a href="#u2">II</a><a href="#u3">III</a><a href="#u4">IV</a>
-      <a href="#u5">V</a><a href="#u6">VI</a><a href="#u7">VII</a><a href="#u8">VIII</a><a href="#u9">IX</a><a href="#practice">Practice</a><a href="#cheat">Cheat</a><a href="#gloss">Glossary</a><a href="#refs">Sources</a>
+      <a href="#u5">V</a><a href="#u6">VI</a><a href="#u7">VII</a><a href="#u8">VIII</a><a href="#u9">IX</a><a href="#ztable">Z-Table</a><a href="#practice">Practice</a><a href="#cheat">Cheat</a><a href="#gloss">Glossary</a><a href="#refs">Sources</a>
     </div>
   </div>
 </nav>
@@ -816,7 +835,8 @@ Grand mean = (26 + 36 + 16) / 12 = 78/12 = 6.5</span>
         </table></div>
         <p><b>SS_between</b> = 4(6.5−6.5)² + 4(9.0−6.5)² + 4(4.0−6.5)² = 0 + 25 + 25 = 50, on df = 3−1 = 2 → MS = 50/2 = 25.<br>
         <b>SS_within</b> = sum of every (value − its group mean)² inside A, B, and C = 5 + 2 + 2 = 9, on df = 12−3 = 9 → MS = 9/9 = 1.<br>
-        <b>F = 25/1 = 25</b> — with critical F around 4.26 (df 2, 9 at α = 0.05), 25 is far beyond it. <b>Reject H₀</b>: the fertilizers genuinely produce different average heights; this isn't just plant-to-plant noise.</p></div>
+        <b>F = 25/1 = 25</b> — with critical F around 4.26 (df 2, 9 at α = 0.05), 25 is far beyond it. <b>Reject H₀</b>: the fertilizers genuinely produce different average heights; this isn't just plant-to-plant noise.</p>
+        <p class="fnote">F-tables have <b>two</b> degrees of freedom (numerator = df_between across the top, denominator = df_within down the side), so a full table needs one grid per α level — too large to reproduce here. Your exam will supply the F-table; just make sure you're reading numerator df along the correct axis, matched against denominator df.</p></div>
 
       <h3 class="sub">Interaction (the two-way twist)</h3>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
@@ -833,6 +853,97 @@ Brands differ a little, plants inside each vary wildly
   </section>
 
   <!-- CHEAT -->
+  <!-- Z-TABLE -->
+  <section class="unit reveal" id="ztable">
+    <p class="ukick">10 / <b>Look It Up</b></p>
+    <div class="uhead"><div class="badge" style="background:var(--u6)">Z</div>
+      <h2>Z-Table — <em>Area Under the Curve</em></h2></div>
+    <div class="ubody">
+      <p>This table answers one question, over and over: <b>"what fraction of a normal distribution lies below this z-score?"</b> Every value inside it is a <b>cumulative area</b> — P(Z &lt; z) — the proportion of the curve to the <em>left</em> of z. It's the reference table behind every critical value and every probability you've computed by hand in Units V and VI.</p>
+
+      <div class="formula"><div class="flabel">How to read it</div>
+        <div class="fnote">Split your z-score into two parts. The first decimal (e.g. the <b>1.9</b> in 1.96) picks the <b>row</b>. The second decimal (the <b>.06</b> in 1.96) picks the <b>column</b>. Where they meet is P(Z &lt; z). Example: z = 1.96 → row <b>1.9</b>, column <b>.06</b> → <b>0.9750</b>.</div></div>
+
+      <h3 class="sub">The four question types — and how to get each area from the table</h3>
+      <p>The table only ever gives you area <em>to the left</em>. Every other kind of area is a short conversion away:</p>
+      <div class="zrecipe">
+        <div class="zcard"><div class="zt">① Left of z</div><div class="zf">P(Z &lt; z) = table value</div>
+          <p>Read it straight off the table — no conversion needed.</p></div>
+        <div class="zcard"><div class="zt">② Right of z</div><div class="zf">P(Z &gt; z) = 1 − table value</div>
+          <p>The whole curve is area 1, so "everything else" is 1 minus what's to the left.</p></div>
+        <div class="zcard"><div class="zt">③ Between two z's</div><div class="zf">P(z₁ &lt; Z &lt; z₂) = larger − smaller</div>
+          <p>Look up both, subtract. This is the classic "confidence interval" computation.</p></div>
+        <div class="zcard"><div class="zt">④ Two tails (outside ±z)</div><div class="zf">2 × [1 − table value for +z]</div>
+          <p>Find the single right-tail area, then double it — both tails are identical by symmetry.</p></div>
+      </div>
+
+      <div class="ex"><div class="extag">📐 Worked example — the critical values you already use</div>
+        <p>Every critical value in Unit VI comes straight out of this table, read backwards (area known, z unknown):</p>
+        <div class="tscroll"><table>
+          <tr><th>You want</th><th>Look for area</th><th>Closest table value</th><th>z ≈</th></tr>
+          <tr><td>95% one-tailed (α = 0.05)</td><td>0.9500</td><td>0.9495 / 0.9505</td><td>1.645</td></tr>
+          <tr><td>95% two-tailed (α = 0.05, one side)</td><td>0.9750</td><td>0.9750</td><td>1.96</td></tr>
+          <tr><td>99% one-tailed (α = 0.01)</td><td>0.9900</td><td>0.9901</td><td>2.33</td></tr>
+          <tr><td>99% two-tailed (α = 0.01, one side)</td><td>0.9950</td><td>0.9951</td><td>2.58</td></tr>
+        </table></div>
+        <p>This is exactly where 1.96, 1.645, 2.33, and 2.58 — the critical values from Unit VI — actually come from. They aren't arbitrary; they're just the z-scores whose cumulative area matches your confidence level.</p></div>
+
+      <div class="ex"><div class="extag">📐 Worked example — applying all four recipes to z = 1.50</div>
+        <span class="work">Table lookup: z = 1.50 → row 1.5, column .00 → 0.9332
+
+① Left of 1.50:    P(Z < 1.50) = 0.9332
+② Right of 1.50:   P(Z > 1.50) = 1 − 0.9332 = 0.0668
+③ Between 0 and 1.50:  P(0 < Z < 1.50) = 0.9332 − 0.5000 = 0.4332
+④ Outside ±1.50:   2 × 0.0668 = 0.1336</span>
+        <p>One lookup, four different answers — the table never changes, only what you do with the number after you find it.</p></div>
+
+      <div class="ex"><div class="extag">📐 Quick drill — right of z = 1.32</div>
+        <p>Row <b>1.3</b>, column <b>.02</b> → table gives <b>0.9066</b> (that's ① left). The question wants ②, the right tail: <b>1 − 0.9066 = 0.0934</b>. About <b>9.3%</b> of the curve lies beyond z = 1.32.</p></div>
+
+      <p><b>Negative z?</b> This table only lists z ≥ 0 — that's standard, and it's enough. The normal curve is perfectly symmetric, so: <b>P(Z &lt; −z) = 1 − P(Z &lt; z)</b>. Look up the positive version, then subtract from 1.</p>
+
+      <div class="tscroll"><table class="ztable">
+        <tr><th>z</th><th>.00</th><th>.01</th><th>.02</th><th>.03</th><th>.04</th><th>.05</th><th>.06</th><th>.07</th><th>.08</th><th>.09</th></tr>
+          <tr><td class="zrow">0.0</td><td>0.5000</td><td>0.5040</td><td>0.5080</td><td>0.5120</td><td>0.5160</td><td>0.5199</td><td>0.5239</td><td>0.5279</td><td>0.5319</td><td>0.5359</td></tr>
+          <tr><td class="zrow">0.1</td><td>0.5398</td><td>0.5438</td><td>0.5478</td><td>0.5517</td><td>0.5557</td><td>0.5596</td><td>0.5636</td><td>0.5675</td><td>0.5714</td><td>0.5753</td></tr>
+          <tr><td class="zrow">0.2</td><td>0.5793</td><td>0.5832</td><td>0.5871</td><td>0.5910</td><td>0.5948</td><td>0.5987</td><td>0.6026</td><td>0.6064</td><td>0.6103</td><td>0.6141</td></tr>
+          <tr><td class="zrow">0.3</td><td>0.6179</td><td>0.6217</td><td>0.6255</td><td>0.6293</td><td>0.6331</td><td>0.6368</td><td>0.6406</td><td>0.6443</td><td>0.6480</td><td>0.6517</td></tr>
+          <tr><td class="zrow">0.4</td><td>0.6554</td><td>0.6591</td><td>0.6628</td><td>0.6664</td><td>0.6700</td><td>0.6736</td><td>0.6772</td><td>0.6808</td><td>0.6844</td><td>0.6879</td></tr>
+          <tr><td class="zrow">0.5</td><td>0.6915</td><td>0.6950</td><td>0.6985</td><td>0.7019</td><td>0.7054</td><td>0.7088</td><td>0.7123</td><td>0.7157</td><td>0.7190</td><td>0.7224</td></tr>
+          <tr><td class="zrow">0.6</td><td>0.7257</td><td>0.7291</td><td>0.7324</td><td>0.7357</td><td>0.7389</td><td>0.7422</td><td>0.7454</td><td>0.7486</td><td>0.7517</td><td>0.7549</td></tr>
+          <tr><td class="zrow">0.7</td><td>0.7580</td><td>0.7611</td><td>0.7642</td><td>0.7673</td><td>0.7704</td><td>0.7734</td><td>0.7764</td><td>0.7794</td><td>0.7823</td><td>0.7852</td></tr>
+          <tr><td class="zrow">0.8</td><td>0.7881</td><td>0.7910</td><td>0.7939</td><td>0.7967</td><td>0.7995</td><td>0.8023</td><td>0.8051</td><td>0.8078</td><td>0.8106</td><td>0.8133</td></tr>
+          <tr><td class="zrow">0.9</td><td>0.8159</td><td>0.8186</td><td>0.8212</td><td>0.8238</td><td>0.8264</td><td>0.8289</td><td>0.8315</td><td>0.8340</td><td>0.8365</td><td>0.8389</td></tr>
+          <tr><td class="zrow">1.0</td><td>0.8413</td><td>0.8438</td><td>0.8461</td><td>0.8485</td><td>0.8508</td><td>0.8531</td><td>0.8554</td><td>0.8577</td><td>0.8599</td><td>0.8621</td></tr>
+          <tr><td class="zrow">1.1</td><td>0.8643</td><td>0.8665</td><td>0.8686</td><td>0.8708</td><td>0.8729</td><td>0.8749</td><td>0.8770</td><td>0.8790</td><td>0.8810</td><td>0.8830</td></tr>
+          <tr><td class="zrow">1.2</td><td>0.8849</td><td>0.8869</td><td>0.8888</td><td>0.8907</td><td>0.8925</td><td>0.8944</td><td>0.8962</td><td>0.8980</td><td>0.8997</td><td>0.9015</td></tr>
+          <tr><td class="zrow">1.3</td><td>0.9032</td><td>0.9049</td><td class="zhi">0.9066</td><td>0.9082</td><td>0.9099</td><td>0.9115</td><td>0.9131</td><td>0.9147</td><td>0.9162</td><td>0.9177</td></tr>
+          <tr><td class="zrow">1.4</td><td>0.9192</td><td>0.9207</td><td>0.9222</td><td>0.9236</td><td>0.9251</td><td>0.9265</td><td>0.9279</td><td>0.9292</td><td>0.9306</td><td>0.9319</td></tr>
+          <tr><td class="zrow">1.5</td><td>0.9332</td><td>0.9345</td><td>0.9357</td><td>0.9370</td><td>0.9382</td><td>0.9394</td><td>0.9406</td><td>0.9418</td><td>0.9429</td><td>0.9441</td></tr>
+          <tr><td class="zrow">1.6</td><td>0.9452</td><td>0.9463</td><td>0.9474</td><td>0.9484</td><td>0.9495</td><td>0.9505</td><td>0.9515</td><td>0.9525</td><td>0.9535</td><td>0.9545</td></tr>
+          <tr><td class="zrow">1.7</td><td>0.9554</td><td>0.9564</td><td>0.9573</td><td>0.9582</td><td>0.9591</td><td>0.9599</td><td>0.9608</td><td>0.9616</td><td>0.9625</td><td>0.9633</td></tr>
+          <tr><td class="zrow">1.8</td><td>0.9641</td><td>0.9649</td><td>0.9656</td><td>0.9664</td><td>0.9671</td><td>0.9678</td><td>0.9686</td><td>0.9693</td><td>0.9699</td><td>0.9706</td></tr>
+          <tr><td class="zrow">1.9</td><td>0.9713</td><td>0.9719</td><td>0.9726</td><td>0.9732</td><td>0.9738</td><td>0.9744</td><td>0.9750</td><td>0.9756</td><td>0.9761</td><td>0.9767</td></tr>
+          <tr><td class="zrow">2.0</td><td>0.9772</td><td>0.9778</td><td>0.9783</td><td>0.9788</td><td>0.9793</td><td>0.9798</td><td>0.9803</td><td>0.9808</td><td>0.9812</td><td>0.9817</td></tr>
+          <tr><td class="zrow">2.1</td><td>0.9821</td><td>0.9826</td><td>0.9830</td><td>0.9834</td><td>0.9838</td><td>0.9842</td><td>0.9846</td><td>0.9850</td><td>0.9854</td><td>0.9857</td></tr>
+          <tr><td class="zrow">2.2</td><td>0.9861</td><td>0.9864</td><td>0.9868</td><td>0.9871</td><td>0.9875</td><td>0.9878</td><td>0.9881</td><td>0.9884</td><td>0.9887</td><td>0.9890</td></tr>
+          <tr><td class="zrow">2.3</td><td>0.9893</td><td>0.9896</td><td>0.9898</td><td>0.9901</td><td>0.9904</td><td>0.9906</td><td>0.9909</td><td>0.9911</td><td>0.9913</td><td>0.9916</td></tr>
+          <tr><td class="zrow">2.4</td><td>0.9918</td><td>0.9920</td><td>0.9922</td><td>0.9925</td><td>0.9927</td><td>0.9929</td><td>0.9931</td><td>0.9932</td><td>0.9934</td><td>0.9936</td></tr>
+          <tr><td class="zrow">2.5</td><td>0.9938</td><td>0.9940</td><td>0.9941</td><td>0.9943</td><td>0.9945</td><td>0.9946</td><td>0.9948</td><td>0.9949</td><td>0.9951</td><td>0.9952</td></tr>
+          <tr><td class="zrow">2.6</td><td>0.9953</td><td>0.9955</td><td>0.9956</td><td>0.9957</td><td>0.9959</td><td>0.9960</td><td>0.9961</td><td>0.9962</td><td>0.9963</td><td>0.9964</td></tr>
+          <tr><td class="zrow">2.7</td><td>0.9965</td><td>0.9966</td><td>0.9967</td><td>0.9968</td><td>0.9969</td><td>0.9970</td><td>0.9971</td><td>0.9972</td><td>0.9973</td><td>0.9974</td></tr>
+          <tr><td class="zrow">2.8</td><td>0.9974</td><td>0.9975</td><td>0.9976</td><td>0.9977</td><td>0.9977</td><td>0.9978</td><td>0.9979</td><td>0.9979</td><td>0.9980</td><td>0.9981</td></tr>
+          <tr><td class="zrow">2.9</td><td>0.9981</td><td>0.9982</td><td>0.9982</td><td>0.9983</td><td>0.9984</td><td>0.9984</td><td>0.9985</td><td>0.9985</td><td>0.9986</td><td>0.9986</td></tr>
+          <tr><td class="zrow">3.0</td><td>0.9987</td><td>0.9987</td><td>0.9987</td><td>0.9988</td><td>0.9988</td><td>0.9989</td><td>0.9989</td><td>0.9989</td><td>0.9990</td><td>0.9990</td></tr>
+          <tr><td class="zrow">3.1</td><td>0.9990</td><td>0.9991</td><td>0.9991</td><td>0.9991</td><td>0.9992</td><td>0.9992</td><td>0.9992</td><td>0.9992</td><td>0.9993</td><td>0.9993</td></tr>
+          <tr><td class="zrow">3.2</td><td>0.9993</td><td>0.9993</td><td>0.9994</td><td>0.9994</td><td>0.9994</td><td>0.9994</td><td>0.9994</td><td>0.9995</td><td>0.9995</td><td>0.9995</td></tr>
+          <tr><td class="zrow">3.3</td><td>0.9995</td><td>0.9995</td><td>0.9995</td><td>0.9996</td><td>0.9996</td><td>0.9996</td><td>0.9996</td><td>0.9996</td><td>0.9996</td><td>0.9997</td></tr>
+          <tr><td class="zrow">3.4</td><td>0.9997</td><td>0.9997</td><td>0.9997</td><td>0.9997</td><td>0.9997</td><td>0.9997</td><td>0.9997</td><td>0.9997</td><td>0.9997</td><td>0.9998</td></tr>
+      </table></div>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:10px">Table gives P(Z &lt; z), area to the left of z, for the standard normal distribution (μ = 0, σ = 1). Values computed to 4 decimal places, the standard textbook precision.</p>
+    </div>
+  </section>
+
   <!-- PRACTICE -->
   <section class="unit reveal" id="practice">
     <p class="ukick">10 / <b>Train</b></p>
@@ -1031,6 +1142,8 @@ F = MS_between / MS_within = 20 / 5 = 4.0</div>
     <div class="uhead"><div class="badge" style="background:var(--sage)">★</div>
       <h2>Exam <em>Cheat Sheet</em></h2></div>
     <div class="ubody">
+      <p>Everything on one page, in the order you'll actually reach for it: which test to run, every formula, how to read the z-table, and the mistakes that quietly cost the most points. Nothing here is new — it's every formula from Units I–IX, gathered in one place for the night before.</p>
+
       <h3 class="sub">1 · Which test do I use?</h3>
       <div class="tscroll"><table>
         <tr><th>Goal</th><th>Data type</th><th>Test</th><th>Table</th></tr>
@@ -1047,11 +1160,17 @@ F = MS_between / MS_within = 20 / 5 = 4.0</div>
       <div class="tscroll"><table>
         <tr><th>Quantity</th><th>Formula</th><th>Note</th></tr>
         <tr><td>Mean</td><td><code>x̄ = Σx / n</code></td><td>—</td></tr>
+        <tr><td>Weighted mean</td><td><code>x̄w = Σ(w·x) / Σw</code></td><td>÷ total weight, not n</td></tr>
         <tr><td>Median position</td><td><code>(n + 1) / 2</code></td><td>seat, not score</td></tr>
+        <tr><td>Grouped mean</td><td><code>x̄ = Σfx / n</code></td><td>x = class mark</td></tr>
+        <tr><td>Grouped median</td><td><code>L + [(n/2 − CF)/f] × width</code></td><td>L = median class's lower boundary</td></tr>
+        <tr><td>Grouped mode</td><td><code>L + [d₁/(d₁+d₂)] × width</code></td><td>L = modal class's lower boundary</td></tr>
+        <tr><td>Mean Absolute Deviation</td><td><code>MAD = Σ|x−x̄| / n</code></td><td>grouped: Σf|x−x̄| / n</td></tr>
         <tr><td>Sample variance</td><td><code>s² = [Σx² − (Σx)²/n] / (n−1)</code></td><td>computational form</td></tr>
+        <tr><td>Grouped variance</td><td><code>s² = Σf(x−x̄)² / (n−1)</code></td><td>x = class mark</td></tr>
         <tr><td>Standard deviation</td><td><code>s = √s²</code></td><td>real units</td></tr>
         <tr><td>Coeff. of variation</td><td><code>CV = (s / x̄) × 100%</code></td><td>compare across things</td></tr>
-        <tr><td>Slovin's sample size</td><td><code>n = N / (1 + N·e²)</code></td><td>e = margin of error</td></tr>
+        <tr><td>Slovin's sample size</td><td><code>n = N / (1 + N·e²)</code></td><td>e = margin of error, round UP</td></tr>
         <tr><td>Standard error</td><td><code>SE = σ / √n</code></td><td>SD of the mean</td></tr>
         <tr><td>z-score</td><td><code>z = (x − μ) / σ</code></td><td>standardize a value</td></tr>
         <tr><td>One-sample z</td><td><code>z = (x̄ − μ) / (σ/√n)</code></td><td>σ known / large n</td></tr>
@@ -1062,13 +1181,60 @@ F = MS_between / MS_within = 20 / 5 = 4.0</div>
         <tr><td>ANOVA F</td><td><code>F = MS_between / MS_within</code></td><td>MS = SS / df</td></tr>
       </table></div>
 
-      <h3 class="sub">3 · Five mistakes that cost points (no-PC edition)</h3>
+      <h3 class="sub">3 · The z-table lives in its own section</h3>
+      <p>Full standard normal table with worked examples is up in <a href="#ztable" style="color:var(--clay)">Z-Table</a> (nav bar above) — no need to repeat 350 numbers twice. The t-table below is its natural partner for whenever σ is unknown.</p>
+
+      <h3 class="sub">4 · The t-Table (critical values)</h3>
+      <p>Used whenever σ is unknown and you're working with <b>s</b> instead — same idea as the z-table, but the curve's exact shape depends on <b>df</b>, so this table gives straight-to-the-point <b>critical values</b> rather than a full area lookup.</p>
+      <p><b>How to read it:</b> find your <b>df</b> (row) and your <b>α</b> (column) — use the <em>one-tail</em> row of column headers for a one-tailed test, the <em>two-tail</em> row for a two-tailed test. That cell is your critical t. Example highlighted: <b>df = 15, one-tailed α = 0.05 → t = 1.753.</b></p>
+      <div class="tscroll"><table class="ztable">
+          <tr><th>df</th><th>0.100</th><th>0.050</th><th>0.025</th><th>0.010</th><th>0.005</th></tr>
+          <tr><td class="zrow" style="font-size:10px">two-tail →</td><td style="font-family:var(--mono);font-size:10.5px;color:var(--muted)">0.20</td><td style="font-family:var(--mono);font-size:10.5px;color:var(--muted)">0.10</td><td style="font-family:var(--mono);font-size:10.5px;color:var(--muted)">0.05</td><td style="font-family:var(--mono);font-size:10.5px;color:var(--muted)">0.02</td><td style="font-family:var(--mono);font-size:10.5px;color:var(--muted)">0.01</td></tr>
+          <tr><td class="zrow">1</td><td>3.078</td><td>6.314</td><td>12.706</td><td>31.821</td><td>63.657</td></tr>
+          <tr><td class="zrow">2</td><td>1.886</td><td>2.920</td><td>4.303</td><td>6.965</td><td>9.925</td></tr>
+          <tr><td class="zrow">3</td><td>1.638</td><td>2.353</td><td>3.182</td><td>4.541</td><td>5.841</td></tr>
+          <tr><td class="zrow">4</td><td>1.533</td><td>2.132</td><td>2.776</td><td>3.747</td><td>4.604</td></tr>
+          <tr><td class="zrow">5</td><td>1.476</td><td>2.015</td><td>2.571</td><td>3.365</td><td>4.032</td></tr>
+          <tr><td class="zrow">6</td><td>1.440</td><td>1.943</td><td>2.447</td><td>3.143</td><td>3.707</td></tr>
+          <tr><td class="zrow">7</td><td>1.415</td><td>1.895</td><td>2.365</td><td>2.998</td><td>3.499</td></tr>
+          <tr><td class="zrow">8</td><td>1.397</td><td>1.860</td><td>2.306</td><td>2.896</td><td>3.355</td></tr>
+          <tr><td class="zrow">9</td><td>1.383</td><td>1.833</td><td>2.262</td><td>2.821</td><td>3.250</td></tr>
+          <tr><td class="zrow">10</td><td>1.372</td><td>1.812</td><td>2.228</td><td>2.764</td><td>3.169</td></tr>
+          <tr><td class="zrow">11</td><td>1.363</td><td>1.796</td><td>2.201</td><td>2.718</td><td>3.106</td></tr>
+          <tr><td class="zrow">12</td><td>1.356</td><td>1.782</td><td>2.179</td><td>2.681</td><td>3.055</td></tr>
+          <tr><td class="zrow">13</td><td>1.350</td><td>1.771</td><td>2.160</td><td>2.650</td><td>3.012</td></tr>
+          <tr><td class="zrow">14</td><td>1.345</td><td>1.761</td><td>2.145</td><td>2.624</td><td>2.977</td></tr>
+          <tr><td class="zrow">15</td><td>1.341</td><td class="zhi">1.753</td><td>2.131</td><td>2.602</td><td>2.947</td></tr>
+          <tr><td class="zrow">16</td><td>1.337</td><td>1.746</td><td>2.120</td><td>2.583</td><td>2.921</td></tr>
+          <tr><td class="zrow">17</td><td>1.333</td><td>1.740</td><td>2.110</td><td>2.567</td><td>2.898</td></tr>
+          <tr><td class="zrow">18</td><td>1.330</td><td>1.734</td><td>2.101</td><td>2.552</td><td>2.878</td></tr>
+          <tr><td class="zrow">19</td><td>1.328</td><td>1.729</td><td>2.093</td><td>2.539</td><td>2.861</td></tr>
+          <tr><td class="zrow">20</td><td>1.325</td><td>1.725</td><td>2.086</td><td>2.528</td><td>2.845</td></tr>
+          <tr><td class="zrow">21</td><td>1.323</td><td>1.721</td><td>2.080</td><td>2.518</td><td>2.831</td></tr>
+          <tr><td class="zrow">22</td><td>1.321</td><td>1.717</td><td>2.074</td><td>2.508</td><td>2.819</td></tr>
+          <tr><td class="zrow">23</td><td>1.319</td><td>1.714</td><td>2.069</td><td>2.500</td><td>2.807</td></tr>
+          <tr><td class="zrow">24</td><td>1.318</td><td>1.711</td><td>2.064</td><td>2.492</td><td>2.797</td></tr>
+          <tr><td class="zrow">25</td><td>1.316</td><td>1.708</td><td>2.060</td><td>2.485</td><td>2.787</td></tr>
+          <tr><td class="zrow">26</td><td>1.315</td><td>1.706</td><td>2.056</td><td>2.479</td><td>2.779</td></tr>
+          <tr><td class="zrow">27</td><td>1.314</td><td>1.703</td><td>2.052</td><td>2.473</td><td>2.771</td></tr>
+          <tr><td class="zrow">28</td><td>1.313</td><td>1.701</td><td>2.048</td><td>2.467</td><td>2.763</td></tr>
+          <tr><td class="zrow">29</td><td>1.311</td><td>1.699</td><td>2.045</td><td>2.462</td><td>2.756</td></tr>
+          <tr><td class="zrow">30</td><td>1.310</td><td>1.697</td><td>2.042</td><td>2.457</td><td>2.750</td></tr>
+          <tr><td class="zrow">40</td><td>1.303</td><td>1.684</td><td>2.021</td><td>2.423</td><td>2.704</td></tr>
+          <tr><td class="zrow">60</td><td>1.296</td><td>1.671</td><td>2.000</td><td>2.390</td><td>2.660</td></tr>
+          <tr><td class="zrow">120</td><td>1.289</td><td>1.658</td><td>1.980</td><td>2.358</td><td>2.617</td></tr>
+          <tr><td class="zrow">∞ (z)</td><td>1.282</td><td>1.645</td><td>1.960</td><td>2.326</td><td>2.576</td></tr>
+          </table></div>
+      <p class="fnote" style="margin-top:10px">As df grows, the t-distribution converges to the normal curve — that's why the bottom row (df = ∞) matches the z-values you already know (1.645, 1.96, 2.326, 2.576). Past df ≈ 30, many people just use z as a close-enough shortcut.</p>
+
+      <h3 class="sub">5 · Five mistakes that cost points (no-PC edition)</h3>
       <ul>
         <li><b>Wrong degrees of freedom</b> → wrong critical value → wrong verdict. Memorize the df rule per test.</li>
         <li><b>One-tailed vs two-tailed</b> changes which column you read in the table.</li>
         <li><b>Rounding mid-calculation</b> — carry 4+ decimals, round only the final answer.</li>
         <li><b>Mixing Greek &amp; Roman</b> — μ, σ describe populations; x̄, s describe samples.</li>
         <li><b>Reading the F-table with one df</b> — it always needs two (numerator + denominator).</li>
+        <li><b>Left vs. right on the z-table</b> — the table gives you the left by default; forgetting to subtract from 1 for a "to the right" question is the single most common z-table mistake.</li>
       </ul>
     </div>
   </section>
