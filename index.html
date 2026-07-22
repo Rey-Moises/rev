@@ -126,7 +126,7 @@
   .drow{display:flex;gap:14px;flex-wrap:wrap}
   .drow>div{flex:1;min-width:150px}
   .dlabel{text-align:center;font-size:12px;color:var(--muted);margin-top:4px}
-  .model-badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#fff;background:var(--sage);padding:3px 9px;border-radius:20px;margin-bottom:8px}
+  .xbar{margin-right:.15em;padding-right:.02em}
 
   table.ztable{min-width:680px;font-size:12px}
   table.ztable th,table.ztable td{padding:6px 8px;text-align:center}
@@ -177,11 +177,6 @@
   details.sol .sbody{margin-top:8px;font-size:13.5px;color:var(--ink-2);line-height:1.6;border-left:2px solid var(--sage);padding-left:13px}
   details.sol .sbody b{color:var(--ink)}
   details.sol .calc{font-family:var(--mono);font-size:12.5px;color:var(--sage-deep);background:var(--paper-2);border-radius:6px;padding:8px 11px;margin:6px 0;white-space:pre-wrap;line-height:1.6}
-
-  .sol-open{margin-top:9px;background:var(--sage-tint);border:1px solid var(--sage-line);border-radius:9px;padding:11px 14px}
-  .sol-open .sbody{border-left:none;padding-left:0;margin-top:2px;font-size:13.5px;color:var(--ink-2);line-height:1.6}
-  .sol-open .sbody b{color:var(--ink)}
-  .sol-open .calc{font-family:var(--mono);font-size:12.5px;color:var(--sage-deep);background:var(--card);border-radius:6px;padding:8px 11px;margin:6px 0;white-space:pre-wrap;line-height:1.6}
 
   /* glossary */
   .gloss{display:grid;grid-template-columns:1fr 1fr;gap:11px 28px;margin:14px 0}
@@ -279,10 +274,10 @@
         <li>Who does the question <b>ultimately</b> want to know about? → that's the <b>population</b>.</li>
         <li>Who did the researcher <b>actually</b> measure? → that's the <b>sample</b> (often smaller than the population).</li>
         <li>A number describing the population's truth (uses N, μ, σ) → <b>parameter</b>. It's usually unknown — that's the whole reason to sample.</li>
-        <li>A number computed from the sample (uses n, x̄, s) → <b>statistic</b>. This is your estimate of the parameter.</li>
+        <li>A number computed from the sample (uses n, <span class="xbar">x̄</span>, s) → <b>statistic</b>. This is your estimate of the parameter.</li>
       </ol>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
-        <p>Population = the whole <b>P</b>izza 🍕; Sample = one <b>S</b>lice. <b>P</b>arameter ↔ <b>P</b>opulation, <b>S</b>tatistic ↔ <b>S</b>ample. Greek letters (μ, σ) = the truth; Roman letters (x̄, s) = your guess.</p></div></div>
+        <p>Population = the whole <b>P</b>izza 🍕; Sample = one <b>S</b>lice. <b>P</b>arameter ↔ <b>P</b>opulation, <b>S</b>tatistic ↔ <b>S</b>ample. Greek letters (μ, σ) = the truth; Roman letters (<span class="xbar">x̄</span>, s) = your guess.</p></div></div>
 
       <h3 class="sub">Types of variables</h3>
       <ul>
@@ -376,7 +371,7 @@
     <div class="ubody">
       <p>One number to represent the "center." Three flavors — they agree when data is symmetric, and <b>disagree when it's skewed</b> (the interesting case).</p>
       <div class="formula"><div class="flabel">The big three</div>
-        <div class="feq">Mean:  x̄ = <span class="frac"><span>Σx</span><span>n</span></span></div>
+        <div class="feq">Mean:  <span class="xbar">x̄</span> = <span class="frac"><span>Σx</span><span>n</span></span></div>
         <div class="feq">Median:  the middle value once data is sorted</div>
         <div class="feq">Mode:  the value that appears most often</div>
         <div class="fnote">Median position = (n + 1) ÷ 2 → the <b>seat number</b>, not the score sitting in it.</div></div>
@@ -386,7 +381,7 @@
       <h3 class="sub">Weighted mean — when not every value counts equally</h3>
       <p>The regular mean silently assumes every value matters the same amount. Sometimes that's wrong — a final exam should count more than one quiz. The <b>weighted mean</b> lets you say, explicitly, how much each value counts.</p>
       <div class="formula"><div class="flabel">Weighted mean</div>
-        <div class="feq">x̄<sub>w</sub> = <span class="frac"><span>Σ(w·x)</span><span>Σw</span></span></div>
+        <div class="feq"><span class="xbar">x̄</span><sub>w</sub> = <span class="frac"><span>Σ(w·x)</span><span>Σw</span></span></div>
         <div class="fnote">In plain words: multiply each value <b>x</b> by its own weight <b>w</b>, add those up, then divide by the <b>total of the weights</b> — not by how many values there are. If every weight is equal, this collapses right back into the plain mean.</div></div>
       <div class="ex"><div class="extag">📐 Worked example — weighted mean</div>
         <p>A student's grades and each subject's unit-load (the weight):</p>
@@ -398,7 +393,7 @@
           <tr><td>PE</td><td>95</td><td>1</td><td>95</td></tr>
           <tr class="trow-total"><td>Total</td><td></td><td>Σw = 6</td><td>Σ(w·x) = 535</td></tr>
         </table></div>
-        <p><b>x̄<sub>w</sub> = 535 / 6 ≈ 89.17</b> — notice this is <em>not</em> the same as the plain mean of 90, 85, 95 (which is 90). Math pulled the weighted average down toward it less than PE pulled it up, because Math and PE don't carry equal weight.</p></div>
+        <p><b><span class="xbar">x̄</span><sub>w</sub> = 535 / 6 ≈ 89.17</b> — notice this is <em>not</em> the same as the plain mean of 90, 85, 95 (which is 90). Math pulled the weighted average down toward it less than PE pulled it up, because Math and PE don't carry equal weight.</p></div>
 
       <h3 class="sub">Measures of location ("non-central")</h3>
       <p>The median cuts sorted data exactly in half. <b>Quartiles, deciles, and percentiles</b> are the same idea, just cutting into more pieces — useful when you want to know someone's standing, not just the group's center.</p>
@@ -423,7 +418,7 @@ Mode   = appears most often          = 5</span>
       <h3 class="sub">Mean, median &amp; mode from grouped data (an FDT)</h3>
       <p>Once data is organized into classes, you can no longer add up individual raw values — they're hidden inside the classes. All three measures adapt the same way: treat every class as if all its values sit exactly at the <b>midpoint</b>, weighted by <b>how many</b> values (f) actually landed there.</p>
       <div class="formula"><div class="flabel">Grouped mean</div>
-        <div class="feq">x̄ = Σfx / n</div>
+        <div class="feq"><span class="xbar">x̄</span> = Σfx / n</div>
         <div class="fnote">Identical to the ungrouped mean formula — <b>x</b> is just now the class midpoint instead of a raw value.</div></div>
       <div class="formula"><div class="flabel">Grouped median</div>
         <div class="feq">Median = L + <span class="frac"><span>(n/2) − CF</span><span>f</span></span> × width</div>
@@ -455,7 +450,7 @@ Mode   = appears most often          = 5</span>
           <tr><td>76.5–89.5</td><td>83</td><td>1</td><td>83</td><td>20</td></tr>
           <tr class="trow-total"><td>Total</td><td></td><td>20</td><td>945</td><td></td></tr>
         </table></div>
-        <p><b>Mean:</b> x̄ = 945 / 20 = <b>47.25</b></p>
+        <p><b>Mean:</b> <span class="xbar">x̄</span> = 945 / 20 = <b>47.25</b></p>
         <p><b>Median:</b> n/2 = 10. Scanning CF (2, 6, 12, …), the first class reaching 10 is <b>37.5–50.5</b> (CF = 12) — that's the median class, with CF-before = 6 and f = 6.<br>
         Median = 37.5 + [(10 − 6)/6] × 13 = 37.5 + 8.67 = <b>46.17</b></p>
         <p><b>Mode:</b> highest f is <b>6</b>, in the same class <b>37.5–50.5</b> — the modal class. d₁ = 6 − 4 = 2 (vs. class before), d₂ = 6 − 4 = 2 (vs. class after).<br>
@@ -475,30 +470,30 @@ Mode   = appears most often          = 5</span>
         <div class="feq">Range = Highest − Lowest</div>
         <div class="feq">Sample variance:  s² = <span class="frac"><span>Σx² − (Σx)² / n</span><span>n − 1</span></span></div>
         <div class="feq">Standard deviation:  s = √s²</div>
-        <div class="feq">Coefficient of variation:  CV = ( s ÷ x̄ ) × 100%</div>
-        <div class="fnote">This is called the <b>computational form</b> — a shortcut. It gives the exact same answer as squaring every (x − x̄) one by one, but you only need two sums, <b>Σx²</b> and <b>Σx</b>, instead of first finding x̄ and then re-visiting every value to subtract it. Same result, far fewer keystrokes. Carry decimals; round only at the end.</div></div>
+        <div class="feq">Coefficient of variation:  CV = ( s ÷ <span class="xbar">x̄</span> ) × 100%</div>
+        <div class="fnote">This is called the <b>computational form</b> — a shortcut. It gives the exact same answer as squaring every (x − <span class="xbar">x̄</span>) one by one, but you only need two sums, <b>Σx²</b> and <b>Σx</b>, instead of first finding <span class="xbar">x̄</span> and then re-visiting every value to subtract it. Same result, far fewer keystrokes. Carry decimals; round only at the end.</div></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p><b>Variance Vexes</b> (weird squared units), <b>SD Saves it</b> (square-root → real units). Divide by <b>n−1</b> because <b>S</b>amples are <b>S</b>hy by one. <b>CV</b> lets you <b>C</b>ompare <b>V</b>ariability across different things (₱ vs kg).</p></div></div>
 
       <h3 class="sub">Mean Absolute Deviation — the honest average distance</h3>
       <p>Before variance, ask the simpler question underneath it: <b>on average, how far does each value sit from the mean?</b> That's the whole idea. Variance gets there by squaring; MAD gets there by just averaging the distances, honestly, with no exaggeration.</p>
       <div class="formula"><div class="flabel">Mean Absolute Deviation</div>
-        <div class="feq">MAD = Σ|x − x̄| / n</div>
+        <div class="feq">MAD = Σ|x − <span class="xbar">x̄</span>| / n</div>
         <div class="fnote">The bars <b>| |</b> mean "absolute value" — strip the negative sign, keep only the size of the distance. A value 3 below the mean and a value 3 above it are both simply "3 away."</div></div>
 
       <p><b>The process — four steps, every time:</b></p>
       <ol class="steps">
-        <li>Find the mean, <b>x̄</b>.</li>
-        <li>Subtract the mean from every value: <b>x − x̄</b>. Some will be negative — that's expected, for now.</li>
-        <li>Drop the sign: take the <b>absolute value</b>, |x − x̄|.</li>
+        <li>Find the mean, <b><span class="xbar">x̄</span></b>.</li>
+        <li>Subtract the mean from every value: <b>x − <span class="xbar">x̄</span></b>. Some will be negative — that's expected, for now.</li>
+        <li>Drop the sign: take the <b>absolute value</b>, |x − <span class="xbar">x̄</span>|.</li>
         <li>Average those distances: add them all up, divide by <b>n</b> (the number of values).</li>
       </ol>
 
       <div class="ex"><div class="extag">📐 Worked example — MAD</div>
-        <p>Data: <b>4, 6, 8, 10, 12</b> &nbsp;→&nbsp; x̄ = 40/5 = <b>8</b></p>
-        <div class="tlegend"><b>x − x̄</b> = value minus the mean &nbsp;·&nbsp; <b>|x − x̄|</b> = that distance, sign removed</div>
+        <p>Data: <b>4, 6, 8, 10, 12</b> &nbsp;→&nbsp; <span class="xbar">x̄</span> = 40/5 = <b>8</b></p>
+        <div class="tlegend"><b>x − <span class="xbar">x̄</span></b> = value minus the mean &nbsp;·&nbsp; <b>|x − <span class="xbar">x̄</span>|</b> = that distance, sign removed</div>
         <div class="tscroll"><table>
-          <tr><th>x</th><th>x − x̄</th><th>|x − x̄|</th></tr>
+          <tr><th>x</th><th>x − <span class="xbar">x̄</span></th><th>|x − <span class="xbar">x̄</span>|</th></tr>
           <tr><td>4</td><td>−4</td><td>4</td></tr>
           <tr><td>6</td><td>−2</td><td>2</td></tr>
           <tr><td>8</td><td>0</td><td>0</td></tr>
@@ -513,20 +508,20 @@ Mode   = appears most often          = 5</span>
 
       <div class="formula"><div class="flabel">Population vs. sample — same idea, two situations</div>
         <div class="feq">Population variance:  σ² = Σ(x − μ)² / N &nbsp;·&nbsp; σ = √σ²</div>
-        <div class="feq">Sample variance:  s² = Σ(x − x̄)² / (n − 1) &nbsp;·&nbsp; s = √s²</div>
-        <div class="fnote">Data on <b>everyone</b> → population → Greek letters (σ, μ, N) → divide by the full <b>N</b>.<br>Data on a <b>subset</b> → sample → plain letters (s, x̄, n) → divide by <b>n − 1</b>.</div></div>
+        <div class="feq">Sample variance:  s² = Σ(x − <span class="xbar">x̄</span>)² / (n − 1) &nbsp;·&nbsp; s = √s²</div>
+        <div class="fnote">Data on <b>everyone</b> → population → Greek letters (σ, μ, N) → divide by the full <b>N</b>.<br>Data on a <b>subset</b> → sample → plain letters (s, <span class="xbar">x̄</span>, n) → divide by <b>n − 1</b>.</div></div>
 
-      <p><b>Why n − 1, really — not just a rule to memorize:</b> your sample mean x̄ isn't the true population mean μ; it's an estimate, computed <em>from the very data you're measuring</em>. Because x̄ is built to sit as close as mathematically possible to your own sample, that sample's deviations are, on average, a touch smaller than they'd be from the real μ. Dividing by the slightly smaller n − 1 nudges the result back up to correct for that built-in optimism. This has a name — <b>Bessel's correction</b> — it's a genuine bias fix, not an arbitrary quirk.</p>
-      <p><b>The simplest version of that idea:</b> imagine grading your own test using an answer key <em>you</em> wrote after seeing your own answers — you'd naturally score a little better than if a stranger's fixed key were used. Using x̄ (built from your own sample) as the "target" for variance has the same effect: it flatters your own data slightly. Dividing by n − 1 instead of n is how statisticians dock a small penalty to correct for grading your own paper.</p>
+      <p><b>Why n − 1, really — not just a rule to memorize:</b> your sample mean <span class="xbar">x̄</span> isn't the true population mean μ; it's an estimate, computed <em>from the very data you're measuring</em>. Because <span class="xbar">x̄</span> is built to sit as close as mathematically possible to your own sample, that sample's deviations are, on average, a touch smaller than they'd be from the real μ. Dividing by the slightly smaller n − 1 nudges the result back up to correct for that built-in optimism. This has a name — <b>Bessel's correction</b> — it's a genuine bias fix, not an arbitrary quirk.</p>
+      <p><b>The simplest version of that idea:</b> imagine grading your own test using an answer key <em>you</em> wrote after seeing your own answers — you'd naturally score a little better than if a stranger's fixed key were used. Using <span class="xbar">x̄</span> (built from your own sample) as the "target" for variance has the same effect: it flatters your own data slightly. Dividing by n − 1 instead of n is how statisticians dock a small penalty to correct for grading your own paper.</p>
 
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p><b>Population = Greek, whole group, ÷N. Sample = plain letters, subset, ÷(n−1).</b> Can't measure everyone? You're estimating — and an estimate costs you one degree of freedom.</p></div></div>
 
       <div class="ex"><div class="extag">📐 Worked example — sample variance &amp; standard deviation</div>
-        <p>Sample data: <b>7, 9, 10, 12</b> &nbsp;→&nbsp; x̄ = 38/4 = <b>9.5</b></p>
-        <div class="tlegend"><b>x − x̄</b> = value minus the mean &nbsp;·&nbsp; <b>(x − x̄)²</b> = that distance, squared</div>
+        <p>Sample data: <b>7, 9, 10, 12</b> &nbsp;→&nbsp; <span class="xbar">x̄</span> = 38/4 = <b>9.5</b></p>
+        <div class="tlegend"><b>x − <span class="xbar">x̄</span></b> = value minus the mean &nbsp;·&nbsp; <b>(x − <span class="xbar">x̄</span>)²</b> = that distance, squared</div>
         <div class="tscroll"><table>
-          <tr><th>x</th><th>x − x̄</th><th>(x − x̄)²</th></tr>
+          <tr><th>x</th><th>x − <span class="xbar">x̄</span></th><th>(x − <span class="xbar">x̄</span>)²</th></tr>
           <tr><td>7</td><td>−2.5</td><td>6.25</td></tr>
           <tr><td>9</td><td>−0.5</td><td>0.25</td></tr>
           <tr><td>10</td><td>0.5</td><td>0.25</td></tr>
@@ -536,10 +531,10 @@ Mode   = appears most often          = 5</span>
         <p><b>s² = 13 / (4 − 1) = 13/3 ≈ 4.33</b> &nbsp;→&nbsp; <b>s = √4.33 ≈ 2.08</b></p></div>
 
       <div class="ex"><div class="extag">📐 Worked example — one table, MAD → variance → SD together</div>
-        <p>Six exam scores: <b>8, 12, 15, 15, 18, 22</b> &nbsp;→&nbsp; x̄ = 90/6 = <b>15</b></p>
-        <div class="tlegend"><b>x − x̄</b> = value minus the mean &nbsp;·&nbsp; <b>|x − x̄|</b> = that distance, sign removed (feeds MAD) &nbsp;·&nbsp; <b>(x − x̄)²</b> = that distance, squared (feeds variance)</div>
+        <p>Six exam scores: <b>8, 12, 15, 15, 18, 22</b> &nbsp;→&nbsp; <span class="xbar">x̄</span> = 90/6 = <b>15</b></p>
+        <div class="tlegend"><b>x − <span class="xbar">x̄</span></b> = value minus the mean &nbsp;·&nbsp; <b>|x − <span class="xbar">x̄</span>|</b> = that distance, sign removed (feeds MAD) &nbsp;·&nbsp; <b>(x − <span class="xbar">x̄</span>)²</b> = that distance, squared (feeds variance)</div>
         <div class="tscroll"><table>
-          <tr><th>x</th><th>x − x̄</th><th>|x − x̄|</th><th>(x − x̄)²</th></tr>
+          <tr><th>x</th><th>x − <span class="xbar">x̄</span></th><th>|x − <span class="xbar">x̄</span>|</th><th>(x − <span class="xbar">x̄</span>)²</th></tr>
           <tr><td>8</td><td>−7</td><td>7</td><td>49</td></tr>
           <tr><td>12</td><td>−3</td><td>3</td><td>9</td></tr>
           <tr><td>15</td><td>0</td><td>0</td><td>0</td></tr>
@@ -556,32 +551,32 @@ Mode   = appears most often          = 5</span>
       <h3 class="sub">Grouped data — the same formulas, weighted by frequency</h3>
       <p>Once raw data is organized into an FDT, you no longer have individual values in hand — you have <em>classes</em>, each hiding several values you can't see one by one. The fix: treat every value inside a class as if it sat exactly at that class's <b>midpoint (x)</b>, and weight everything by <b>how many</b> values are actually in there (<b>f</b>).</p>
       <div class="formula"><div class="flabel">Grouped-data formulas</div>
-        <div class="feq">Grouped mean:  x̄ = Σfx / n</div>
-        <div class="feq">Grouped MAD:  MAD = Σf|x − x̄| / n</div>
-        <div class="feq">Grouped variance:  s² = Σf(x − x̄)² / (n − 1) &nbsp;·&nbsp; s = √s²</div></div>
+        <div class="feq">Grouped mean:  <span class="xbar">x̄</span> = Σfx / n</div>
+        <div class="feq">Grouped MAD:  MAD = Σf|x − <span class="xbar">x̄</span>| / n</div>
+        <div class="feq">Grouped variance:  s² = Σf(x − <span class="xbar">x̄</span>)² / (n − 1) &nbsp;·&nbsp; s = √s²</div></div>
 
       <p><b>The process — build the table left to right; each column feeds the next:</b></p>
       <ol class="steps">
         <li><b>f</b> — the frequency of each class, straight from your FDT.</li>
         <li><b>x</b> — the class mark (midpoint) of each class.</li>
         <li><b>fx</b> — multiply f × x, then sum the whole column → gives Σfx.</li>
-        <li>Compute the grouped mean: <b>x̄ = Σfx / n</b>.</li>
-        <li><b>x − x̄</b> — each class mark's distance from that mean.</li>
-        <li><b>|x − x̄|</b> for MAD, or <b>(x − x̄)²</b> for variance.</li>
+        <li>Compute the grouped mean: <b><span class="xbar">x̄</span> = Σfx / n</b>.</li>
+        <li><b>x − <span class="xbar">x̄</span></b> — each class mark's distance from that mean.</li>
+        <li><b>|x − <span class="xbar">x̄</span>|</b> for MAD, or <b>(x − <span class="xbar">x̄</span>)²</b> for variance.</li>
         <li>Multiply that column by <b>f</b> again, sum it, then divide by <b>n</b> (MAD) or <b>n − 1</b> (variance).</li>
       </ol>
 
       <div class="ex"><div class="extag">📐 Worked example — one table, mean → MAD → variance → SD</div>
-        <div class="tlegend"><b>x</b> = class midpoint &nbsp;·&nbsp; <b>fx</b> = f × x &nbsp;·&nbsp; <b>x−x̄</b> = midpoint minus grouped mean &nbsp;·&nbsp; <b>f|x−x̄|</b> = f × |x−x̄| &nbsp;·&nbsp; <b>f(x−x̄)²</b> = f × (x−x̄)²</div>
+        <div class="tlegend"><b>x</b> = class midpoint &nbsp;·&nbsp; <b>fx</b> = f × x &nbsp;·&nbsp; <b>x−<span class="xbar">x̄</span></b> = midpoint minus grouped mean &nbsp;·&nbsp; <b>f|x−<span class="xbar">x̄</span>|</b> = f × |x−<span class="xbar">x̄</span>| &nbsp;·&nbsp; <b>f(x−<span class="xbar">x̄</span>)²</b> = f × (x−<span class="xbar">x̄</span>)²</div>
         <div class="tscroll"><table>
-          <tr><th>Class</th><th>f</th><th>x</th><th>fx</th><th>x−x̄</th><th>|x−x̄|</th><th>f|x−x̄|</th><th>(x−x̄)²</th><th>f(x−x̄)²</th></tr>
+          <tr><th>Class</th><th>f</th><th>x</th><th>fx</th><th>x−<span class="xbar">x̄</span></th><th>|x−<span class="xbar">x̄</span>|</th><th>f|x−<span class="xbar">x̄</span>|</th><th>(x−<span class="xbar">x̄</span>)²</th><th>f(x−<span class="xbar">x̄</span>)²</th></tr>
           <tr><td>30–34</td><td>3</td><td>32</td><td>96</td><td>−6.79</td><td>6.79</td><td>20.37</td><td>46.10</td><td>138.30</td></tr>
           <tr><td>35–39</td><td>5</td><td>37</td><td>185</td><td>−1.79</td><td>1.79</td><td>8.95</td><td>3.20</td><td>16.02</td></tr>
           <tr><td>40–44</td><td>4</td><td>42</td><td>168</td><td>3.21</td><td>3.21</td><td>12.84</td><td>10.30</td><td>41.22</td></tr>
           <tr><td>45–49</td><td>2</td><td>47</td><td>94</td><td>8.21</td><td>8.21</td><td>16.42</td><td>67.40</td><td>134.81</td></tr>
           <tr class="trow-total"><td>Total</td><td>14</td><td></td><td>543</td><td></td><td></td><td>58.58</td><td></td><td>330.35</td></tr>
         </table></div>
-        <p><b>Mean:</b> x̄ = 543 / 14 = <b>38.79</b><br>
+        <p><b>Mean:</b> <span class="xbar">x̄</span> = 543 / 14 = <b>38.79</b><br>
         <b>MAD:</b> 58.58 / 14 = <b>4.18</b><br>
         <b>Variance:</b> s² = 330.35 / (14 − 1) = 330.35/13 = <b>25.41</b><br>
         <b>SD:</b> s = √25.41 ≈ <b>5.04</b></p>
@@ -589,9 +584,9 @@ Mode   = appears most often          = 5</span>
 
       <div class="ex"><div class="extag">📐 Worked example — finishing the story from Units II &amp; III</div>
         <p>Remember the 20 students' raw scores you organized into an FDT back in Unit II, then found the mean (47.25), median (46.17), and mode (44.0) for in Unit III? Same table — let's find its spread too.</p>
-        <div class="tlegend"><b>x</b> = class midpoint &nbsp;·&nbsp; <b>fx</b> = f × x &nbsp;·&nbsp; <b>x−x̄</b> = midpoint minus 47.25 &nbsp;·&nbsp; <b>f|x−x̄|</b> = f × |x−x̄| &nbsp;·&nbsp; <b>f(x−x̄)²</b> = f × (x−x̄)²</div>
+        <div class="tlegend"><b>x</b> = class midpoint &nbsp;·&nbsp; <b>fx</b> = f × x &nbsp;·&nbsp; <b>x−<span class="xbar">x̄</span></b> = midpoint minus 47.25 &nbsp;·&nbsp; <b>f|x−<span class="xbar">x̄</span>|</b> = f × |x−<span class="xbar">x̄</span>| &nbsp;·&nbsp; <b>f(x−<span class="xbar">x̄</span>)²</b> = f × (x−<span class="xbar">x̄</span>)²</div>
         <div class="tscroll"><table>
-          <tr><th>Class boundaries</th><th>f</th><th>x</th><th>fx</th><th>x−x̄</th><th>|x−x̄|</th><th>f|x−x̄|</th><th>(x−x̄)²</th><th>f(x−x̄)²</th></tr>
+          <tr><th>Class boundaries</th><th>f</th><th>x</th><th>fx</th><th>x−<span class="xbar">x̄</span></th><th>|x−<span class="xbar">x̄</span>|</th><th>f|x−<span class="xbar">x̄</span>|</th><th>(x−<span class="xbar">x̄</span>)²</th><th>f(x−<span class="xbar">x̄</span>)²</th></tr>
           <tr><td>11.5–24.5</td><td>2</td><td>18</td><td>36</td><td>−29.25</td><td>29.25</td><td>58.50</td><td>855.56</td><td>1711.13</td></tr>
           <tr><td>24.5–37.5</td><td>4</td><td>31</td><td>124</td><td>−16.25</td><td>16.25</td><td>65.00</td><td>264.06</td><td>1056.25</td></tr>
           <tr><td>37.5–50.5</td><td>6</td><td>44</td><td>264</td><td>−3.25</td><td>3.25</td><td>19.50</td><td>10.56</td><td>63.38</td></tr>
@@ -691,7 +686,7 @@ n = 5000 / (1 + 5000 × 0.05²)
       <h3 class="sub">Standard error &amp; the Central Limit Theorem</h3>
       <div class="formula"><div class="flabel">The two ideas that run everything</div>
         <div class="feq">Standard error:  SE = σ ÷ √n</div>
-        <div class="feq">CLT:  for n ≥ 30, the distribution of x̄ is ≈ Normal — <em>whatever shape the population has</em></div>
+        <div class="feq">CLT:  for n ≥ 30, the distribution of <span class="xbar">x̄</span> is ≈ Normal — <em>whatever shape the population has</em></div>
         <div class="fnote">A <b>normal distribution</b> is the symmetric, bell-shaped curve where most values sit near the mean and extremes are rare. SE is the SD of the sample mean — bigger n → smaller SE → a steadier, more reliable average.</div></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p><b>The average of averages goes bell-shaped.</b> <b>n ≥ 30 is the magic number.</b> SE shrinks as n grows — but only as the <b>square root</b> of n, never in direct proportion.</p></div></div>
@@ -721,7 +716,7 @@ n = 5000 / (1 + 5000 × 0.05²)
               <line x1="15" y1="105" x2="185" y2="105" stroke="var(--line)" stroke-width="1.5"/>
               <path d="M 15.0,104.1 L 16.2,104.0 L 17.4,103.9 L 18.6,103.7 L 19.9,103.5 L 21.1,103.3 L 22.3,103.1 L 23.5,102.9 L 24.7,102.7 L 25.9,102.4 L 27.1,102.1 L 28.4,101.7 L 29.6,101.4 L 30.8,101.0 L 32.0,100.5 L 33.2,100.0 L 34.4,99.5 L 35.6,98.9 L 36.9,98.3 L 38.1,97.7 L 39.3,96.9 L 40.5,96.2 L 41.7,95.4 L 42.9,94.5 L 44.1,93.5 L 45.4,92.5 L 46.6,91.5 L 47.8,90.4 L 49.0,89.2 L 50.2,87.9 L 51.4,86.6 L 52.6,85.2 L 53.9,83.8 L 55.1,82.2 L 56.3,80.7 L 57.5,79.0 L 58.7,77.3 L 59.9,75.6 L 61.1,73.8 L 62.4,71.9 L 63.6,70.0 L 64.8,68.0 L 66.0,66.1 L 67.2,64.0 L 68.4,62.0 L 69.6,59.9 L 70.9,57.9 L 72.1,55.8 L 73.3,53.7 L 74.5,51.6 L 75.7,49.6 L 76.9,47.6 L 78.1,45.6 L 79.4,43.6 L 80.6,41.8 L 81.8,39.9 L 83.0,38.2 L 84.2,36.5 L 85.4,34.9 L 86.6,33.4 L 87.9,32.0 L 89.1,30.7 L 90.3,29.6 L 91.5,28.5 L 92.7,27.6 L 93.9,26.8 L 95.1,26.2 L 96.4,25.7 L 97.6,25.3 L 98.8,25.1 L 100.0,25.0 L 101.2,25.1 L 102.4,25.3 L 103.6,25.7 L 104.9,26.2 L 106.1,26.8 L 107.3,27.6 L 108.5,28.5 L 109.7,29.6 L 110.9,30.7 L 112.1,32.0 L 113.4,33.4 L 114.6,34.9 L 115.8,36.5 L 117.0,38.2 L 118.2,39.9 L 119.4,41.8 L 120.6,43.6 L 121.9,45.6 L 123.1,47.6 L 124.3,49.6 L 125.5,51.6 L 126.7,53.7 L 127.9,55.8 L 129.1,57.9 L 130.4,59.9 L 131.6,62.0 L 132.8,64.0 L 134.0,66.1 L 135.2,68.0 L 136.4,70.0 L 137.6,71.9 L 138.9,73.8 L 140.1,75.6 L 141.3,77.3 L 142.5,79.0 L 143.7,80.7 L 144.9,82.2 L 146.1,83.8 L 147.4,85.2 L 148.6,86.6 L 149.8,87.9 L 151.0,89.2 L 152.2,90.4 L 153.4,91.5 L 154.6,92.5 L 155.9,93.5 L 157.1,94.5 L 158.3,95.4 L 159.5,96.2 L 160.7,96.9 L 161.9,97.7 L 163.1,98.3 L 164.4,98.9 L 165.6,99.5 L 166.8,100.0 L 168.0,100.5 L 169.2,101.0 L 170.4,101.4 L 171.6,101.7 L 172.9,102.1 L 174.1,102.4 L 175.3,102.7 L 176.5,102.9 L 177.7,103.1 L 178.9,103.3 L 180.1,103.5 L 181.4,103.7 L 182.6,103.9 L 183.8,104.0 L 185.0,104.1" fill="var(--sage)" fill-opacity="0.22" stroke="var(--sage-deep)" stroke-width="2"/>
             </svg>
-            <p class="dlabel"><b>Sampling distribution of x̄</b><br>always bell-shaped</p>
+            <p class="dlabel"><b>Sampling distribution of <span class="xbar">x̄</span></b><br>always bell-shaped</p>
           </div>
         </div>
         <p class="dlabel" style="margin-top:8px">The population on the left can be lopsided, flat, anything. Once n reaches 30, the distribution of <b>sample means</b> drawn from it looks like the bell curve on the right — every time.</p>
@@ -751,14 +746,14 @@ n = 5000 / (1 + 5000 × 0.05²)
         <li><b>Decide:</b> compare statistic to critical value, then conclude in plain words.</li>
       </ol>
       <div class="formula"><div class="flabel">The two workhorse statistics</div>
-        <div class="feq">z (σ known / large n):  z = <span class="frac"><span>x̄ − μ</span><span>σ / √n</span></span></div>
-        <div class="feq">t (σ unknown / small n):  t = <span class="frac"><span>x̄ − μ</span><span>s / √n</span></span> ,  df = n − 1</div>
+        <div class="feq">z (σ known / large n):  z = <span class="frac"><span><span class="xbar">x̄</span> − μ</span><span>σ / √n</span></span></div>
+        <div class="feq">t (σ unknown / small n):  t = <span class="frac"><span><span class="xbar">x̄</span> − μ</span><span>s / √n</span></span> ,  df = n − 1</div>
         <div class="fnote"><b>Quick terms — α</b> (significance level): the false-alarm risk you accept up front, usually 0.05. <b>df</b> (degrees of freedom): the number of values free to vary, here n−1. <b>Critical value</b>: the cut-off from the table. <b>p-value</b>: the chance of data this extreme if H₀ were true (small p = evidence against H₀). By hand you compare your statistic to the critical value — reject H₀ when |statistic| &gt; critical (it landed in the tail).</div></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
         <p>Steps = <b>H-A-T-C-D</b> (Hypotheses, Alpha, Test-stat, Compare, Decide). <b>p Low → null must Go; p High → null gets by.</b> Tails: <b>≠</b> → two-tailed, <b>&lt;</b> or <b>&gt;</b> → one-tailed.</p></div></div>
 
       <div class="ex"><div class="extag">📐 Worked example — the 5 steps, fully applied</div>
-        <p>A machine is supposed to fill bottles with <b>100 mL</b> on average. Population SD is known: <b>σ = 7 mL</b>. A sample of <b>n = 49</b> bottles averages <b>x̄ = 101 mL</b>. Test at <b>α = 0.05</b> (two-tailed) whether the machine is off-target.</p>
+        <p>A machine is supposed to fill bottles with <b>100 mL</b> on average. Population SD is known: <b>σ = 7 mL</b>. A sample of <b>n = 49</b> bottles averages <b><span class="xbar">x̄</span> = 101 mL</b>. Test at <b>α = 0.05</b> (two-tailed) whether the machine is off-target.</p>
         <ol class="steps">
           <li><b>H₀: μ = 100</b> (on target)  ·  <b>H₁: μ ≠ 100</b> (off-target — two-tailed, since "off" could mean too high <em>or</em> too low).</li>
           <li><b>α = 0.05</b>, two-tailed → split between both tails, 0.025 each.</li>
@@ -792,7 +787,7 @@ n = 5000 / (1 + 5000 × 0.05²)
         <div class="fnote">+1 = perfect upward line · 0 = random cloud · −1 = perfect downward line.</div></div>
       <div class="formula"><div class="flabel">Regression line  ŷ = a + bx</div>
         <div class="feq">slope:  b = <span class="frac"><span>nΣxy − ΣxΣy</span><span>nΣx² − (Σx)²</span></span></div>
-        <div class="feq">intercept:  a = ȳ − b·x̄</div>
+        <div class="feq">intercept:  a = ȳ − b·<span class="xbar">x̄</span></div>
         <div class="feq">coefficient of determination:  r² = (r)²</div>
         <div class="fnote">A scientific calculator's regression mode returns a, b and r directly — use the formulas as a sanity check.</div></div>
       <div class="mnem"><span class="mbrain">🧠</span><div class="mtxt"><div class="mtag">Mnemonic</div>
@@ -1063,7 +1058,7 @@ Brands differ a little, plants inside each vary wildly
     <div class="uhead"><div class="badge" style="background:var(--u7)">P</div>
       <h2>Practice <em>Problems</em></h2></div>
     <div class="ubody">
-      <p>Three problems per unit, built to climb: <b>① Warm-up</b> for fluency, <b>② Exam-level</b> for the full procedure, <b>③ Challenge</b> for whether you <em>truly</em> get it. Each unit's ① is worked in full below the question — a model of what a complete exam answer should look like. ② and ③ stay hidden on purpose: attempt them cold, then reveal.</p>
+      <p>Three problems per unit, built to climb: <b>① Warm-up</b> for fluency, <b>② Exam-level</b> for the full procedure, <b>③ Challenge</b> for whether you <em>truly</em> get it. Solutions are hidden on purpose — attempt each one cold, then click to reveal.</p>
 
       <div class="method"><div class="mt">How to use this — the method that works for math</div>
         <ul>
@@ -1079,10 +1074,10 @@ Brands differ a little, plants inside each vary wildly
       <div class="punit">Unit I — Introduction</div>
       <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
         <div class="q">For the data <b>x = {4, 7, 7, 10, 12}</b>, compute <b>Σx</b> and <b>Σx²</b>.</div>
-        <div class="sol-open"><span class="model-badge">✓ Model Answer</span><div class="sbody">
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
           <div class="calc">Σx  = 4 + 7 + 7 + 10 + 12 = 40
 Σx² = 16 + 49 + 49 + 100 + 144 = 358</div>
-          Remember: square <b>first</b>, then add. Σx² ≠ (Σx)².</div></div></div>
+          Remember: square <b>first</b>, then add. Σx² ≠ (Σx)².</div></details></div>
       <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
         <div class="q">A researcher records the blood type of 500 students to estimate the proportion of type O in the whole city. Identify the <b>(a)</b> population, <b>(b)</b> sample, <b>(c)</b> variable and its type, <b>(d)</b> whether "proportion of type O in the city" is a parameter or a statistic.</div>
         <details class="sol"><summary>Show solution</summary><div class="sbody">
@@ -1097,10 +1092,10 @@ Brands differ a little, plants inside each vary wildly
       <div class="punit">Unit II — Collection &amp; Presentation</div>
       <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
         <div class="q">Data ranges from a low of <b>12</b> to a high of <b>87</b>. Using <b>6 classes</b>, find the class width.</div>
-        <div class="sol-open"><span class="model-badge">✓ Model Answer</span><div class="sbody">
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
           <div class="calc">Range = 87 − 12 = 75
 Width = 75 / 6 = 12.5  →  round UP to 13</div>
-          Always round the width up, or the top values won't fit in any class.</div></div></div>
+          Always round the width up, or the top values won't fit in any class.</div></details></div>
       <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
         <div class="q">Using width <b>13</b> and starting at the lowest value <b>12</b>, write the <b>class limits, class boundaries, and midpoint</b> of the first two classes.</div>
         <details class="sol"><summary>Show solution</summary><div class="sbody">
@@ -1116,11 +1111,11 @@ Class 2:  limits 25–37   boundaries 24.5–37.5   midpoint 31</div>
       <div class="punit">Unit III — Central Tendency</div>
       <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
         <div class="q">Find the <b>mean, median, and mode</b> of <b>{3, 8, 8, 9, 12}</b>.</div>
-        <div class="sol-open"><span class="model-badge">✓ Model Answer</span><div class="sbody">
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
           <div class="calc">Mean   = (3+8+8+9+12)/5 = 40/5 = 8
 Median = middle of sorted list      = 8
 Mode   = most frequent value        = 8</div>
-          Here all three agree — a sign the data is fairly symmetric.</div></div></div>
+          Here all three agree — a sign the data is fairly symmetric.</div></details></div>
       <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
         <div class="q">Monthly incomes (₱ thousands): <b>18, 20, 22, 25, 200</b>. Compute the mean and median. Which better represents a "typical" income here, and why?</div>
         <div class="hint">Estimate first: which will be larger, the mean or the median?</div>
@@ -1137,13 +1132,13 @@ Median = 22 (the middle value)</div>
       <div class="punit">Unit IV — Dispersion &amp; Skewness</div>
       <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
         <div class="q">For the sample <b>{2, 4, 6}</b>, compute the sample variance <b>s²</b> and standard deviation <b>s</b> (use the computational form).</div>
-        <div class="sol-open"><span class="model-badge">✓ Model Answer</span><div class="sbody">
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
           <div class="calc">Σx = 12 ,  Σx² = 4+16+36 = 56 ,  n = 3
 s² = [Σx² − (Σx)²/n] / (n−1)
    = [56 − 144/3] / 2
    = [56 − 48] / 2  =  8/2  =  4
 s  = √4 = 2</div>
-          Divide by n−1 (not n) — it's a sample.</div></div></div>
+          Divide by n−1 (not n) — it's a sample.</div></details></div>
       <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
         <div class="q">Two machines fill bottles. <b>Machine A:</b> mean 500 mL, SD 2 mL. <b>Machine B:</b> mean 500 mL, SD 8 mL. Which is more consistent? Compute each <b>coefficient of variation</b> and interpret.</div>
         <details class="sol"><summary>Show solution</summary><div class="sbody">
@@ -1159,12 +1154,12 @@ CV_B = (8/500)×100% = 1.6%</div>
       <div class="punit">Unit V — Sampling &amp; CLT</div>
       <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
         <div class="q">A population has <b>N = 2,400</b>. Using Slovin's formula with a <b>5%</b> margin of error, find the required sample size.</div>
-        <div class="sol-open"><span class="model-badge">✓ Model Answer</span><div class="sbody">
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
           <div class="calc">n = N / (1 + N·e²)
   = 2400 / (1 + 2400 × 0.05²)
   = 2400 / (1 + 2400 × 0.0025)
   = 2400 / (1 + 6)
-  = 2400 / 7  ≈  342.86  →  343</div></div></div></div>
+  = 2400 / 7  ≈  342.86  →  343</div></details></div></div>
       <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
         <div class="q">A population has <b>σ = 15</b>. <b>(a)</b> Find the standard error for n = 25. <b>(b)</b> For n = 100. <b>(c)</b> By what factor did SE shrink, and why didn't it shrink to a quarter when n grew four-fold?</div>
         <details class="sol"><summary>Show solution</summary><div class="sbody">
@@ -1180,12 +1175,12 @@ CV_B = (8/500)×100% = 1.6%</div>
       <div class="punit">Unit VI — Hypothesis Testing</div>
       <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
         <div class="q">Write <b>H₀</b> and <b>H₁</b> for: "A company claims its batteries last <b>40 hours</b> on average; a consumer group suspects they last <b>less</b>." Is it one- or two-tailed?</div>
-        <div class="sol-open"><span class="model-badge">✓ Model Answer</span><div class="sbody">
-          <b>H₀: μ = 40</b> (the status quo, always with =). <b>H₁: μ &lt; 40</b> (the suspicion). Because H₁ uses "&lt;", it's a <b>one-tailed</b> (left-tailed) test.</div></div></div>
-      <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
-        <div class="q">A sample of <b>n = 36</b> gives <b>x̄ = 38</b>, with population <b>σ = 6</b>. Test at <b>α = 0.05</b> whether the true mean is below 40 (H₀: μ = 40, H₁: μ &lt; 40). The critical value is <b>z = −1.645</b>. Compute the test statistic and decide.</div>
         <details class="sol"><summary>Show solution</summary><div class="sbody">
-          <div class="calc">z = (x̄ − μ) / (σ/√n)
+          <b>H₀: μ = 40</b> (the status quo, always with =). <b>H₁: μ &lt; 40</b> (the suspicion). Because H₁ uses "&lt;", it's a <b>one-tailed</b> (left-tailed) test.</div></details></div>
+      <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
+        <div class="q">A sample of <b>n = 36</b> gives <b><span class="xbar">x̄</span> = 38</b>, with population <b>σ = 6</b>. Test at <b>α = 0.05</b> whether the true mean is below 40 (H₀: μ = 40, H₁: μ &lt; 40). The critical value is <b>z = −1.645</b>. Compute the test statistic and decide.</div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <div class="calc">z = (<span class="xbar">x̄</span> − μ) / (σ/√n)
   = (38 − 40) / (6/√36)
   = −2 / (6/6)
   = −2 / 1  =  −2.0</div>
@@ -1199,12 +1194,12 @@ CV_B = (8/500)×100% = 1.6%</div>
       <div class="punit">Unit VII — Correlation &amp; Regression</div>
       <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
         <div class="q">Given <b>n = 5, Σx = 15, Σy = 25, Σxy = 88, Σx² = 55</b>, compute the regression slope <b>b</b>.</div>
-        <div class="sol-open"><span class="model-badge">✓ Model Answer</span><div class="sbody">
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
           <div class="calc">b = [nΣxy − ΣxΣy] / [nΣx² − (Σx)²]
   = [5·88 − 15·25] / [5·55 − 15²]
   = [440 − 375] / [275 − 225]
   = 65 / 50  =  1.3</div>
-          (Bonus: intercept a = ȳ − b·x̄ = 5 − 1.3·3 = 1.1, so ŷ = 1.1 + 1.3x.)</div></div></div>
+          (Bonus: intercept a = ȳ − b·<span class="xbar">x̄</span> = 5 − 1.3·3 = 1.1, so ŷ = 1.1 + 1.3x.)</div></details></div>
       <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
         <div class="q">A study finds <b>r = 0.85</b> between hours studied and exam score. <b>(a)</b> Interpret the strength and direction. <b>(b)</b> Compute <b>r²</b> and interpret it. <b>(c)</b> If the line is <b>ŷ = 50 + 8x</b>, predict the score for <b>5 hours</b>.</div>
         <details class="sol"><summary>Show solution</summary><div class="sbody">
@@ -1218,8 +1213,8 @@ CV_B = (8/500)×100% = 1.6%</div>
       <div class="punit">Unit VIII — Experimentation</div>
       <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
         <div class="q">A farmer tests <b>3 fertilizers</b> on tomato plants and measures <b>yield (kg)</b>. Identify the treatments, the experimental units, and the response variable.</div>
-        <div class="sol-open"><span class="model-badge">✓ Model Answer</span><div class="sbody">
-          <b>Treatments</b> = the 3 fertilizers (the "what-if"). <b>Experimental units</b> = the tomato plants/plots (what receives the treatment). <b>Response</b> = yield in kg (what's measured).</div></div></div>
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
+          <b>Treatments</b> = the 3 fertilizers (the "what-if"). <b>Experimental units</b> = the tomato plants/plots (what receives the treatment). <b>Response</b> = yield in kg (what's measured).</div></details></div>
       <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
         <div class="q">A researcher compares a new teaching method vs. the old one on test scores, but lets students <b>choose</b> their group. Name the flaw, the Fisher principle it violates, and the fix.</div>
         <details class="sol"><summary>Show solution</summary><div class="sbody">
@@ -1233,11 +1228,11 @@ CV_B = (8/500)×100% = 1.6%</div>
       <div class="punit">Unit IX — ANOVA</div>
       <div class="prob"><div class="plevel lv1"><span class="dot"></span>① Warm-up</div>
         <div class="q">An ANOVA has <b>SS_between = 60</b> (df = 3) and <b>SS_within = 90</b> (df = 18). Compute MS_between, MS_within, and <b>F</b>.</div>
-        <div class="sol-open"><span class="model-badge">✓ Model Answer</span><div class="sbody">
+        <details class="sol"><summary>Show solution</summary><div class="sbody">
           <div class="calc">MS_between = 60 / 3  = 20
 MS_within  = 90 / 18 = 5
 F = MS_between / MS_within = 20 / 5 = 4.0</div>
-          Follow the pipeline: SS → df → MS → F.</div></div></div>
+          Follow the pipeline: SS → df → MS → F.</div></details></div>
       <div class="prob"><div class="plevel lv2"><span class="dot"></span>② Exam-level</div>
         <div class="q">Three diets are compared on weight loss; the ANOVA gives <b>F = 4.0</b> with critical <b>F = 3.35</b> (α = 0.05). <b>(a)</b> State H₀ and H₁. <b>(b)</b> Decide. <b>(c)</b> What does rejecting H₀ tell you — and what does it <em>not</em>?</div>
         <details class="sol"><summary>Show solution</summary><div class="sbody">
@@ -1271,78 +1266,78 @@ F = MS_between / MS_within = 20 / 5 = 4.0</div>
 
       <div class="diagram">
         <div class="dcap">Diagram — pick a path, land on a test</div>
-        <svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
+        <svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
               <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/>
             </marker>
           </defs>
-          <rect x="290" y="10" width="120" height="38" rx="8" fill="var(--ink)"/>
-          <text x="350" y="34" text-anchor="middle" font-size="12.5" fill="#fff" font-weight="600">What's your data?</text>
 
-          <line x1="330" y1="48" x2="180" y2="88" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arr)"/>
-          <line x1="370" y1="48" x2="530" y2="88" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arr)"/>
-          <text x="220" y="70" font-size="11" fill="var(--muted)">numeric</text>
-          <text x="500" y="70" font-size="11" fill="var(--muted)">categorical</text>
+          <rect x="320" y="10" width="120" height="38" rx="8" fill="var(--ink)"/>
+          <text x="380" y="34" text-anchor="middle" font-size="12.5" fill="#fff" font-weight="600">What's your data?</text>
 
-          <rect x="90" y="90" width="180" height="38" rx="8" fill="var(--sage)"/>
-          <text x="180" y="114" text-anchor="middle" font-size="12" fill="#fff" font-weight="600">How many groups?</text>
+          <line x1="355" y1="48" x2="230" y2="88" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arr)"/>
+          <line x1="405" y1="48" x2="530" y2="88" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arr)"/>
+          <text x="255" y="72" font-size="11" fill="var(--muted)">numeric</text>
+          <text x="500" y="72" font-size="11" fill="var(--muted)">categorical</text>
 
-          <rect x="470" y="90" width="180" height="38" rx="8" fill="var(--clay)"/>
-          <text x="560" y="108" text-anchor="middle" font-size="12" fill="#fff" font-weight="600">Testing a relationship</text>
-          <text x="560" y="122" text-anchor="middle" font-size="11" fill="#fff">between two categories?</text>
+          <rect x="30" y="90" width="290" height="38" rx="8" fill="var(--sage)"/>
+          <text x="175" y="114" text-anchor="middle" font-size="12.5" fill="#fff" font-weight="600">How many groups are you comparing?</text>
 
-          <line x1="560" y1="128" x2="560" y2="160" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arr)"/>
-          <rect x="470" y="162" width="180" height="42" rx="8" fill="var(--card)" stroke="var(--clay)" stroke-width="1.5"/>
-          <text x="560" y="188" text-anchor="middle" font-size="13" fill="var(--clay)" font-weight="700">Chi-square (χ²)</text>
+          <rect x="470" y="90" width="260" height="38" rx="8" fill="var(--clay)"/>
+          <text x="600" y="114" text-anchor="middle" font-size="12.5" fill="#fff" font-weight="600">Related to another category?</text>
 
-          <line x1="140" y1="128" x2="80" y2="160" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arr)"/>
-          <line x1="180" y1="128" x2="220" y2="160" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arr)"/>
-          <line x1="230" y1="128" x2="370" y2="160" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arr)"/>
-          <text x="60" y="150" font-size="11" fill="var(--muted)">1</text>
-          <text x="215" y="150" font-size="11" fill="var(--muted)">2</text>
-          <text x="345" y="150" font-size="11" fill="var(--muted)">3+</text>
+          <line x1="600" y1="128" x2="600" y2="158" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arr)"/>
+          <rect x="510" y="162" width="180" height="42" rx="8" fill="var(--card)" stroke="var(--clay)" stroke-width="1.5"/>
+          <text x="600" y="188" text-anchor="middle" font-size="13" fill="var(--clay)" font-weight="700">Chi-square (χ²)</text>
 
-          <rect x="10" y="162" width="150" height="52" rx="8" fill="var(--card)" stroke="var(--sage)" stroke-width="1.5"/>
-          <text x="85" y="182" text-anchor="middle" font-size="11" fill="var(--ink)">σ known / large n?</text>
-          <text x="85" y="198" text-anchor="middle" font-size="12" fill="var(--sage-deep)" font-weight="700">yes → z · no → t</text>
+          <line x1="100" y1="128" x2="80" y2="158" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arr)"/>
+          <line x1="175" y1="128" x2="225" y2="158" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arr)"/>
+          <line x1="250" y1="128" x2="345" y2="158" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arr)"/>
+          <text x="55" y="150" font-size="11" fill="var(--muted)">1</text>
+          <text x="195" y="150" font-size="11" fill="var(--muted)">2</text>
+          <text x="300" y="150" font-size="11" fill="var(--muted)">3+</text>
 
-          <rect x="170" y="162" width="140" height="42" rx="8" fill="var(--card)" stroke="var(--sage)" stroke-width="1.5"/>
-          <text x="240" y="188" text-anchor="middle" font-size="13" fill="var(--sage-deep)" font-weight="700">2-sample t-test</text>
+          <rect x="10" y="162" width="140" height="52" rx="8" fill="var(--card)" stroke="var(--sage)" stroke-width="1.5"/>
+          <text x="80" y="182" text-anchor="middle" font-size="11" fill="var(--ink)">σ known / large n?</text>
+          <text x="80" y="200" text-anchor="middle" font-size="12" fill="var(--sage-deep)" font-weight="700">yes → z · no → t</text>
 
-          <rect x="330" y="162" width="140" height="42" rx="8" fill="var(--card)" stroke="var(--sage)" stroke-width="1.5"/>
-          <text x="400" y="188" text-anchor="middle" font-size="13" fill="var(--sage-deep)" font-weight="700">ANOVA (F-test)</text>
+          <rect x="165" y="162" width="120" height="42" rx="8" fill="var(--card)" stroke="var(--sage)" stroke-width="1.5"/>
+          <text x="225" y="188" text-anchor="middle" font-size="12.5" fill="var(--sage-deep)" font-weight="700">2-sample t</text>
 
-          <line x1="350" y1="48" x2="350" y2="240" stroke="var(--line)" stroke-width="1" stroke-dasharray="3,3"/>
-          <rect x="150" y="246" width="400" height="38" rx="8" fill="var(--paper-2)" stroke="var(--line)"/>
-          <text x="350" y="270" text-anchor="middle" font-size="12" fill="var(--muted)">Two numeric variables, looking for a relationship?</text>
-          <line x1="350" y1="284" x2="350" y2="300" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arr)"/>
-          <rect x="250" y="302" width="200" height="24" rx="7" fill="var(--card)" stroke="var(--clay)" stroke-width="1.5"/>
-          <text x="350" y="318" text-anchor="middle" font-size="12" fill="var(--clay)" font-weight="700">Correlation / Regression</text>
+          <rect x="300" y="162" width="120" height="42" rx="8" fill="var(--card)" stroke="var(--sage)" stroke-width="1.5"/>
+          <text x="360" y="188" text-anchor="middle" font-size="12.5" fill="var(--sage-deep)" font-weight="700">ANOVA (F)</text>
+
+          <line x1="380" y1="240" x2="380" y2="248" stroke="var(--line)" stroke-width="1"/>
+          <rect x="200" y="250" width="360" height="38" rx="8" fill="var(--paper-2)" stroke="var(--line)"/>
+          <text x="380" y="274" text-anchor="middle" font-size="12" fill="var(--muted)">Separately: two numeric variables, tracking a relationship?</text>
+          <line x1="380" y1="288" x2="380" y2="302" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arr)"/>
+          <rect x="280" y="306" width="200" height="26" rx="7" fill="var(--card)" stroke="var(--clay)" stroke-width="1.5"/>
+          <text x="380" y="323" text-anchor="middle" font-size="12" fill="var(--clay)" font-weight="700">Correlation / Regression</text>
         </svg>
       </div>
 
       <h3 class="sub">2 · Master formula list</h3>
       <div class="tscroll"><table>
         <tr><th>Quantity</th><th>Formula</th><th>Note</th></tr>
-        <tr><td>Mean</td><td><code>x̄ = Σx / n</code></td><td>—</td></tr>
-        <tr><td>Weighted mean</td><td><code>x̄w = Σ(w·x) / Σw</code></td><td>÷ total weight, not n</td></tr>
+        <tr><td>Mean</td><td><code><span class="xbar">x̄</span> = Σx / n</code></td><td>—</td></tr>
+        <tr><td>Weighted mean</td><td><code><span class="xbar">x̄</span>w = Σ(w·x) / Σw</code></td><td>÷ total weight, not n</td></tr>
         <tr><td>Median position</td><td><code>(n + 1) / 2</code></td><td>seat, not score</td></tr>
-        <tr><td>Grouped mean</td><td><code>x̄ = Σfx / n</code></td><td>x = class mark</td></tr>
+        <tr><td>Grouped mean</td><td><code><span class="xbar">x̄</span> = Σfx / n</code></td><td>x = class mark</td></tr>
         <tr><td>Grouped median</td><td><code>L + [(n/2 − CF)/f] × width</code></td><td>L = median class's lower boundary</td></tr>
         <tr><td>Grouped mode</td><td><code>L + [d₁/(d₁+d₂)] × width</code></td><td>L = modal class's lower boundary</td></tr>
-        <tr><td>Mean Absolute Deviation</td><td><code>MAD = Σ|x−x̄| / n</code></td><td>grouped: Σf|x−x̄| / n</td></tr>
+        <tr><td>Mean Absolute Deviation</td><td><code>MAD = Σ|x−<span class="xbar">x̄</span>| / n</code></td><td>grouped: Σf|x−<span class="xbar">x̄</span>| / n</td></tr>
         <tr><td>Sample variance</td><td><code>s² = [Σx² − (Σx)²/n] / (n−1)</code></td><td>computational form</td></tr>
-        <tr><td>Grouped variance</td><td><code>s² = Σf(x−x̄)² / (n−1)</code></td><td>x = class mark</td></tr>
+        <tr><td>Grouped variance</td><td><code>s² = Σf(x−<span class="xbar">x̄</span>)² / (n−1)</code></td><td>x = class mark</td></tr>
         <tr><td>Standard deviation</td><td><code>s = √s²</code></td><td>real units</td></tr>
-        <tr><td>Coeff. of variation</td><td><code>CV = (s / x̄) × 100%</code></td><td>compare across things</td></tr>
+        <tr><td>Coeff. of variation</td><td><code>CV = (s / <span class="xbar">x̄</span>) × 100%</code></td><td>compare across things</td></tr>
         <tr><td>Slovin's sample size</td><td><code>n = N / (1 + N·e²)</code></td><td>e = margin of error, round UP</td></tr>
         <tr><td>Standard error</td><td><code>SE = σ / √n</code></td><td>SD of the mean</td></tr>
         <tr><td>z-score</td><td><code>z = (x − μ) / σ</code></td><td>standardize a value</td></tr>
-        <tr><td>One-sample z</td><td><code>z = (x̄ − μ) / (σ/√n)</code></td><td>σ known / large n</td></tr>
-        <tr><td>One-sample t</td><td><code>t = (x̄ − μ) / (s/√n)</code></td><td>df = n − 1</td></tr>
+        <tr><td>One-sample z</td><td><code>z = (<span class="xbar">x̄</span> − μ) / (σ/√n)</code></td><td>σ known / large n</td></tr>
+        <tr><td>One-sample t</td><td><code>t = (<span class="xbar">x̄</span> − μ) / (s/√n)</code></td><td>df = n − 1</td></tr>
         <tr><td>Correlation r</td><td><code>[nΣxy − ΣxΣy] / √([nΣx²−(Σx)²][nΣy²−(Σy)²])</code></td><td>−1 to +1</td></tr>
-        <tr><td>Regression slope</td><td><code>b = [nΣxy − ΣxΣy] / [nΣx²−(Σx)²]</code></td><td>a = ȳ − bx̄</td></tr>
+        <tr><td>Regression slope</td><td><code>b = [nΣxy − ΣxΣy] / [nΣx²−(Σx)²]</code></td><td>a = ȳ − b<span class="xbar">x̄</span></td></tr>
         <tr><td>Chi-square</td><td><code>χ² = Σ[(O − E)² / E]</code></td><td>O = observed, E = expected</td></tr>
         <tr><td>ANOVA F</td><td><code>F = MS_between / MS_within</code></td><td>MS = SS / df</td></tr>
       </table></div>
@@ -1398,7 +1393,7 @@ F = MS_between / MS_within = 20 / 5 = 4.0</div>
         <li><b>Wrong degrees of freedom</b> → wrong critical value → wrong verdict. Memorize the df rule per test.</li>
         <li><b>One-tailed vs two-tailed</b> changes which column you read in the table.</li>
         <li><b>Rounding mid-calculation</b> — carry 4+ decimals, round only the final answer.</li>
-        <li><b>Mixing Greek &amp; Roman</b> — μ, σ describe populations; x̄, s describe samples.</li>
+        <li><b>Mixing Greek &amp; Roman</b> — μ, σ describe populations; <span class="xbar">x̄</span>, s describe samples.</li>
         <li><b>Reading the F-table with one df</b> — it always needs two (numerator + denominator).</li>
         <li><b>Left vs. right on the z-table</b> — the table gives you the left by default; forgetting to subtract from 1 for a "to the right" question is the single most common z-table mistake.</li>
       </ul>
